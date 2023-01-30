@@ -1,0 +1,8 @@
+{
+    "Film": {
+        "GET": [],
+        "POST": {},
+        "PATCH": {},
+        "DELETE": {}
+    }
+}

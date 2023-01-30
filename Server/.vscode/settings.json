@@ -1,0 +1,17 @@
+{
+  "dotenv.enableAutocloaking": false,
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 8080,
+      "driver": "MariaDB",
+      "database": "familyfilmrating",
+      "username": "root",
+      "name": "db"
+    }
+  ]
+}

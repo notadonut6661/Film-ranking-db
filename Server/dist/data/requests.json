@@ -1,0 +1,8 @@
+{
+    "Film": {
+        "GET": [{ "name": "name", "type": "string" }, { "name": "id", "type": "number" }],
+        "POST": [],
+        "PATCH": [],
+        "DELETE": []
+    }
+}
