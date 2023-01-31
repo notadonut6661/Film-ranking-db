@@ -1,4 +1,4 @@
-import submitSearchQuery from "./sumbitSearchQuery";
+import submitSearchQuery from "./submitSearchQuery";
 
 export default function SearchBar(): JSX.Element {
   return (

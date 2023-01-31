@@ -34,10 +34,9 @@ div.navbar-header-right {
 .navbar-header > div.navbar-header-right {
   display: flex;
 }
-.navbar-header > div.navbar-header-right  > *{
+.navbar-header > div.navbar-header-right > * {
   margin-right: 5%;
 }
-
 
 div.add-film-dropdown {
   position: relative;
@@ -52,7 +51,7 @@ div.add-film-dropdown > ul.body {
   position: absolute;
   width: 300%;
   border-radius: 5px;
-  background: #96BDC6;
+  background: #96bdc6;
   list-style-type: none;
   color: #fff;
 }
@@ -61,16 +60,15 @@ div.add-film-dropdown > ul.body > * {
   margin-top: 5%;
 }
 
-
 div.add-film-dropdown > ul.body.showed {
   display: block;
   animation: 500ms dropdown-show forwards;
 }
 
 div.search-bar {
-  height: 65%;  
+  height: 65%;
   width: 5vw;
-  background: #D9D9D9;
+  background: #d9d9d9;
   border-radius: 5px;
 }
 
@@ -93,23 +91,28 @@ div.search-bar:has(input[type="text"].search-bar:focus) {
   background: #fff;
 }
 
+.navbar-header:has(input[type="text"].search-bar:focus)
+  > div.navbar-header-right
+  > .add-film-dropdown,
+.navbar-header:has(input[type="text"].search-bar:focus)
+  > div.navbar-header-right
+  > .private-cabinet-link,
+.navbar-header:has(input[type="text"].search-bar:focus) > div.navbar-links {
+  display: none;
+}
 .navbar-header:has(input[type="text"].search-bar:focus) {
   grid-template-columns: 10% 5% 85%;
-
 }
 input[type="text"].search-bar:focus {
   width: 50vw;
-} 
-
-.navbar-header:has(input[type="text"].search-bar:focus) > div.navbar-links { 
-  display: none;
-} 
+}
 
 @keyframes dropdown-show {
   from {
     opacity: 0;
     top: 10;
-  } to {
+  }
+  to {
     opacity: 1;
     top: 25px;
   }
@@ -120,12 +123,18 @@ input[type="text"].search-bar:focus {
 */
 a.private-cabinet-link {
   display: block;
-  background: #000;
+  background: url("../../assets/Default_user_icon.png") no-repeat;
+  background-size: contain;
   height: 85%;
   width: 10%;
   border-radius: 0;
   border: 0;
   outline: none;
+}
+
+a.private-cabinet-link:hover {
+  filter: brightness(120%);
+  transform: scale(105%);
 }
 
 a.private-cabinet-link > button {

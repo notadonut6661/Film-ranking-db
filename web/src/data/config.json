@@ -1,5 +1,7 @@
 {
   "title": "FFRDB",
+  "url": "localhost:3000",
+  "server_url": "localhost:4060",
   "shortcuts": {
     "submit_search_query": "Enter"
   }
