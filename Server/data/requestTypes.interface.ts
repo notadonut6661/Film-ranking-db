@@ -8,7 +8,7 @@ export interface RequestTypes {
 }
 
 export enum RequestType {
-  GET =  "GET",
+  GET = "GET",
   POST = "POST",
   PATCH = "PATCH",
   DELETE = "DELETE"

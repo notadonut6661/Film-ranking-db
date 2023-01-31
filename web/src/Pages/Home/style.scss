@@ -1,0 +1,20 @@
+div.body#Home {
+  margin-top: 25px;
+  gap: 25px;
+}
+
+div.body#Home > div.ContentRow {
+  margin-left: min(36px, 2%);
+  margin-bottom: min(40px, 2vh);
+}
+
+span.content-row-label {
+  font-size: 24px;
+}
+
+div.ContentRow a {
+  display: block;
+  background: #000;
+  height: min(158px, 14vh);
+  width: min(221px, 14vw);
+}

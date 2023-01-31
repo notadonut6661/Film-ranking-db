@@ -3,15 +3,13 @@ import { useEffect, useState } from "react";
 interface ContentRowProps {
   title: string;
   request_uri: string;
-  elementsQuantity: number;
 }
 
-export default function ContentRow({
-  title,
-  request_uri,
-  elementsQuantity,
-}: ContentRowProps): JSX.Element {
-  const [content, setContent] = useState([]);
+export default function ContentRow({ title, request_uri}: ContentRowProps): JSX.Element {
+  const [content, setContent] = useState([
+    {}
+  ]);
+
 
   useEffect(() => {
     fetch(request_uri)
@@ -21,7 +19,10 @@ export default function ContentRow({
 
   return (
     <div className="ContentRow">
-      <span>{title}</span>
-      {content.map(() => <a></a>)}
-    </div>  );
+      <span className="content-row-label">{title}</span>
+      {content.map(() => {
+        return <a><img/></a>
+      })}
+    </div>
+  );
 }
