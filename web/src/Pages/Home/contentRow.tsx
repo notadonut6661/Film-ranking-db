@@ -15,7 +15,7 @@ export default function ContentRow({ title, request_uri}: ContentRowProps): JSX.
     fetch(request_uri)
       .then((response) => response.json())
       .then((data) => setContent(data));
-  });
+  }, []);
 
   return (
     <div className="ContentRow">
