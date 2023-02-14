@@ -1,5 +1,7 @@
 export abstract class Request {
   protected url: string;
 
-  abstract Send(params: object): void | unknown;
+  constructor(_url: string) {
+    this.url = _url;
+  }
 } 
