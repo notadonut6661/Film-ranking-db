@@ -1,7 +1,7 @@
 import './style.scss';
 
 
-//FIXME 
+//FIXME naming
 export default function AddFilmDropdown(): JSX.Element {
   return (<div className="add-film-dropdown">
     <span className="trigger" onClick={() => {

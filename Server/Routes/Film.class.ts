@@ -9,7 +9,6 @@ import { RequestTypes, RequestType } from "../data/requestTypes.interface";
 
 
 export class Film extends Route {
-
   
   public Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
     console.log(this === undefined);

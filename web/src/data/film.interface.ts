@@ -12,6 +12,5 @@ export interface Film {
   rating_quantity: number;
   duration: number;
   page_watched: number;
-  release_date: string;
-
+  release_date: string;   
 }
