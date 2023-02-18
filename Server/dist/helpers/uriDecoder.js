@@ -45,6 +45,7 @@ class uriDecoder {
             if (!this.uriParams)
                 return;
             let elType = typeof '';
+            // FIXME It's validation move it to separate method
             try {
                 elType = typeof JSON.parse(`${el}`);
             }
@@ -64,6 +65,7 @@ class uriDecoder {
      */
     Decode(uri) {
         const decodedURI = this.getSplittedUri(uri).map(el => {
+            // if there is no key value pair we return el
             if (!this.getQuantityOfKeyValuePairsInRowRequestParams(el)) {
                 return el;
             }

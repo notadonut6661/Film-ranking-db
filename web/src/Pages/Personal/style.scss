@@ -1,0 +1,30 @@
+.SettingBox {
+  position: absolute;
+  display: block;
+  left: 400px;
+  top: 157px;
+  height: 281px;
+  width: 455px;
+}
+
+.SettingBoxBody {
+  background: #eee;
+}
+
+#AccountManagement > .SettingBoxBody {
+  position: absolute;
+  top: 28px;
+  height: 281px;
+  width: 100%;
+}
+
+span.SettingBoxLabel {
+  font-size: 24px;
+}
+
+div.SettingBoxBody > span {
+  width: 100%;
+  font-size: 24px;
+  margin-left: 25px;
+  border-bottom: 1px solid;
+}
