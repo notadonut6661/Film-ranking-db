@@ -7,11 +7,6 @@ export interface RequestTypes {
   DELETE: Array<uriParamsType>;
 }
 
-export enum RequestType {
-  GET = "GET",
-  POST = "POST",
-  PATCH = "PATCH",
-  DELETE = "DELETE"
-}
+export type RequestType = "GET" | "POST" | "PATCH" | "DELETE";
 
 
