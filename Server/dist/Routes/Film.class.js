@@ -24,7 +24,8 @@ class Film extends Route_class_1.default {
     Get(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(this);
-            const { id } = this.getDecodedURI("GET", req.baseUrl);
+            console.log(req.originalUrl);
+            const { id } = this.getDecodedURI("GET", req.originalUrl);
             res.json(yield (yield dbConnection_1.default).query(`SELECT * FROM films WHERE id = ${id}`));
         });
     }

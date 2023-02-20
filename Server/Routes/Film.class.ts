@@ -3,7 +3,6 @@ import { ParamsDictionary } from "express-serve-static-core"
 import { ParsedQs } from "qs"
 import dbConnection from '../helpers/dbConnection';
 import Route from "./Route.class"
-import * as _requests from '../data/requests.json';
 
 
 export class Film extends Route {
@@ -19,7 +18,9 @@ export class Film extends Route {
   public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
     console.log(this);
 
-    const { id } = this.getDecodedURI("GET", req.baseUrl);
+    console.log(req.originalUrl);
+    
+    const { id } = this.getDecodedURI("GET", req.originalUrl);
 
     res.json(await (await dbConnection).query(`SELECT * FROM films WHERE id = ${id}`));
   }

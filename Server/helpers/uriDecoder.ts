@@ -51,6 +51,8 @@ export class uriDecoder {
   private organizeDecodedURI(decodedURI: Array<string | Record<string, string>>): Record<string, string | Record<string, string>> {
     const organizedDecodedURI: Record<string, string | Record<string, string>> = {};
 
+    console.log(this.uriParams, decodedURI);
+    
     if (this.uriParams.length !== decodedURI.length) {
       throw new Error('Decoded URI length is different from expected');
     }
@@ -84,6 +86,8 @@ export class uriDecoder {
    * @returns If this.uriParams is undefined in constructor it returns array with path parts, and with object if it has ?= params, but if it is then it return object with named path parts and sub-object with params
    */
   public Decode(uri: string): Record<string, string | Record<string, string>> {
+    console.log(uri);
+    
     const decodedURI: Array<string | Record<string, string>> = this.getSplittedUri(uri).map(el => {
       // if there is no key value pair we return el
       if (!this.getQuantityOfKeyValuePairsInRowRequestParams(el)) {
