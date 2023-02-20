@@ -28,7 +28,6 @@ class uriDecoder {
         });
         return result;
     }
-    // FIXME Change name from validate to specify what exactly does this code validate.
     ValidateURIParams(rowRequestParams) {
         const keyValuePairInElementQuantity = this.getQuantityOfKeyValuePairsInRowRequestParams(rowRequestParams);
         const totalQEMarksQuantity = ((0, getNumberOfCharacterMentionInString_1.getNumberOfCharacterMentionInString)(rowRequestParams, '?') + (0, getNumberOfCharacterMentionInString_1.getNumberOfCharacterMentionInString)(rowRequestParams, '='));
