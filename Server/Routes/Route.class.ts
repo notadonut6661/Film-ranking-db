@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { RequestType, RequestTypes } from "data/requestTypes.interface";
+import { RequestType } from "data/requestTypes.interface";
 import { uriDecoder } from '../helpers/uriDecoder';
 import { uriParamsType } from "../data/uriParamsTypes";
 
