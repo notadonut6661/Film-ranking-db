@@ -1,46 +1,48 @@
-    import { Request, Response } from "express"
-    import { ParamsDictionary } from "express-serve-static-core"
-    import { ParsedQs } from "qs"
-    import dbConnection from '../helpers/dbConnection';
-    import Route from "./Route.class"
-    import { uriDecoder } from '../helpers/uriDecoder';
-    import * as _requests from '../data/requests.json';
-    import { RequestTypes, RequestType } from "../data/requestTypes.interface";
+import { uriParamsType } from './../data/uriParamsTypes';
+import { Request, Response } from "express"
+import { ParamsDictionary } from "express-serve-static-core"
+import { ParsedQs } from "qs"
+import dbConnection from '../helpers/dbConnection';
+import Route from "./Route.class"
+import { uriDecoder } from '../helpers/uriDecoder';
+import * as _requests from '../data/requests.json';
+import { RequestTypes, RequestType } from "../data/requestTypes.interface";
 
 
-    export class Film extends Route {
+export class Film extends Route {
 
-      constructor() {
-        super();
-        this.Get = this.Get.bind(this);
-      }
-      
-      public Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
-        console.log(this);
+  protected routeName: string;
 
-        const { id } = this.getDecodedURI(RequestType.GET, req.baseUrl);
+  constructor() {
+    super();
+    this.Get = this.Get.bind(this);
+    this.routeName = "Film";
+  }
 
-        // res.json(await (await dbConnection).query(`SELECT * FROM films WHERE id = ${id}`));
-      }
+  public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
+    console.log(this);
 
-      // TODO: if  request content type is not equal to application/json we should response with an error
-      public Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
-        console.log(1);
-        
-      }
+    const { id } = this.getDecodedURI("GET", req.baseUrl);
 
-      public Delete(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
-        console.log(2);
-        
-      }
+    res.json(await (await dbConnection).query(`SELECT * FROM films WHERE id = ${id}`));
+  }
 
-      public Patch(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
-        console.log(2);
+  // TODO: if  request content type is not equal to application/json we should response with an error
+  public Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
+    console.log(1);
 
-      }
+  }
 
-      private getDecodedURI() {
-        
-      }
+  public Delete(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
+    console.log(2);
 
-    } 
+  }
+
+  public Patch(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
+    console.log(2);
+
+  }
+
+
+
+} 
