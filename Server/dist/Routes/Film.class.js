@@ -20,13 +20,14 @@ class Film extends Route_class_1.default {
         super();
         this.Get = this.Get.bind(this);
         this.routeName = "Film";
+        this.dbName = "films";
     }
     Get(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(this);
             console.log(req.originalUrl);
             const { id } = this.getDecodedURI("GET", req.originalUrl);
-            res.json(yield (yield dbConnection_1.default).query(`SELECT * FROM films WHERE id = ${id}`));
+            res.json(yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`));
         });
     }
     // TODO: if  request content type is not equal to application/json we should response with an error

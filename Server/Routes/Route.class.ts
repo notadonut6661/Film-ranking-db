@@ -6,6 +6,7 @@ import { uriParamsType } from "../data/uriParamsTypes";
 export default abstract class Route {
 
   protected abstract routeName:string;
+  protected abstract dbName:string;
   
   public abstract Get(req: Request, res: Response): void;
   public abstract Post(req: Request, res: Response): void;
