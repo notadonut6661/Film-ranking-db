@@ -7,6 +7,11 @@ export default abstract class Route {
 
   protected abstract routeName:string;
   protected abstract dbName:string;
+  protected readonly postRequestDataType: string | Array<string>;
+
+  constructor() {
+    this.postRequestDataType = 'application/json';
+  }
   
   public abstract Get(req: Request, res: Response): void;
   public abstract Post(req: Request, res: Response): void;

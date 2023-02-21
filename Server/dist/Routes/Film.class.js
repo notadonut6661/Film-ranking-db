@@ -24,15 +24,21 @@ class Film extends Route_class_1.default {
     }
     Get(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(this);
-            console.log(req.originalUrl);
             const { id } = this.getDecodedURI("GET", req.originalUrl);
-            res.json(yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`));
+            try {
+                res.json(yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`));
+            }
+            catch (_a) {
+                res.sendStatus(200);
+            }
         });
     }
-    // TODO: if  request content type is not equal to application/json we should response with an error
     Post(req, res) {
-        console.log(1);
+        if (!req.is(this.postRequestDataType)) {
+            res.sendStatus(404);
+            return;
+        }
+        res.json(req.body);
     }
     Delete(req, res) {
         console.log(2);

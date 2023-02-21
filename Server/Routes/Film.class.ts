@@ -8,7 +8,7 @@ import Route from "./Route.class"
 export class Film extends Route {
 
   protected routeName: string;
-  protected dbName: string; 
+  protected dbName: string;
 
   constructor() {
     super();
@@ -18,19 +18,24 @@ export class Film extends Route {
   }
 
   public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
-    console.log(this);
-
-    console.log(req.originalUrl);
     
     const { id } = this.getDecodedURI("GET", req.originalUrl);
 
-    res.json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`));
+    try {
+      res.json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`));
+    } catch {
+      res.sendStatus(200);
+    }
+
   }
 
-  // TODO: if  request content type is not equal to application/json we should response with an error
   public Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
-    console.log(1);
+    if (!req.is(this.postRequestDataType)) {
+      res.sendStatus(404);
+      return;
+    }
 
+    res.json(req.body);
   }
 
   public Delete(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {

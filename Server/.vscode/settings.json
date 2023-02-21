@@ -9,9 +9,9 @@
       "server": "localhost",
       "port": 8080,
       "driver": "MariaDB",
+      "name": "lmfao",
       "database": "familyfilmrating",
-      "username": "root",
-      "name": "db"
+      "username": "root"
     }
   ]
 }
