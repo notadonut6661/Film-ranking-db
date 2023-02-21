@@ -14,7 +14,7 @@ export class uriDecoder {
   }
 
   /** 
- * @returns Splitted URI with deleted first character slash
+ * @returns Splitted URI without first character slash
  */
   private getSplittedUri(uri: string): Array<string> {
     return uri.replace(/^\//, '').split('/');
@@ -46,6 +46,8 @@ export class uriDecoder {
     if ((totalQEMarksQuantity / 2) !== keyValuePairInElementQuantity) {
       throw new Error('Not needed question or equal marks in request');
     }
+
+
   }
 
   private organizeDecodedURI(decodedURI: Array<string | Record<string, string>>): Record<string, string | Record<string, string>> {
@@ -60,7 +62,6 @@ export class uriDecoder {
 
       let elType = typeof '';
 
-      // FIXME It's validation move it to separate method
       try {
         elType = typeof JSON.parse(`${el}`);
       } catch {
@@ -83,13 +84,13 @@ export class uriDecoder {
    */
   public Decode(uri: string): Record<string, string | Record<string, string>> {
     const decodedURI: Array<string | Record<string, string>> = this.getSplittedUri(uri).map(el => {
-      // if there is no key value pair we return el
       if (!this.getQuantityOfKeyValuePairsInRowRequestParams(el)) {
         return el;
       }
 
       this.ValidateURIParams(el);
 
+      // FIXME Magic char
       return this.getKeyValuePairsAsObject(el.split('&'));
     });
 

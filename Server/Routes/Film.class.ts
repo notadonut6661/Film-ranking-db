@@ -30,6 +30,7 @@ export class Film extends Route {
   }
 
   public Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
+    // it's validation, move it to separate method
     if (!req.is(this.postRequestDataType)) {
       res.sendStatus(404);
       return;

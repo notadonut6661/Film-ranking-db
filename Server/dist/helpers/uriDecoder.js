@@ -11,7 +11,7 @@ class uriDecoder {
         this.uriParams = _uriParams;
     }
     /**
-   * @returns Splitted URI with deleted first character slash
+   * @returns Splitted URI without first character slash
    */
     getSplittedUri(uri) {
         return uri.replace(/^\//, '').split('/');
@@ -44,7 +44,6 @@ class uriDecoder {
             if (!this.uriParams)
                 return;
             let elType = typeof '';
-            // FIXME It's validation move it to separate method
             try {
                 elType = typeof JSON.parse(`${el}`);
             }
@@ -63,11 +62,11 @@ class uriDecoder {
      */
     Decode(uri) {
         const decodedURI = this.getSplittedUri(uri).map(el => {
-            // if there is no key value pair we return el
             if (!this.getQuantityOfKeyValuePairsInRowRequestParams(el)) {
                 return el;
             }
             this.ValidateURIParams(el);
+            // FIXME Magic char
             return this.getKeyValuePairsAsObject(el.split('&'));
         });
         return this.organizeDecodedURI(decodedURI);

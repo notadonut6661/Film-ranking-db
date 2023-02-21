@@ -34,6 +34,7 @@ class Film extends Route_class_1.default {
         });
     }
     Post(req, res) {
+        // it's validation, move it to separate method
         if (!req.is(this.postRequestDataType)) {
             res.sendStatus(404);
             return;
