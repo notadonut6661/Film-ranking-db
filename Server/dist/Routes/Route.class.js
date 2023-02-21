@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const uriDecoder_1 = require("../helpers/uriDecoder");
-const uriParamsTypes_1 = require("../data/uriParamsTypes");
+const uriParamsTypes_1 = require("../data/interfaces/uriParamsTypes");
 class Route {
     constructor() {
         this.postRequestDataType = 'application/json';

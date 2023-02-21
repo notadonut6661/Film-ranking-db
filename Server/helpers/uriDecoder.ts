@@ -1,5 +1,5 @@
 import { getNumberOfCharacterMentionInString } from "../utils/getNumberOfCharacterMentionInString";
-import { uriParamsType } from "data/uriParams.interface";
+import { uriParamsType } from "data/interfaces/uriParams.interface";
 /**
  * 
  * @param uriParams is an array containing all the parts of uri (part is a term that defines string in uri splitted by / sign)   

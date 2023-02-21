@@ -1,4 +1,4 @@
-import { uriParamsType } from './../data/uriParams.interface';
+import { uriParamsType } from './uriParams.interface';
 
 export interface RequestTypes {
   GET: Array<uriParamsType>;

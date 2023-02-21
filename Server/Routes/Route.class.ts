@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { RequestType } from "data/requestTypes.interface";
+import { RequestType } from "data/interfaces/requestTypes.interface";
 import { uriDecoder } from '../helpers/uriDecoder';
-import { uriParamsType } from "../data/uriParamsTypes";
+import { uriParamsType } from "../data/interfaces/uriParamsTypes";
 
 export default abstract class Route {
 
