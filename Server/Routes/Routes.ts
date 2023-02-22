@@ -1,4 +1,4 @@
-import {Film} from "./Film.class";
+import { Film } from "./Film.class";
 
 export const Routes = [
   { name: 'film', method: (new Film()) },

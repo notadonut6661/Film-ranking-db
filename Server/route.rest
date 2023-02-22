@@ -1,8 +1,9 @@
 # GET http://localhost:3000/film/13
 
-POST http://localhost:3000/film HTTP/1.1
-
+POST /film HTTP/1.1
+Host: http://localhost:3000
 Content-Type: application/json
+Authorization: Bearer  
 
 {
     "name": "sample",

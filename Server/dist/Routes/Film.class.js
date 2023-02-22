@@ -18,7 +18,6 @@ const Route_class_1 = __importDefault(require("./Route.class"));
 class Film extends Route_class_1.default {
     constructor() {
         super();
-        this.Get = this.Get.bind(this);
         this.routeName = "Film";
         this.dbName = "films";
     }
@@ -34,11 +33,11 @@ class Film extends Route_class_1.default {
         });
     }
     Post(req, res) {
-        // it's validation, move it to separate method
         if (!req.is(this.postRequestDataType)) {
             res.sendStatus(404);
             return;
         }
+        console.log(this.Authorization(req));
         res.json(req.body);
     }
     Delete(req, res) {

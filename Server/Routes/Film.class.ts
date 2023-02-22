@@ -12,7 +12,7 @@ export class Film extends Route {
 
   constructor() {
     super();
-    this.Get = this.Get.bind(this);
+
     this.routeName = "Film";
     this.dbName = "films";
   }
@@ -30,11 +30,12 @@ export class Film extends Route {
   }
 
   public Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
-    // it's validation, move it to separate method
     if (!req.is(this.postRequestDataType)) {
       res.sendStatus(404);
       return;
     }
+
+    console.log(this.Authorization(req));
 
     res.json(req.body);
   }
