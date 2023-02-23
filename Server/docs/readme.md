@@ -18,6 +18,10 @@ npm install
 # How to run the server: 
 
 1. Install all the dependencies 
-```
+``` sh
 npm i
+```
+2. Start server in not developer mode 
+``` sh
+ npm run start
 ```
