@@ -25,3 +25,8 @@ npm i
 ``` sh
  npm run start
 ```
+
+3. If you want your server to update every time you save changes run server in developer mode
+``` sh
+npm run dev
+```
