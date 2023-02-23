@@ -17,3 +17,7 @@ npm install
 
 # How to run the server: 
 
+1. Install all the dependencies 
+```
+npm i
+```
