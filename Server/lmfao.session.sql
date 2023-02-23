@@ -1,1 +1,1 @@
-SELECT * FROM films
+SELECT name FROM users WHERE id = 25

@@ -24,14 +24,14 @@ export default abstract class Route {
     // FIXME validate with regex
 
     const input = {
-      name: authHeader?.split(':')[0],
+      email: authHeader?.split(':')[0],
       password: authHeader?.split(':')[1]
     }
 
     let realPass: string | undefined;
 
     try {
-      realPass = await (await dbConnection).query(`SELECT * FROM users WHERE name = ${input.name}`);
+      realPass = await (await dbConnection).query(`SELECT passwordHash FROM users WHERE email = ${input.email}`);
     } catch {
       return false;
     }
