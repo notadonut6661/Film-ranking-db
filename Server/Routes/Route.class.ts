@@ -19,6 +19,10 @@ export default abstract class Route {
     this.Post = this.Post.bind(this);
   }
 
+  protected Validation(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): boolean {
+    return !!0;
+  }
+
   protected async Authorization(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): Promise<boolean> {
     const authHeader = req.headers.authorization?.split(' ')[1];
     // FIXME validate with regex
