@@ -24,15 +24,17 @@ export default abstract class Route {
   }
 
   protected Validation(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): boolean {
-    const authHeader = this.getAuthHeader(req);
 
-    console.log(!!authHeader?.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/));
-    return !!0;
+    if (!this.getAuthHeader(req)?.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/)) {
+      return false;
+    }
+
+    return true;
   }
 
   protected async Authorization(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): Promise<boolean> {
     const authHeader = this.getAuthHeader(req);
-    this.Validation(req);
+    console.log(this.Validation(req) + 'ly');
     // FIXME validate with regex
 
     const input = {

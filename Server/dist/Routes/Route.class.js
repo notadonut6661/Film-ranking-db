@@ -27,14 +27,16 @@ class Route {
         return (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1];
     }
     Validation(req) {
-        const authHeader = this.getAuthHeader(req);
-        console.log(!!(authHeader === null || authHeader === void 0 ? void 0 : authHeader.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/)));
-        return !!0;
+        var _a;
+        if (!((_a = this.getAuthHeader(req)) === null || _a === void 0 ? void 0 : _a.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/))) {
+            return false;
+        }
+        return true;
     }
     Authorization(req) {
         return __awaiter(this, void 0, void 0, function* () {
             const authHeader = this.getAuthHeader(req);
-            this.Validation(req);
+            console.log(this.Validation(req) + 'ly');
             // FIXME validate with regex
             const input = {
                 email: authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(':')[0],
