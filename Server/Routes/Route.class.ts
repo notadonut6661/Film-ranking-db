@@ -19,12 +19,20 @@ export default abstract class Route {
     this.Post = this.Post.bind(this);
   }
 
+  private getAuthHeader(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>) {
+    return req.headers.authorization?.split(' ')[1];
+  }
+
   protected Validation(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): boolean {
+    const authHeader = this.getAuthHeader(req);
+
+    console.log(!!authHeader?.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/));
     return !!0;
   }
 
   protected async Authorization(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): Promise<boolean> {
-    const authHeader = req.headers.authorization?.split(' ')[1];
+    const authHeader = this.getAuthHeader(req);
+    this.Validation(req);
     // FIXME validate with regex
 
     const input = {
@@ -40,7 +48,7 @@ export default abstract class Route {
       return false;
     }
 
-    if(!realPass || !input.password) return false;
+    if (!realPass || !input.password) return false;
 
     return realPass === generateSha256(input.password);
   }

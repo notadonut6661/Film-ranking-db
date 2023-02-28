@@ -33,12 +33,14 @@ class Film extends Route_class_1.default {
         });
     }
     Post(req, res) {
-        if (!req.is(this.postRequestDataType)) {
-            res.sendStatus(404);
-            return;
-        }
-        console.log(this.Authorization(req));
-        res.json(req.body);
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!req.is(this.postRequestDataType)) {
+                res.sendStatus(404);
+                return;
+            }
+            console.log(yield this.Authorization(req));
+            res.json(req.body);
+        });
     }
     Delete(req, res) {
         console.log(2);

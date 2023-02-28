@@ -29,13 +29,13 @@ export class Film extends Route {
 
   }
 
-  public Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
+  public async Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
     if (!req.is(this.postRequestDataType)) {
       res.sendStatus(404);
       return;
     }
 
-    console.log(this.Authorization(req));
+    console.log(await this.Authorization(req));
 
     res.json(req.body);
   }
