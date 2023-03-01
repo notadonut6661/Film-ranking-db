@@ -34,7 +34,7 @@ class Film extends Route_class_1.default {
     }
     Post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!req.is(this.postRequestDataType)) {
+            if (!req.is(this.MediaType)) {
                 res.sendStatus(404);
                 return;
             }

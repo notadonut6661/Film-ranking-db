@@ -13,12 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const uriDecoder_1 = require("../helpers/uriDecoder");
-const uriParamsTypes_1 = require("../data/interfaces/uriParamsTypes");
 const dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
 const generateSha256_1 = require("../utils/generateSha256");
 class Route {
     constructor() {
-        this.postRequestDataType = 'application/json';
+        this.MediaType = 'application/json';
         this.Get = this.Get.bind(this);
         this.Post = this.Post.bind(this);
     }
@@ -28,16 +27,26 @@ class Route {
     }
     Validation(req) {
         var _a;
+        let doesReqBodyRequiresPattern;
         if (!((_a = this.getAuthHeader(req)) === null || _a === void 0 ? void 0 : _a.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/))) {
             return false;
         }
+        if (typeof req.body != "object") {
+            return false;
+        }
+        Object.entries(req.body).forEach(([key, value], i) => {
+            if (typeof value !== this.dataType[i].type || key !== this.dataType[i].name) {
+                doesReqBodyRequiresPattern = false;
+            }
+        });
         return true;
     }
     Authorization(req) {
         return __awaiter(this, void 0, void 0, function* () {
             const authHeader = this.getAuthHeader(req);
-            console.log(this.Validation(req) + 'ly');
-            // FIXME validate with regex
+            if (!this.Validation(req)) {
+                return false;
+            }
             const input = {
                 email: authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(':')[0],
                 password: authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(':')[1]
@@ -55,7 +64,7 @@ class Route {
         });
     }
     getDecodedURI(HTTPMethod, uri) {
-        const uriDecoderE = new uriDecoder_1.uriDecoder(uriParamsTypes_1.uriParamsType[this.routeName][HTTPMethod]);
+        const uriDecoderE = new uriDecoder_1.uriDecoder(uriParams_interface_1.uriParamsType[this.routeName][HTTPMethod]);
         return uriDecoderE.Decode(uri);
     }
 }

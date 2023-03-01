@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { RequestType } from "data/interfaces/requestTypes.interface";
 import { uriDecoder } from '../helpers/uriDecoder';
-import { uriParamsType } from "../data/interfaces/uriParamsTypes";
+import { uriParamsType } from "../data/interfaces/uriParams.interface";
 import { ParamsDictionary } from "express-serve-static-core"
 import { ParsedQs } from "qs"
 import dbConnection from '../helpers/dbConnection';
@@ -11,10 +11,11 @@ export default abstract class Route {
 
   protected abstract routeName: string;
   protected abstract dbName: string;
-  protected readonly postRequestDataType: string | Array<string>;
+  protected readonly MediaType: string;
+  protected abstract readonly dataType: Array<uriParamsType>;
 
   constructor() {
-    this.postRequestDataType = 'application/json';
+    this.MediaType = 'application/json';
     this.Get = this.Get.bind(this);
     this.Post = this.Post.bind(this);
   }
@@ -25,17 +26,30 @@ export default abstract class Route {
 
   protected Validation(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): boolean {
 
+    let doesReqBodyRequiresPattern: boolean;
+
     if (!this.getAuthHeader(req)?.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/)) {
       return false;
     }
+
+    if (typeof req.body != "object") {
+      return false;
+    }
+
+    Object.entries(req.body).forEach(([key, value], i) => {
+      if (typeof value !== this.dataType[i].type || key !== this.dataType[i].name) {
+        doesReqBodyRequiresPattern = false;
+      }
+    });
 
     return true;
   }
 
   protected async Authorization(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): Promise<boolean> {
     const authHeader = this.getAuthHeader(req);
-    console.log(this.Validation(req) + 'ly');
-    // FIXME validate with regex
+    if (!this.Validation(req)) {
+      return false;
+    }
 
     const input = {
       email: authHeader?.split(':')[0],

@@ -29,8 +29,8 @@ export class Film extends Route {
 
   }
 
-  public async Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
-    if (!req.is(this.postRequestDataType)) {
+  public async Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
+    if (!req.is(this.MediaType)) {
       res.sendStatus(404);
       return;
     }
