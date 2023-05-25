@@ -3,8 +3,9 @@ import './style.scss';
 
 //FIXME naming
 export default function AddFilmDropdown(): JSX.Element {
-  return (<div className="add-film-dropdown">
-    <span className="trigger" onClick={() => {
+  return (<span className="addToDb"><a href="/add">Add</a></span>)
+}
+/*    <span className="trigger" onClick={() => {
       const dropdownBody = (document.querySelector('div.add-film-dropdown > ul.body') as HTMLDivElement);
       if (dropdownBody.className.match(`showed`)) {
         const classNames = dropdownBody.className.split(' ');
@@ -14,10 +15,4 @@ export default function AddFilmDropdown(): JSX.Element {
       };
       dropdownBody.className += ' showed';
     }}>Add</span>
-    <ul className="body">
-      <li>Film</li>
-      <li>Series</li>
-      <li>Other</li>
-    </ul>
-  </div>)
-}
+*/

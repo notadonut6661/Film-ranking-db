@@ -1,8 +1,29 @@
 {
   "Film": {
-    "GET": [{ "name": "name", "type": "string" }, {"name": "id", "type": "number"}],
-    "POST": [],
+    "GET": [{ "name": "id", "type": "number" }],
+    "POST": [
+      { "name": "id", "type": "number" },
+      { "name": "title", "type": "string" },
+      { "name": "description", "type": "string" },
+      { "name": "rating", "type": "number" },
+      {"name": "cast", "type": [
+        {"name": "actorId", "type": "number"}, {"name": "role", "type": "string"}
+    ]},
+      { "name": "rating_quantity  ", "type": "number" }
+    ],
     "PATCH": [],
     "DELETE": []
   }
 }
+
+/*
+  id: number;
+  description: string;
+  title: string;
+  cast: CastFilm[];
+  rating: number;
+  rating_quantity: number;
+  duration: number;
+  page_watched: number;
+  release_date: string;
+  */

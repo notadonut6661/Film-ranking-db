@@ -52,6 +52,7 @@ div.add-film-dropdown > span.trigger {
 div.add-film-dropdown > ul.body {
   display: none;
   position: absolute;
+  padding: 0;
   width: 300%;
   border-radius: 5px;
   background: #96bdc6;
@@ -65,6 +66,31 @@ div.add-film-dropdown > ul.body > * {
 div.add-film-dropdown > ul.body.showed {
   display: block;
   animation: 500ms dropdown-show forwards;
+  justify-content: space-around;
+  width: 5vw;
+  height: 10vh;
+}
+
+div.add-film-dropdown > ul.body.showed > li {
+  border-top: 1px solid #000;
+  height: 2vh;
+}
+
+div.add-film-dropdown > ul.body.showed > li:last-child {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+div.add-film-dropdown > ul.body.showed > li {
+  padding-left: 10px;
+}
+
+div.add-film-dropdown > ul.body.showed > li > a {
+  color: #fff;
+}
+
+div.add-film-dropdown > ul.body.showed > li:hover {
+  filter: brightness(50%);
 }
 
 div.search-bar {
@@ -93,15 +119,26 @@ div.search-bar:has(input[type="text"].search-bar:focus) {
   background: #fff;
 }
 
+span.addToDb {
+  color: #fff;
+}
+
 .navbar-header:has(input[type="text"].search-bar:focus)
   > div.navbar-header-right
   > .add-film-dropdown,
 .navbar-header:has(input[type="text"].search-bar:focus)
   > div.navbar-header-right
   > .private-cabinet-link,
-.navbar-header:has(input[type="text"].search-bar:focus) > div.navbar-links {
+.navbar-header:has(input[type="text"].search-bar:focus) > div.navbar-links,
+.navbar-header:has(input[type="text"].search-bar:focus)   > div.navbar-header-right > span.addToDb 
+ {
   display: none;
 }
+
+span.addToDb > a {
+  color: #fff;
+}
+
 .navbar-header:has(input[type="text"].search-bar:focus) {
   grid-template-columns: 10% 5% 85%;
 }
@@ -120,9 +157,6 @@ input[type="text"].search-bar:focus {
   }
 }
 
-/*
-  TODO: IT SHOULD BE A CIRCLE DEFAULT AND WE MUST TAKE 
-*/
 a.private-cabinet-link {
   display: block;
   background: url("../../assets/Default_user_icon.png") no-repeat;
@@ -130,7 +164,7 @@ a.private-cabinet-link {
   height: 85%;
   width: 10%;
   border-radius: 0;
-  border: 0;
+  border: 1px solid #000;
   outline: none;
 }
 

@@ -1,7 +1,7 @@
 import { Express } from "express";
 import { Routes } from "./Routes";
 
-// FIXME add to Routes parametre to insure that we should use symbols after name
+// FIXME add to Routes parameter to insure that we should use symbols after name
 export function Router(app: Express): void {
   Routes.forEach(({name, method}) => {
     app.get(`/${name}/*`, method.Get);

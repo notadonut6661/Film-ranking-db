@@ -18,6 +18,7 @@ const Route_class_1 = __importDefault(require("./Route.class"));
 class Film extends Route_class_1.default {
     constructor() {
         super();
+        this.dataType = [{ name:  }];
         this.routeName = "Film";
         this.dbName = "films";
     }

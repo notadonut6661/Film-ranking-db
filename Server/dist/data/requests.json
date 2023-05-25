@@ -1,7 +1,7 @@
 {
     "Film": {
-        "GET": [{ "name": "name", "type": "string" }, { "name": "id", "type": "number" }],
-        "POST": [],
+        "GET": [{ "name": "id", "type": "number" }],
+        "POST": [{ "name": "title", "type": "string" }, { "name": "id", "type": "number" }, { "name": '', "  ": 'bigint' }],
         "PATCH": [],
         "DELETE": []
     }

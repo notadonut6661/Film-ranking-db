@@ -26,7 +26,7 @@ export default abstract class Route {
 
   protected Validation(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): boolean {
 
-    let doesReqBodyRequiresPattern: boolean;
+    let doesRequestBodyRequiresPattern: boolean;
 
     if (!this.getAuthHeader(req)?.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/)) {
       return false;
@@ -38,7 +38,7 @@ export default abstract class Route {
 
     Object.entries(req.body).forEach(([key, value], i) => {
       if (typeof value !== this.dataType[i].type || key !== this.dataType[i].name) {
-        doesReqBodyRequiresPattern = false;
+        doesRequestBodyRequiresPattern = false;
       }
     });
 

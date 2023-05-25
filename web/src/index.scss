@@ -23,6 +23,9 @@ code {
     monospace;
 }
 
+.TextForm > input {
+  outline: none;
+}
 div.body {
   position: absolute;
   top: 5.95vh;

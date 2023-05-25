@@ -73,7 +73,6 @@ interface Series {
   "title": "Men in black",
   "rating": 6.5,
   "rating_quantity": 7,
-  "duration": 5880000,
   "release_date": "02.07.1997"
 }
 ```
