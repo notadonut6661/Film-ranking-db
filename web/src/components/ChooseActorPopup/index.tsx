@@ -6,7 +6,7 @@ import { ChooseCastMemberPopupProps } from "../../data/Interfaces/ChooseActorPop
 import { PopupStages } from "../../data/PopupStages.enum";
 import ChoosingActor from "./ChoosingActor";
 import SelectingCharacter from "./SelectingCharacter";
-import Submitting from "./Sumbitting";
+import Submitting from "./Submitting";
 
 // Submitting actor stage could be renamed to selecting character
 
