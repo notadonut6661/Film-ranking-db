@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import './index.scss';
 import Personal from "./Pages/Personal";
-import Add from "./Pages/Add/index";
+import Add from "./Pages/AddTitle/index";
 
 
 function App() {

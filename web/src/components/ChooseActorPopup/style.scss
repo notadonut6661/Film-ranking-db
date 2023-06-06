@@ -1,0 +1,72 @@
+@import "../../index.scss";
+
+.ChooseActorPopup {
+  display: none;
+  position: absolute;
+  // left: 0;
+  // top: 0;
+  height: 205px;
+  width: 320px;
+  background: #000;
+}
+.ChooseActorPopup.Active { 
+  display: grid;
+}
+.ChooseActorPopup.ChoosingActor {
+  grid-template-rows: 30px 145px 30px;
+}
+
+.ChooseActorPopup > .Search {
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+}
+
+.ChooseActorPopup > .Search > input[type="text"] {
+  height: 100%;
+  width: calc(100% - 20px);
+  font-family: "Noto Sans", sans-serif;
+}
+
+.ChooseActorPopup > .Actors {
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(2, 67.5px);
+  grid-template-columns: repeat(6, 45px);
+  gap: 10px;
+  background: #ddd;
+  overflow-y: hidden;
+}
+
+.ChooseActorPopup > button#Submit {
+  color: white;
+}
+
+span#PlaceholderText {
+  position: absolute;
+  bottom: 0;
+}
+.Arrow-navigation > button {
+  width: 49.5%;
+  height: 100%;
+  border: none;
+  margin-left: 1%;
+}
+
+.Arrow-navigation > button:hover {
+  background: #d9d9d9;
+}
+
+.Arrow-navigation > button:first-child {
+  margin: 0;
+}
+
+.Arrow-navigation > button[disabled] {
+  background: #989898;
+  color: #000;
+}
+
+#ch {
+  display: block;
+  background: darkblue;
+}

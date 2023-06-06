@@ -24,8 +24,22 @@ code {
 }
 
 .TextForm > input {
+  height: 100%;
+  width: 100%;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font-size: large;
+  border: none;
   outline: none;
+  margin-left: 15px;
+  // margin-left: 20px;
 }
+
+.TextForm  {
+  background: #fff;
+}
+
 div.body {
   position: absolute;
   top: 5.95vh;

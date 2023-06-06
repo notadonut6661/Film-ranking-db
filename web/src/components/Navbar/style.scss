@@ -113,7 +113,7 @@ div.search-bar > input[type="text"] {
 }
 
 div.search-bar:has(input[type="text"].search-bar:focus) {
-  width: 50vw !important;
+  width: calc(50vw + 30px) !important;
   height: 85%;
   border: #292929 solid 1px;
   background: #fff;
