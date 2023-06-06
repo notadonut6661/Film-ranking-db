@@ -5,6 +5,8 @@ import IsTitlePageNew from "../../utils/GetIsTitlePageNew";
 import { ChooseCastMemberPopupProps } from "../../data/Interfaces/ChooseActorPopupProps.interface";
 import { PopupStages } from "../../data/PopupStages.enum";
 import ChoosingActor from "./ChoosingActor";
+import SelectingCharacter from "./SelectingCharacter";
+import Submitting from "./Sumbitting";
 
 // Submitting actor stage could be renamed to selecting character
 
@@ -75,7 +77,10 @@ export default function ChooseCastMember({
 
   return (
   <div className="ChooseActorPopup ChoosingActor" id={`ChooseActorPopup${id}`} style={{ left }}>
-        <ChoosingActor/>
+        
+        {currentPopupStage === PopupStages.ChoosingActor && <ChoosingActor/>}
+      {currentPopupStage === PopupStages.SelectingCharacter && <SelectingCharacter ActorId={ActorId ?? 0}/>}
+      {currentPopupStage === PopupStages.Submitted && <Submitting ActorId={ActorId ?? 0} Character={PlayedCharacter ?? ''}/>}
         <div className="Arrow-navigation">
    <button id="back" 
        disabled={currentPopupStage === 0 ? false : checkPopupStageRequirements(currentPopupStage - 1)} 

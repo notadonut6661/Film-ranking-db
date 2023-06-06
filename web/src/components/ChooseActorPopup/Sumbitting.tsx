@@ -1,3 +1,3 @@
-export default function SelectingCharacter({ActorId, Character}: {ActorId: number, Character: string}) {
+export default function Submitting({ActorId, Character}: {ActorId: number, Character: string}) {
   return <></>;
 }
