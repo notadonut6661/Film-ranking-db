@@ -1,13 +1,24 @@
-export default function CarouselItem({id}: {id: number}): JSX.Element {
+import { useState } from "react";
+
+export default function CarouselItem({id}: {id: number, }): JSX.Element {
+  const [isPopupActive, setIsPopupActive] = useState(false);
+
   return (
     <li>
       <button id={`CarouselItem${id}`} onClick={() => {
+        const popupElement = document.querySelector(`#ChooseActorPopup${id}`);
         document.querySelectorAll('.ChooseActorPopup').forEach((value) => {
           value.classList.remove("Active");
         });
+      
+        if (isPopupActive) {
+          popupElement?.classList.remove("Active");
+          setIsPopupActive(value => !value)
+          return;
+        }
 
-        document.querySelector(`#ChooseActorPopup${id}`)?.classList.add("Active");
-        console.log(document.querySelector(`#ChooseActorPopup${id}`));
+        popupElement?.classList.add("Active");
+        setIsPopupActive(value => !value);
       }}></button>
     </li>
   );
