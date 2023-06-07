@@ -1,7 +1,6 @@
 // ! IT SHOULDN'T BE USED OTHER THAN FROM ACTOR CAROUSEL, IT DOESN'T NEED A SEPARATE FOLDER!
 import { useState, useEffect } from "react";
 import "./style.scss";
-import IsTitlePageNew from "../../utils/GetIsTitlePageNew";
 import { ChooseCastMemberPopupProps } from "../../data/Interfaces/ChooseActorPopupProps.interface";
 import { PopupStages } from "../../data/PopupStages.enum";
 import ChoosingActor from "./ChoosingActor";
