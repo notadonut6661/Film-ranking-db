@@ -13,13 +13,13 @@ interface PopupStageNavigationProps {
 
 }
 
-export default function PopupStageNavigation({currentPopupStage, PopupId, setCurrentPopupStage, PopupStageRequirements, CastElement}: PopupStageNavigationProps):  JSX.Element {
-
+export default function  PopupStageNavigation({currentPopupStage, PopupId, setCurrentPopupStage, PopupStageRequirements, CastElement}: PopupStageNavigationProps):  JSX.Element {
   const  checkPopupStageRequirements = (checkingStage: PopupStages) =>  !!PopupStageRequirements[checkingStage].filter(val => !val).length;
-  
+
   const ChangePopupStage = (direction: 'toPrev' | 'toNext') => {
     const element = document.getElementById(`ChooseActorPopup${PopupId}`);
-
+    const nextPopupStage = direction === 'toPrev' ? currentPopupStage - 1 : currentPopupStage + 1;
+    
     if(direction === 'toPrev' && currentPopupStage === 0) {
         element?.classList.remove("Active");
         return;
@@ -30,15 +30,15 @@ export default function PopupStageNavigation({currentPopupStage, PopupId, setCur
       element?.classList.remove("Active");
       return;
     }
-
-    setCurrentPopupStage(val => direction === 'toPrev' ? val - 1 : val + 1)
+    element?.classList.remove(PopupStages[currentPopupStage]);
+    setCurrentPopupStage(nextPopupStage);
+    element?.classList.add(PopupStages[nextPopupStage] ?? PopupStages[currentPopupStage]);
   }
 
   return (<div className="popup-stage-navigation">
   <button id="back" 
       disabled={currentPopupStage === 0 ? false : checkPopupStageRequirements(currentPopupStage - 1)} 
-      onClick={() => ChangePopupStage('toPrev')}
-      >
+      onClick={() => ChangePopupStage('toPrev')}>
       {currentPopupStage === 0 ? "Cancel": "Back"}
     </button> 
   <button id="next" 

@@ -37,9 +37,9 @@ export default function ChooseCastMember({
   });
 
   return (
-  <div className="ChooseActorPopup ChoosingActor" id={`ChooseActorPopup${id}`} style={{ left }}>
-        
-        {currentPopupStage === PopupStages.ChoosingActor && <ChoosingActor ActorId={ActorId}/>}
+  <div className={`ChooseActorPopup ${PopupStages[InitialPopupStage]}`} id={`ChooseActorPopup${id}`} style={{ left }}>
+
+      {currentPopupStage === PopupStages.ChoosingActor && <ChoosingActor ActorId={ActorId}/>}
       {currentPopupStage === PopupStages.SelectingCharacter && <SelectingCharacter ActorId={ActorId ?? 0}/>}
       {currentPopupStage === PopupStages.Submitted && <Submitting ActorId={ActorId ?? 0} Character={PlayedCharacter ?? ''}/>}
         

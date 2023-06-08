@@ -32,7 +32,7 @@ export default function ChoosingActor({ ActorId}: {ActorId?: number}): JSX.Eleme
    </div>
    <div className="Actors">
      {fetchedActors.length ? (
-       fetchedActors.map(() => <div className="Actor"></div>)
+       fetchedActors.map((ActorId) => <button className="Actor"><img src={(() => "")()}></img></button>)
      ) : (
        <span id="PlaceholderText">There will be actor suggestions</span>
      )}

@@ -12,7 +12,7 @@
 .ChooseActorPopup.Active { 
   display: grid;
 }
-.ChooseActorPopup.ChoosingActor {
+.ChooseActorPopup {
   grid-template-rows: 30px 270px 30px;
 }
 
