@@ -27,18 +27,18 @@ class Route {
     }
     Validation(req) {
         var _a;
-        let doesReqBodyRequiresPattern;
+        let doesRequestBodyRequiresPattern;
         if (!((_a = this.getAuthHeader(req)) === null || _a === void 0 ? void 0 : _a.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/))) {
             return false;
         }
         if (typeof req.body != "object") {
             return false;
         }
-        Object.entries(req.body).forEach(([key, value], i) => {
-            if (typeof value !== this.dataType[i].type || key !== this.dataType[i].name) {
-                doesReqBodyRequiresPattern = false;
-            }
-        });
+        // Object.entries(req.body).forEach(([key, value], i) => {
+        //   if (typeof value !== this.dataType[i].type || key !== this.dataType[i].name) {
+        //     doesRequestBodyRequiresPattern = false;
+        //   }
+        // });
         return true;
     }
     Authorization(req) {
@@ -51,6 +51,7 @@ class Route {
                 email: authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(':')[0],
                 password: authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(':')[1]
             };
+            console.log(input);
             let realPass;
             try {
                 realPass = yield (yield dbConnection_1.default).query(`SELECT passwordHash FROM users WHERE email = ${input.email}`);
@@ -64,7 +65,7 @@ class Route {
         });
     }
     getDecodedURI(HTTPMethod, uri) {
-        const uriDecoderE = new uriDecoder_1.uriDecoder(uriParams_interface_1.uriParamsType[this.routeName][HTTPMethod]);
+        const uriDecoderE = new uriDecoder_1.uriDecoder(this.dataType);
         return uriDecoderE.Decode(uri);
     }
 }

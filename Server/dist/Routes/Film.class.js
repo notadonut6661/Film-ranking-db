@@ -18,18 +18,21 @@ const Route_class_1 = __importDefault(require("./Route.class"));
 class Film extends Route_class_1.default {
     constructor() {
         super();
-        this.dataType = [{ name:  }];
+        this.dataType = [{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "id", type: "number" }] }];
         this.routeName = "Film";
         this.dbName = "films";
     }
     Get(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = this.getDecodedURI("GET", req.originalUrl);
+            const { query } = this.getDecodedURI("GET", req.originalUrl);
+            // console.log("json ver. of decoded uri" + JSON.stringify(this.getDecodedURI("GET", req.originalUrl)));
+            if (typeof query === 'string')
+                return;
             try {
-                res.json(yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`));
+                res.json(yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${query['id']}`));
             }
             catch (_a) {
-                res.sendStatus(200);
+                res.sendStatus(404);
             }
         });
     }
@@ -39,7 +42,7 @@ class Film extends Route_class_1.default {
                 res.sendStatus(404);
                 return;
             }
-            console.log(yield this.Authorization(req));
+            // console.log(await this.Authorization(req));
             res.json(req.body);
         });
     }

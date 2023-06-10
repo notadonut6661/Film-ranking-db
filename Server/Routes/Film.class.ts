@@ -14,19 +14,22 @@ export class Film extends Route {
   
   constructor() {
     super();
-    this.dataType = [{name: }];
+    this.dataType = [{name: 'title', type: 'string'}, {name: 'query', type: [{name: "id", type: "number"}]}];
     this.routeName = "Film";
     this.dbName = "films";
   }
 
   public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
     
-    const { id } = this.getDecodedURI("GET", req.originalUrl);
+    const { query } = this.getDecodedURI("GET", req.originalUrl);
+    // console.log("json ver. of decoded uri" + JSON.stringify(this.getDecodedURI("GET", req.originalUrl)));
+    
 
+    if (typeof query === 'string') return;
     try {
-      res.json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`));
+      res.json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${query['id']}`));
     } catch {
-      res.sendStatus(200);
+      res.sendStatus(404);
     }
 
   }
@@ -35,10 +38,11 @@ export class Film extends Route {
     if (!req.is(this.MediaType)) {
       res.sendStatus(404);
       return;
-    }
+    }  
 
-    console.log(await this.Authorization(req));
+    // console.log(await this.Authorization(req));
 
+    
     res.json(req.body);
   }
 

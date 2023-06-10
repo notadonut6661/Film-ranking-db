@@ -11,19 +11,7 @@
     ]},
       { "name": "rating_quantity  ", "type": "number" }
     ],
-    "PATCH": [],
-    "DELETE": []
+    "PATCH": [{"name": "id", "type": "number"}],
+    "DELETE": [{"name": "id", "type": "number"}]
   }
 }
-
-/*
-  id: number;
-  description: string;
-  title: string;
-  cast: CastFilm[];
-  rating: number;
-  rating_quantity: number;
-  duration: number;
-  page_watched: number;
-  release_date: string;
-  */

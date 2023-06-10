@@ -4,8 +4,9 @@ exports.uriDecoder = void 0;
 const getNumberOfCharacterMentionInString_1 = require("../utils/getNumberOfCharacterMentionInString");
 /**
  *
- * @param uriParams is an array containing all the parts of uri (part is a term that defines string in uri splitted by / sign)
+ * @param uriParams is an array containing all the parts of uri (part is a term that defines string in uri splitted by "/" sign)
  */
+// TODO add id?=13 thing validation
 class uriDecoder {
     constructor(_uriParams) {
         this.uriParams = _uriParams;
@@ -20,10 +21,20 @@ class uriDecoder {
         var _a;
         return (_a = Array.from(rowRequestParams.matchAll(/\?=/g)).length) !== null && _a !== void 0 ? _a : 0;
     }
-    getKeyValuePairsAsObject(keyValuePairs) {
+    getKeyValuePairsAsObject(keyValuePairs, queryInSplittedPathId) {
         const result = {};
-        keyValuePairs.forEach(pair => {
+        if (keyValuePairs.length !== this.uriParams[queryInSplittedPathId].type.length) {
+            throw Error('Length of provided query differs from required');
+        }
+        keyValuePairs.forEach((pair, i) => {
             const [key, value] = pair.split('?=');
+            if (typeof this.uriParams[queryInSplittedPathId].type !== 'object' || typeof this.uriParams[queryInSplittedPathId].type[i] !== 'object')
+                return;
+            if (typeof this.uriParams[queryInSplittedPathId].type[i] !== 'string') {
+                if (this.uriParams[queryInSplittedPathId].type[i].name !== key || this.uriParams[queryInSplittedPathId].type[i].type !== typeof JSON.parse(value)) {
+                    console.log(this.uriParams[queryInSplittedPathId].type[i], typeof value);
+                }
+            }
             result[key] = value;
         });
         return result;
@@ -50,7 +61,7 @@ class uriDecoder {
             catch (_a) {
                 elType = el instanceof Object ? "object" : "string";
             }
-            if (elType !== this.uriParams[i].type) {
+            if (elType !== this.uriParams[i].type && elType !== "object") {
                 throw new Error('Request param\'s type is wrong');
             }
             organizedDecodedURI[this.uriParams[i].name] = el;
@@ -58,16 +69,16 @@ class uriDecoder {
         return organizedDecodedURI;
     }
     /**
-     * @returns If this.uriParams is undefined in constructor it returns array with path parts, and with object if it has ?= params, but if it is then it return object with named path parts and sub-object with params
+     * @returns If this.uriParams is undefined in constructor it returns array with path parts, and with object if it has ?= params, but if it's then the method returns an object with named path parts and sub-object with params
      */
     Decode(uri) {
-        const decodedURI = this.getSplittedUri(uri).map(el => {
+        const decodedURI = this.getSplittedUri(uri).map((el, index) => {
             if (!this.getQuantityOfKeyValuePairsInRowRequestParams(el)) {
                 return el;
             }
             this.ValidateURIParams(el);
             // FIXME Magic char
-            return this.getKeyValuePairsAsObject(el.split('&'));
+            return this.getKeyValuePairsAsObject(el.split('&'), index);
         });
         return this.organizeDecodedURI(decodedURI);
     }

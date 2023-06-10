@@ -1,4 +1,4 @@
-# Filesystem guide 
+# Filesystem guide
 
 ## Folders
 
@@ -15,7 +15,7 @@ npm install
 
 
 
-# How to run the server: 
+## How to run the server
 
 1. Install all the dependencies 
 ``` sh
@@ -30,3 +30,12 @@ npm i
 ``` sh
 npm run dev
 ```
+
+## Testing
+
+To test routes we use post.cmd file
+
+
+## Uri Decoding
+
+UriDecoder is a class that takes 1 parameter that defines how to decode uri, and has 1 public method "Decode" which will return decoded uri as object, if you have query 

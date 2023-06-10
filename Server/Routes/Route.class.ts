@@ -36,11 +36,11 @@ export default abstract class Route {
       return false;
     }
 
-    Object.entries(req.body).forEach(([key, value], i) => {
-      if (typeof value !== this.dataType[i].type || key !== this.dataType[i].name) {
-        doesRequestBodyRequiresPattern = false;
-      }
-    });
+    // Object.entries(req.body).forEach(([key, value], i) => {
+    //   if (typeof value !== this.dataType[i].type || key !== this.dataType[i].name) {
+    //     doesRequestBodyRequiresPattern = false;
+    //   }
+    // });
 
     return true;
   }
@@ -56,6 +56,8 @@ export default abstract class Route {
       password: authHeader?.split(':')[1]
     }
 
+    console.log(input);
+    
     let realPass: string | undefined;
 
     try {
@@ -76,7 +78,7 @@ export default abstract class Route {
 
   protected getDecodedURI(HTTPMethod: RequestType, uri: string) {
 
-    const uriDecoderE = new uriDecoder(uriParamsType[this.routeName][HTTPMethod]);
+    const uriDecoderE = new uriDecoder(this.dataType);
 
     return uriDecoderE.Decode(uri);
   }

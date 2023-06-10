@@ -11,7 +11,7 @@
                 ] },
             { "name": "rating_quantity  ", "type": "number" }
         ],
-        "PATCH": [],
-        "DELETE": []
+        "PATCH": [{ "name": "id", "type": "number" }],
+        "DELETE": [{ "name": "id", "type": "number" }]
     }
 }
