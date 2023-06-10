@@ -22,8 +22,6 @@ export class Film extends Route {
   public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
     
     const { query } = this.getDecodedURI("GET", req.originalUrl);
-    // console.log("json ver. of decoded uri" + JSON.stringify(this.getDecodedURI("GET", req.originalUrl)));
-    
 
     if (typeof query === 'string') return;
     try {

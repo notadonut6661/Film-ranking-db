@@ -25,7 +25,6 @@ class Film extends Route_class_1.default {
     Get(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { query } = this.getDecodedURI("GET", req.originalUrl);
-            // console.log("json ver. of decoded uri" + JSON.stringify(this.getDecodedURI("GET", req.originalUrl)));
             if (typeof query === 'string')
                 return;
             try {

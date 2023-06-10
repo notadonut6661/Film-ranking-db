@@ -39,11 +39,11 @@ export class uriDecoder {
       if (typeof this.uriParams[queryInSplittedPathId].type !== 'object' || typeof this.uriParams[queryInSplittedPathId].type[i] !== 'object') return;
       
       
-    if (typeof this.uriParams[queryInSplittedPathId].type[i] !== 'string') {
-      if (this.uriParams[queryInSplittedPathId].type[i].name !== key || this.uriParams[queryInSplittedPathId].type[i].type !== typeof JSON.parse(value)) {
-        console.log(this.uriParams[queryInSplittedPathId].type[i], typeof value);
+      if (typeof this.uriParams[queryInSplittedPathId].type[i] !== 'string') {
+        if (this.uriParams[queryInSplittedPathId].type[i].name !== key || this.uriParams[queryInSplittedPathId].type[i].type !== typeof JSON.parse(value)) {
+          console.log(this.uriParams[queryInSplittedPathId].type[i], typeof value);
+        }
       }
-  }
       
       result[key] = value;
     });
