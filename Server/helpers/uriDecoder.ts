@@ -1,10 +1,14 @@
 import { getNumberOfCharacterMentionInString } from "../utils/getNumberOfCharacterMentionInString";
 import { uriParamsType } from "data/interfaces/uriParams.interface";
+import { config } from "dotenv";
+import 'dotenv/config';
+
 /**
  * 
  * @param uriParams is an array containing all the parts of uri (part is a term that defines string in uri splitted by "/" sign)   
  */
 
+config();
 
 // TODO add id?=13 thing validation
 export class uriDecoder {
@@ -106,7 +110,7 @@ export class uriDecoder {
       this.ValidateURIParams(el);
 
       // FIXME Magic char
-      return this.getKeyValuePairsAsObject(el.split('&'), index);
+      return this.getKeyValuePairsAsObject(el.split(process.env.QUERY_SEPARATOR), index);
     });
 
     return this.organizeDecodedURI(decodedURI);
