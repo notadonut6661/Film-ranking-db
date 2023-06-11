@@ -1,5 +1,4 @@
 import { RequestTypes } from './requestTypes.interface';
-import uriParamsTypeJSON from '../json/requests.json';
   
 export const UriParams: Record<string, RequestTypes> = {
 
