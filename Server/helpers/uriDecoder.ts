@@ -40,11 +40,13 @@ export class uriDecoder {
     keyValuePairs.forEach((pair, i) => {
       const [key, value] = pair.split('?=');
       
-      if (typeof this.uriParams[queryInSplittedPathId].type !== 'object' || typeof this.uriParams[queryInSplittedPathId].type[i] !== 'object') return;
+    const currentQueryElement = this.uriParams[queryInSplittedPathId].type[i];
+    
+    if (typeof currentQueryElement !== 'object') return;
       
       
-      if (typeof this.uriParams[queryInSplittedPathId].type[i] !== 'string') {
-        if (this.uriParams[queryInSplittedPathId].type[i].name !== key || this.uriParams[queryInSplittedPathId].type[i].type !== typeof JSON.parse(value)) {
+      if (typeof this.uriParams[queryInSplittedPathId].type[i] === 'object' && typeof this.uriParams[queryInSplittedPathId].type[i] !== 'string') {
+        if (currentQueryElement.name !== key || currentQueryElement.type !== typeof JSON.parse(value)) {
           console.log(this.uriParams[queryInSplittedPathId].type[i], typeof value);
         }
       }

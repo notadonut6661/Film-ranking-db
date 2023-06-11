@@ -12,7 +12,7 @@
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "noEmitOnError": false
+    "noEmitOnError": true
   },
   "include": ["./"],
   "exclude": ["node_modules", "dist"]
