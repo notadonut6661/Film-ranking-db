@@ -2,10 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.uriDecoder = void 0;
 const getNumberOfCharacterMentionInString_1 = require("../utils/getNumberOfCharacterMentionInString");
+const dotenv_1 = require("dotenv");
+require("dotenv/config");
 /**
  *
  * @param uriParams is an array containing all the parts of uri (part is a term that defines string in uri splitted by "/" sign)
  */
+(0, dotenv_1.config)();
 // TODO add id?=13 thing validation
 class uriDecoder {
     constructor(_uriParams) {
@@ -28,10 +31,11 @@ class uriDecoder {
         }
         keyValuePairs.forEach((pair, i) => {
             const [key, value] = pair.split('?=');
-            if (typeof this.uriParams[queryInSplittedPathId].type !== 'object' || typeof this.uriParams[queryInSplittedPathId].type[i] !== 'object')
+            const currentQueryElement = this.uriParams[queryInSplittedPathId].type[i];
+            if (typeof currentQueryElement !== 'object')
                 return;
-            if (typeof this.uriParams[queryInSplittedPathId].type[i] !== 'string') {
-                if (this.uriParams[queryInSplittedPathId].type[i].name !== key || this.uriParams[queryInSplittedPathId].type[i].type !== typeof JSON.parse(value)) {
+            if (typeof this.uriParams[queryInSplittedPathId].type[i] === 'object' && typeof this.uriParams[queryInSplittedPathId].type[i] !== 'string') {
+                if (currentQueryElement.name !== key || currentQueryElement.type !== typeof JSON.parse(value)) {
                     console.log(this.uriParams[queryInSplittedPathId].type[i], typeof value);
                 }
             }
@@ -78,7 +82,7 @@ class uriDecoder {
             }
             this.ValidateURIParams(el);
             // FIXME Magic char
-            return this.getKeyValuePairsAsObject(el.split('&'), index);
+            return this.getKeyValuePairsAsObject(el.split(process.env.QUERY_SEPARATOR), index);
         });
         return this.organizeDecodedURI(decodedURI);
     }

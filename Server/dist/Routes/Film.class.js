@@ -24,14 +24,14 @@ class Film extends Route_class_1.default {
     }
     Get(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { query } = this.getDecodedURI("GET", req.originalUrl);
-            if (typeof query === 'string')
-                return;
             try {
+                const { query } = this.getDecodedURI("GET", req.originalUrl);
+                if (typeof query === 'string')
+                    return;
                 res.json(yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${query['id']}`));
             }
             catch (_a) {
-                res.sendStatus(404);
+                res.status(404).json({ Error: "Wrong parameters" });
             }
         });
     }

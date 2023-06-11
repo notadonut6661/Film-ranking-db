@@ -11,24 +11,25 @@ export class Film extends Route {
   protected routeName: string;
   protected dbName: string;
   protected readonly dataType: uriParamsType[];
-  
+
   constructor() {
     super();
-    this.dataType = [{name: 'title', type: 'string'}, {name: 'query', type: [{name: "id", type: "number"}]}];
+    this.dataType = [{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "id", type: "number" }] }];
     this.routeName = "Film";
     this.dbName = "films";
   }
 
   public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
-    
-    const { query } = this.getDecodedURI("GET", req.originalUrl);
-
-    if (typeof query === 'string') return;
     try {
+      const { query } = this.getDecodedURI("GET", req.originalUrl);
+      if (typeof query === 'string') return;
+
       res.json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${query['id']}`));
+
     } catch {
-      res.sendStatus(404);
+      res.status(404).json({Error: "Wrong parameters"});
     }
+
 
   }
 
@@ -36,11 +37,11 @@ export class Film extends Route {
     if (!req.is(this.MediaType)) {
       res.sendStatus(404);
       return;
-    }  
+    }
 
     // console.log(await this.Authorization(req));
 
-    
+
     res.json(req.body);
   }
 
