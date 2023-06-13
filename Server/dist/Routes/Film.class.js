@@ -30,7 +30,11 @@ class Film extends Route_class_1.default {
                 if (typeof query === 'string')
                     return;
                 const userRecommendationManagerI = new userRecommendationManager_1.userRecommendationManager(Number(query['id']));
-                userRecommendationManagerI.createUserRecommendationsProfile([]);
+                userRecommendationManagerI.createUserRecommendationsProfile([{
+                        genres: [""],
+                        rank: 1,
+                        tags: ["Gay"]
+                    }]);
                 res.json(yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${query['id']}`));
             }
             catch (_a) {

@@ -26,7 +26,11 @@ export class Film extends Route {
 
       const userRecommendationManagerI = new userRecommendationManager(Number(query['id']));
 
-      userRecommendationManagerI.createUserRecommendationsProfile([]);
+      userRecommendationManagerI.createUserRecommendationsProfile([{
+        genres: [""],
+        rank:1,
+        tags: ["Gay"]
+      }]);
       res.json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${query['id']}`));
 
     } catch {

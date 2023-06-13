@@ -28,13 +28,23 @@ class userRecommendationManager {
         const tagRanks = {};
         const genreRanks = {};
         const tagPresenseRanks = {};
-        Object.values(rankedTitles).forEach(value => {
-            value.tags.forEach(([tagName]) => {
-                counts.tags[tagName].totalNumber += 1;
-            });
-            // value.genres.forEach(([tagName]) => })
+        rankedTitles.forEach(value => {
+            const updateCounts = (propName, currentFilmRank, countType) => {
+                if (counts[countType][propName] === undefined) {
+                    counts[countType][propName] = {
+                        totalNumber: 1,
+                        totalRatingsSum: value.rank,
+                        rank: value.rank
+                    };
+                    return;
+                }
+                counts[countType][propName].totalNumber += 1;
+                counts[countType][propName].totalRatingsSum += currentFilmRank;
+                counts[countType][propName].rank += currentFilmRank;
+            };
+            value.tags.forEach(tagName => updateCounts(tagName, value.rank, 'tags'));
+            value.genres.forEach(genreName => updateCounts(genreName, value.rank, 'genres'));
         });
-        console.log(rankedTitles);
     }
     /**
      * estimateFilmRateForUser

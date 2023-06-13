@@ -38,9 +38,13 @@ export class userRecommendationManager  {
       tags: Record<string, {
         totalNumber: number,
         totalRatingsSum: number,
-        rank?: number,
+        rank: number,
       }>,
-      genres: Record<string, number>
+      genres: Record<string, {
+        totalNumber: number,
+        totalRatingsSum: number,
+        rank: number,
+      }>
     } = {
       tags: {},
       genres: {}
@@ -49,15 +53,27 @@ export class userRecommendationManager  {
     const tagRanks: Record<string, number> = {};
     const genreRanks: Record<string, number> = {};
     const tagPresenseRanks: Record<string, number> = {};
-
-    Object.values(rankedTitles).forEach(value => {
-      value.tags.forEach(([tagName]) => {
-        counts.tags[tagName].totalNumber += 1;
-      });
-      // value.genres.forEach(([tagName]) => })
+  
+    rankedTitles.forEach(value => {
+      const updateCounts = (propName: string, currentFilmRank: number, countType: 'tags' | 'genres'): void => {
+        if(counts[countType][propName] === undefined) {
+          counts[countType][propName] = {
+            totalNumber: 1,
+            totalRatingsSum: value.rank,
+            rank: value.rank
+          }
+          return;
+        }
+        
+        counts[countType][propName].totalNumber += 1;
+        counts[countType][propName].totalRatingsSum += currentFilmRank;
+        counts[countType][propName].rank += currentFilmRank;
+      }
+      
+      value.tags.forEach(tagName => updateCounts(tagName, value.rank, 'tags'));
+      value.genres.forEach(genreName => updateCounts(genreName, value.rank, 'genres'))
     });
 
-    console.log(rankedTitles);
   }
 
   /**
