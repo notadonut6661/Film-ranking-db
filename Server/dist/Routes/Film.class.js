@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Film = void 0;
 const dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
 const Route_class_1 = __importDefault(require("./Route.class"));
+const userRecommendationManager_1 = require("../helpers/userRecommendationManager");
 class Film extends Route_class_1.default {
     constructor() {
         super();
@@ -28,6 +29,8 @@ class Film extends Route_class_1.default {
                 const { query } = this.getDecodedURI("GET", req.originalUrl);
                 if (typeof query === 'string')
                     return;
+                const userRecommendationManagerI = new userRecommendationManager_1.userRecommendationManager(Number(query['id']));
+                userRecommendationManagerI.createUserRecommendationsProfile([]);
                 res.json(yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${query['id']}`));
             }
             catch (_a) {

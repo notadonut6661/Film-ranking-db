@@ -4,9 +4,37 @@ exports.userRecommendationManager = void 0;
 class userRecommendationManager {
     constructor(_userId) {
         this.userId = _userId;
+        this.usersPrefers = {};
     }
-    createUserRecommendationsProfile() {
-        console.log('');
+    /**
+     * createUserRecommendationsProfile
+     * fills user's index selected by given id (maybe using email to select users is better) preferred_tags and preferred_genres are changed
+     * rated films should be stored in `user_{id}_title_ranks`
+    */
+    createUserRecommendationsProfile(rankedTitles) {
+        /**
+         * tagsRanks
+         * Contains tag names and ranks (popularity, and average rating given to the title)
+         * If the arithmetic mean of rated films with this tag is =< 5, then we won't add the value to the record
+         * Rank formula is
+         * PresencePercent = number of ranked films with the tag / (100 / number of ranked films)
+         * AverageRating = Sum of ratings / quantity of titles
+         * Rank =
+         */
+        const counts = {
+            tags: {},
+            genres: {}
+        };
+        const tagRanks = {};
+        const genreRanks = {};
+        const tagPresenseRanks = {};
+        Object.values(rankedTitles).forEach(value => {
+            value.tags.forEach(([tagName]) => {
+                counts.tags[tagName].totalNumber += 1;
+            });
+            // value.genres.forEach(([tagName]) => })
+        });
+        console.log(rankedTitles);
     }
     /**
      * estimateFilmRateForUser
@@ -15,16 +43,16 @@ class userRecommendationManager {
     estimateFilmRateForUser() {
         return 0;
     }
-    getRecommendationsBasedOnTags() {
-    }
-    getRecommendationsBasedOnGenre() {
-    }
-    /**
-     * getRecommendations
-     * @returns
-     */
-    getRecommendations() {
-    }
+    // private getRecommendationsBasedOnTags() {
+    // }
+    // private getRecommendationsBasedOnGenre() {
+    // }
+    // /**
+    //  * getRecommendations
+    //  * @returns 
+    //  */
+    // public getRecommendations() {
+    // }
     sortByEstimatedUserFilmRate(unsortedFilms) {
         return new Array(256);
     }

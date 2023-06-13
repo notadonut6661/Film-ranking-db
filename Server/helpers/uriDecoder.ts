@@ -10,7 +10,6 @@ import 'dotenv/config';
 
 config();
 
-// TODO add id?=13 thing validation
 export class uriDecoder {
   private uriParams: uriParamsType[];
 

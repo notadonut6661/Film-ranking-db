@@ -9,7 +9,6 @@ require("dotenv/config");
  * @param uriParams is an array containing all the parts of uri (part is a term that defines string in uri splitted by "/" sign)
  */
 (0, dotenv_1.config)();
-// TODO add id?=13 thing validation
 class uriDecoder {
     constructor(_uriParams) {
         this.uriParams = _uriParams;
