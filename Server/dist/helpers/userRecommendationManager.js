@@ -4,7 +4,10 @@ exports.userRecommendationManager = void 0;
 class userRecommendationManager {
     constructor(_userId) {
         this.userId = _userId;
-        this.usersPrefers = {};
+        this.usersPrefers = {
+            Genres: {},
+            Tags: {}
+        };
     }
     /**
      * createUserRecommendationsProfile
@@ -22,28 +25,35 @@ class userRecommendationManager {
          * Rank =
          */
         const counts = {
-            tags: {},
-            genres: {}
+            Tags: {},
+            Genres: {}
         };
-        const tagRanks = {};
-        const genreRanks = {};
-        const tagPresenseRanks = {};
         rankedTitles.forEach(value => {
             const updateCounts = (propName, currentFilmRank, countType) => {
                 if (counts[countType][propName] === undefined) {
                     counts[countType][propName] = {
                         totalNumber: 1,
                         totalRatingsSum: value.rank,
-                        rank: value.rank
+                        rank: value.rank,
                     };
+                    counts[countType][propName].presenceRank = counts[countType][propName].totalNumber / (rankedTitles.length / 100);
+                    console.log(counts);
                     return;
                 }
                 counts[countType][propName].totalNumber += 1;
                 counts[countType][propName].totalRatingsSum += currentFilmRank;
-                counts[countType][propName].rank += currentFilmRank;
+                counts[countType][propName].rank += counts[countType][propName].totalRatingsSum / counts[countType][propName].totalNumber;
+                counts[countType][propName].presenceRank = counts[countType][propName].totalNumber / (rankedTitles.length / 100);
             };
-            value.tags.forEach(tagName => updateCounts(tagName, value.rank, 'tags'));
-            value.genres.forEach(genreName => updateCounts(genreName, value.rank, 'genres'));
+            value.tags.forEach(tagName => updateCounts(tagName, value.rank, 'Tags'));
+            value.genres.forEach(genreName => updateCounts(genreName, value.rank, 'Genres'));
+        });
+        Object.entries(counts).forEach(([countType, props]) => {
+            if (countType !== 'Tags' && countType !== 'Genres')
+                return;
+            Object.entries(props).forEach(([key, value]) => {
+                this.usersPrefers[countType][key] = value.presenceRank !== undefined ? (value.rank * (value.presenceRank / 100)) : 0;
+            });
         });
     }
     /**

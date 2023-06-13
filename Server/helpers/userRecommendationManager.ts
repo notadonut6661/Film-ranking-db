@@ -6,16 +6,27 @@ interface TitleAnalyticsData {
   genres: Array<string>;
 }
 
+interface UserPreferencesCounts {
+  totalNumber: number;
+  totalRatingsSum: number;
+  rank: number;
+  presenceRank?: number;
+}
+
+
 export class userRecommendationManager  {
   public userId: number;
   private usersPrefers: {
-    Genre?: Record<string, number>,
-    Tag?:  Record<string, number>
+    Genres: Record<string, number>,
+    Tags:  Record<string, number>
   }
 
   constructor(_userId: number) {
     this.userId = _userId;
-    this.usersPrefers = {}
+    this.usersPrefers = {
+      Genres: {},
+      Tags: {}
+    }
   }
 
   /**
@@ -24,6 +35,7 @@ export class userRecommendationManager  {
    * rated films should be stored in `user_{id}_title_ranks`
   */
   public createUserRecommendationsProfile(rankedTitles: Array<TitleAnalyticsData>): void {
+
     /**
      * tagsRanks
      * Contains tag names and ranks (popularity, and average rating given to the title)
@@ -35,43 +47,44 @@ export class userRecommendationManager  {
      */
 
     const counts: {
-      tags: Record<string, {
-        totalNumber: number,
-        totalRatingsSum: number,
-        rank: number,
-      }>,
-      genres: Record<string, {
-        totalNumber: number,
-        totalRatingsSum: number,
-        rank: number,
-      }>
+      Tags: Record<string, UserPreferencesCounts>,
+      Genres: Record<string, UserPreferencesCounts>
     } = {
-      tags: {},
-      genres: {}
+      Tags: {},
+      Genres: {}
     }
 
-    const tagRanks: Record<string, number> = {};
-    const genreRanks: Record<string, number> = {};
-    const tagPresenseRanks: Record<string, number> = {};
-  
     rankedTitles.forEach(value => {
-      const updateCounts = (propName: string, currentFilmRank: number, countType: 'tags' | 'genres'): void => {
+      const updateCounts = (propName: string, currentFilmRank: number, countType: 'Tags' | 'Genres'): void => {
         if(counts[countType][propName] === undefined) {
           counts[countType][propName] = {
             totalNumber: 1,
             totalRatingsSum: value.rank,
-            rank: value.rank
+            rank: value.rank,
           }
+          counts[countType][propName].presenceRank = counts[countType][propName].totalNumber / (rankedTitles.length / 100)
+
+          console.log(counts);
+          
           return;
         }
         
         counts[countType][propName].totalNumber += 1;
         counts[countType][propName].totalRatingsSum += currentFilmRank;
-        counts[countType][propName].rank += currentFilmRank;
+        counts[countType][propName].rank += counts[countType][propName].totalRatingsSum / counts[countType][propName].totalNumber;
+        counts[countType][propName].presenceRank = counts[countType][propName].totalNumber / (rankedTitles.length / 100);
       }
       
-      value.tags.forEach(tagName => updateCounts(tagName, value.rank, 'tags'));
-      value.genres.forEach(genreName => updateCounts(genreName, value.rank, 'genres'))
+      value.tags.forEach(tagName => updateCounts(tagName, value.rank, 'Tags'));
+      value.genres.forEach(genreName => updateCounts(genreName, value.rank, 'Genres'));
+    });
+
+    Object.entries(counts).forEach(([countType, props]) => {
+      if (countType !== 'Tags' && countType !== 'Genres') return;
+      Object.entries(props).forEach(([key, value]) => {
+        
+        this.usersPrefers[countType][key] = value.presenceRank !== undefined ? ( value.rank * (value.presenceRank / 100) ) : 0;
+      })
     });
 
   }
