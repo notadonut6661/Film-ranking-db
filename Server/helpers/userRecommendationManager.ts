@@ -14,11 +14,11 @@ interface UserPreferencesCounts {
 }
 
 
-export class userRecommendationManager  {
+export class userRecommendationManager {
   public userId: number;
   private usersPrefers: {
     Genres: Record<string, number>,
-    Tags:  Record<string, number>
+    Tags: Record<string, number>
   }
 
   constructor(_userId: number) {
@@ -56,7 +56,7 @@ export class userRecommendationManager  {
 
     rankedTitles.forEach(value => {
       const updateCounts = (propName: string, currentFilmRank: number, countType: 'Tags' | 'Genres'): void => {
-        if(counts[countType][propName] === undefined) {
+        if (counts[countType][propName] === undefined) {
           counts[countType][propName] = {
             totalNumber: 1,
             totalRatingsSum: value.rank,
@@ -66,13 +66,13 @@ export class userRecommendationManager  {
 
           return;
         }
-        
+
         counts[countType][propName].totalNumber += 1;
         counts[countType][propName].totalRatingsSum += currentFilmRank;
         counts[countType][propName].rank += counts[countType][propName].totalRatingsSum / counts[countType][propName].totalNumber;
         counts[countType][propName].presenceRank = counts[countType][propName].totalNumber / (rankedTitles.length / 100);
       }
-      
+
       value.tags.forEach(tagName => updateCounts(tagName, value.rank, 'Tags'));
       value.genres.forEach(genreName => updateCounts(genreName, value.rank, 'Genres'));
     });
@@ -80,7 +80,7 @@ export class userRecommendationManager  {
     Object.entries(counts).forEach(([countType, props]) => {
       if (countType !== 'Tags' && countType !== 'Genres') return;
       Object.entries(props).forEach(([key, value]) => {
-        this.usersPrefers[countType][key] = value.presenceRank !== undefined ? ( value.rank * (value.presenceRank / 100) ) : 0;
+        this.usersPrefers[countType][key] = value.presenceRank !== undefined ? (value.rank * (value.presenceRank / 100)) : 0;
       })
     });
 
@@ -91,13 +91,13 @@ export class userRecommendationManager  {
    * @returns a number that estimates probability that the user will click and rate the film(series) positively at scale from 0 to 9 where 0 means that it's not really probable that the user will click at the film and  9 means the opposite  
    */
   private estimateTitleRateForUser(title: TitleAnalyticsData): number {
-    if(Object.keys(this.usersPrefers.Genres).length === 0 || Object.keys(this.usersPrefers.Tags).length === 0) {
+    if (Object.keys(this.usersPrefers.Genres).length === 0 || Object.keys(this.usersPrefers.Tags).length === 0) {
       throw new Error("No recommendation profile has been generated");
     }
 
     const tagsRankSum: number = title.tags.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
-    const genreRankSum: number =  title.genres.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
-    
+    const genreRankSum: number = title.genres.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
+
     return Math.pow(genreRankSum, 2) + tagsRankSum;
   }
 
@@ -108,17 +108,19 @@ export class userRecommendationManager  {
   // private getRecommendationsBasedOnGenre() {
 
   // }
-  
+
   // /**
   //  * getRecommendations
   //  * @returns 
   //  */
   // public getRecommendations() {
-    
+
   // }
 
-  public sortByEstimatedUserFilmRate<T>(unsortedFilms: Array<T>): Array<T> {
-    return new Array<T>(256);
+  public sortByEstimatedUserFilmRate(unsortedFilms: Array<TitleAnalyticsData>): Array<TitleAnalyticsData> {
+    return unsortedFilms.sort((a, b) => {
+      return this.estimateTitleRateForUser(a) - this.estimateTitleRateForUser(b);
+    });
   }
 
 }
