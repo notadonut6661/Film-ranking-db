@@ -110,7 +110,6 @@ export class uriDecoder {
 
       this.ValidateURIParams(el);
 
-      // FIXME Magic char
       return this.getKeyValuePairsAsObject(el.split(process.env.QUERY_SEPARATOR), index);
     });
 

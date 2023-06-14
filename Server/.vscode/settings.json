@@ -12,6 +12,18 @@
       "name": "lmfao",
       "database": "familyfilmrating",
       "username": "root"
+    },
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "127.0.0.1",
+      "port": 8080,
+      "driver": "MySQL",
+      "name": "hui cherez ochko",
+      "username": "root",
+      "database": "familyfilmrating"
     }
   ]
 }

@@ -1,6 +1,19 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userRecommendationManager = void 0;
+const dbConnection_1 = __importDefault(require("./dbConnection"));
 class userRecommendationManager {
     constructor(_userId) {
         this.userId = _userId;
@@ -16,13 +29,7 @@ class userRecommendationManager {
     */
     createUserRecommendationsProfile(rankedTitles) {
         /**
-         * tagsRanks
-         * Contains tag names and ranks (popularity, and average rating given to the title)
          * If the arithmetic mean of rated films with this tag is =< 5, then we won't add the value to the record
-         * Rank formula is
-         * PresencePercent = number of ranked films with the tag / (100 / number of ranked films)
-         * AverageRating = Sum of ratings / quantity of titles
-         * Rank =
          */
         const counts = {
             Tags: {},
@@ -63,23 +70,49 @@ class userRecommendationManager {
         if (Object.keys(this.usersPrefers.Genres).length === 0 || Object.keys(this.usersPrefers.Tags).length === 0) {
             throw new Error("No recommendation profile has been generated");
         }
-        // TODO in designing the formula that would estimate how high will most likely the user rate the film consider that preferred genre should have bigger impact than the tags
         const tagsRankSum = title.tags.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
         const genreRankSum = title.genres.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
-        return 0;
+        return Math.pow(genreRankSum, 2) + tagsRankSum;
     }
-    // private getRecommendationsBasedOnTags() {
-    // }
-    // private getRecommendationsBasedOnGenre() {
-    // }
-    // /**
-    //  * getRecommendations
-    //  * @returns 
-    //  */
-    // public getRecommendations() {
-    // }
+    /**
+     * getRecommendations
+     * @returns
+     */
+    getRecommendations(recommendationListLength) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let filmsInPreferredGenreQuery = `SELECT * FROM user_${this.userId}_title_ranks WHERE `;
+            for (const key in this.usersPrefers.Genres) {
+                if (this.usersPrefers.Genres[key] < 5)
+                    break;
+                filmsInPreferredGenreQuery += `${key} = 1`;
+            }
+            const filmsInPreferredGenre = (yield (yield dbConnection_1.default).query(filmsInPreferredGenreQuery));
+            const filmsInPreferredGenreAnalyticsData = [];
+            filmsInPreferredGenre.forEach(title => {
+                Object.entries(title).forEach(([key, value], index) => {
+                    if (!key.includes('genre') && !key.includes('tag') || value === 0)
+                        return;
+                    const dataType = key.includes('genre') ? 'genres' : 'tags';
+                    if (filmsInPreferredGenreAnalyticsData[index] === undefined) {
+                        filmsInPreferredGenreAnalyticsData[index] = {
+                            id: title.id,
+                            rank: title === null || title === void 0 ? void 0 : title.rank,
+                            genres: dataType === 'genres' ? [key] : [],
+                            tags: dataType === 'tags' ? [key] : []
+                        };
+                        return;
+                    }
+                    console.log(filmsInPreferredGenreAnalyticsData[index]);
+                    filmsInPreferredGenreAnalyticsData[index][dataType].push(key);
+                });
+            });
+            return this.sortByEstimatedUserFilmRate(filmsInPreferredGenreAnalyticsData).map(({ id: titleName }) => titleName);
+        });
+    }
     sortByEstimatedUserFilmRate(unsortedFilms) {
-        return new Array(256);
+        return unsortedFilms.sort((a, b) => {
+            return this.estimateTitleRateForUser(a) - this.estimateTitleRateForUser(b);
+        });
     }
 }
 exports.userRecommendationManager = userRecommendationManager;

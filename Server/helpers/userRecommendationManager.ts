@@ -1,6 +1,7 @@
 import dbConnection from './dbConnection';
 
 interface TitleAnalyticsData {
+  id: string;
   rank: number;
   tags: Array<string>;
   genres: Array<string>;
@@ -37,15 +38,8 @@ export class userRecommendationManager {
   public createUserRecommendationsProfile(rankedTitles: Array<TitleAnalyticsData>): void {
 
     /**
-     * tagsRanks
-     * Contains tag names and ranks (popularity, and average rating given to the title)
      * If the arithmetic mean of rated films with this tag is =< 5, then we won't add the value to the record
-     * Rank formula is 
-     * PresencePercent = number of ranked films with the tag / (100 / number of ranked films) 
-     * AverageRating = Sum of ratings / quantity of titles 
-     * Rank =
      */
-
     const counts: {
       Tags: Record<string, UserPreferencesCounts>,
       Genres: Record<string, UserPreferencesCounts>
@@ -101,21 +95,47 @@ export class userRecommendationManager {
     return Math.pow(genreRankSum, 2) + tagsRankSum;
   }
 
-  // private getRecommendationsBasedOnTags() {
+  /**
+   * getRecommendations
+   * @returns 
+   */
+  public async getRecommendations(recommendationListLength: number): Promise<Array<string>> {
+    let filmsInPreferredGenreQuery = `SELECT * FROM user_${this.userId}_title_ranks WHERE `;
 
-  // }
+    for (const key in this.usersPrefers.Genres) {
+      if (this.usersPrefers.Genres[key] < 5) break;
 
-  // private getRecommendationsBasedOnGenre() {
+      filmsInPreferredGenreQuery += `${key} = 1`;
+    }
 
-  // }
+    const filmsInPreferredGenre = (await (await dbConnection).query(filmsInPreferredGenreQuery)) as Array<Record<string, any>>;
+    const filmsInPreferredGenreAnalyticsData: TitleAnalyticsData[] = [];
 
-  // /**
-  //  * getRecommendations
-  //  * @returns 
-  //  */
-  // public getRecommendations() {
+    filmsInPreferredGenre.forEach(title => {
+      Object.entries(title).forEach(([key, value], index) => {
+        if(!key.includes('genre')  && !key.includes('tag') || value === 0) return;
 
-  // }
+        const dataType = key.includes('genre') ? 'genres' : 'tags';
+        
+        if(filmsInPreferredGenreAnalyticsData[index] === undefined) {
+
+          filmsInPreferredGenreAnalyticsData[index] = { 
+            id: title.id,
+            rank: title?.rank,
+            genres: dataType === 'genres' ? [key] : [],
+            tags: dataType === 'tags' ? [key] : []
+        };
+        return;
+      } 
+        console.log(filmsInPreferredGenreAnalyticsData[index]);
+        
+        filmsInPreferredGenreAnalyticsData[index][dataType].push(key);
+      })
+    });
+
+
+    return this.sortByEstimatedUserFilmRate(filmsInPreferredGenreAnalyticsData).map(({id: titleName}) => titleName);
+  }
 
   public sortByEstimatedUserFilmRate(unsortedFilms: Array<TitleAnalyticsData>): Array<TitleAnalyticsData> {
     return unsortedFilms.sort((a, b) => {
