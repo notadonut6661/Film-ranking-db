@@ -64,8 +64,6 @@ export class userRecommendationManager  {
           }
           counts[countType][propName].presenceRank = counts[countType][propName].totalNumber / (rankedTitles.length / 100)
 
-          console.log(counts);
-          
           return;
         }
         
@@ -93,7 +91,15 @@ export class userRecommendationManager  {
    * estimateFilmRateForUser
    * @returns a number that estimates probability that the user will click and rate the film(series) positively at scale from 0 to 9 where 0 means that it's not really probable that the user will click at the film and  9 means the opposite  
    */
-  private estimateFilmRateForUser(): number {
+  private estimateTitleRateForUser(title: TitleAnalyticsData): number {
+    if(Object.keys(this.usersPrefers.Genres).length === 0 || Object.keys(this.usersPrefers.Tags).length === 0) {
+      throw new Error("No recommendation profile has been generated");
+    }
+
+    // TODO in designing the formula that would estimate how high will most likely the user rate the film consider that preferred genre should have bigger impact than the tags
+    const tagsRankSum: number = title.tags.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
+    const genreRankSum: number =  title.genres.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
+    
     return 0;
   }
 
