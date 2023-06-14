@@ -80,7 +80,6 @@ export class userRecommendationManager  {
     Object.entries(counts).forEach(([countType, props]) => {
       if (countType !== 'Tags' && countType !== 'Genres') return;
       Object.entries(props).forEach(([key, value]) => {
-        
         this.usersPrefers[countType][key] = value.presenceRank !== undefined ? ( value.rank * (value.presenceRank / 100) ) : 0;
       })
     });
@@ -96,11 +95,10 @@ export class userRecommendationManager  {
       throw new Error("No recommendation profile has been generated");
     }
 
-    // TODO in designing the formula that would estimate how high will most likely the user rate the film consider that preferred genre should have bigger impact than the tags
     const tagsRankSum: number = title.tags.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
     const genreRankSum: number =  title.genres.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
     
-    return 0;
+    return Math.pow(genreRankSum, 2) + tagsRankSum;
   }
 
   // private getRecommendationsBasedOnTags() {
