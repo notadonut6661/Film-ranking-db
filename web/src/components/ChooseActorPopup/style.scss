@@ -31,7 +31,11 @@
   "C C";
 }
 
-
+.text-forms > .actor-name {
+  display: block;
+  background: #fff;
+  width: 170px;
+}
 
 .ChooseActorPopup.SelectingCharacter > .popup-stage-navigation  {
   grid-area: C;

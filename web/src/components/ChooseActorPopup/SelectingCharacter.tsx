@@ -5,8 +5,9 @@ export default function SelectingCharacter({ActorId}: {ActorId: number, Characte
     </div>
    
     <div className="text-forms">
-      <span>ff</span>
-      <input />
+      <span className="actor-name">ff</span>
+      <br/>
+      <input placeholder="Enter the character's name"/>
     </div>
   </>;
 }
