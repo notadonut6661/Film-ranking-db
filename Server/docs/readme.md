@@ -38,4 +38,19 @@ To test routes we use post.cmd file
 
 ## Uri Decoding
 
-UriDecoder is a class that takes 1 parameter that defines how to decode uri, and has 1 public method "Decode" which will return decoded uri as object, if you have query 
+UriDecoder is a class that takes 1 parameter that defines how to decode uri, and has 1 public method "Decode" which will return decoded uri as object.
+
+## ENV
+
+- DB_HOST
+- DB_PORT
+- DB_NAME
+- DB_USER
+- DB_PASSWORD
+- PORT
+- QUERY_SEPARATOR
+- SMTP_HOST
+- SMTP_PORT
+- SMTP_USERNAME
+- SMTP_PASSWORD
+- SMTP_SENDER

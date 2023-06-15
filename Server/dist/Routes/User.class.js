@@ -12,15 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Users = void 0;
+exports.Auth = void 0;
 const Route_class_1 = __importDefault(require("./Route.class"));
 const dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
-class Users extends Route_class_1.default {
+class Auth extends Route_class_1.default {
     constructor() {
         super();
-        this.routeName = "users";
+        this.routeName = "auth";
         this.dataType = [{ name: "title", type: "string" }, { name: "id", type: "number" }];
-        this.dbName = "users";
+        this.dbName = "auth";
     }
     Get(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -43,4 +43,4 @@ class Users extends Route_class_1.default {
         throw new Error("Method not implemented.");
     }
 }
-exports.Users = Users;
+exports.Auth = Auth;
