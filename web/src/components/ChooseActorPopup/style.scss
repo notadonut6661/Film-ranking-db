@@ -12,8 +12,33 @@
 .ChooseActorPopup.Active { 
   display: grid;
 }
-.ChooseActorPopup {
+.ChooseActorPopup.ChoosingActor {
   grid-template-rows: 30px 270px 30px;
+}
+
+.text-forms {
+  grid-area: B;
+}
+
+.actor-image {
+  grid-area: A;
+}
+
+.ChooseActorPopup.SelectingCharacter {
+  grid-template-rows: 300px 30px;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-areas:  "A B"
+  "C C";
+}
+
+
+
+.ChooseActorPopup.SelectingCharacter > .popup-stage-navigation  {
+  grid-area: C;
+  height: 30px;
+}
+
+.ChooseActorPopup.Submit {
 }
 
 .ChooseActorPopup > .Search {

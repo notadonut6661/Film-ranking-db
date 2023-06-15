@@ -1,4 +1,3 @@
-//Zgredek 
 import IsTitlePageNew from "../../utils/GetIsTitlePageNew";
 
 export default function getActorLocalStorageName(id: number) {
