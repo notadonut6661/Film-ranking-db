@@ -1,4 +1,3 @@
-// ! IT SHOULDN'T BE USED OTHER THAN FROM ACTOR CAROUSEL, IT DOESN'T NEED A SEPARATE FOLDER!
 import { useState, useEffect } from "react";
 import "./style.scss";
 import { ChooseCastMemberPopupProps } from "../../data/Interfaces/ChooseActorPopupProps.interface";
@@ -23,23 +22,13 @@ export default function ChooseCastMember({
     window.localStorage.removeItem(getActorLocalStorageName(id));
   };
 
-  useEffect(() => {
-    if (currentPopupStage <= PopupStages.ChoosingActor) return;
-
-    window.localStorage.setItem(
-      getActorLocalStorageName(id),
-      JSON.stringify({
-        ActorId, PlayedCharacter,
-      })
-    );
-  });
 
   return (
   <div className={`ChooseActorPopup ${PopupStages[InitialPopupStage]}`} id={`ChooseActorPopup${id}`} style={{ left }}>
 
-      {currentPopupStage === PopupStages.ChoosingActor && <ChoosingActor ActorId={ActorId}/>}
-      {currentPopupStage === PopupStages.SelectingCharacter && <SelectingCharacter ActorId={ActorId ?? 0}/>}
-      {currentPopupStage === PopupStages.Submitted && <Submitting ActorId={ActorId ?? 0} Character={PlayedCharacter ?? ''}/>}
+      {currentPopupStage === PopupStages.ChoosingActor && <ChoosingActor ActorId={ActorId} PopupId={id}/>}
+      {currentPopupStage === PopupStages.SelectingCharacter && <SelectingCharacter PopupId={id} />}
+      {currentPopupStage === PopupStages.Submitted && <Submitting  PopupId={id}/>}
         
         <PopupStageNavigation PopupId={id} currentPopupStage={currentPopupStage} setCurrentPopupStage={setCurrentPopupStage} CastElement={{ActorId, Character: PlayedCharacter}} PopupStageRequirements={PopupStageRequirements}/>
   </div>

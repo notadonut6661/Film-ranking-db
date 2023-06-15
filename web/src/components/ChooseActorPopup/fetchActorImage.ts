@@ -1,11 +1,11 @@
 import config from "../../data/Json/config.json";
 
-export async function fetchActorImage(querySubdirectory: string): Promise<object | void> {
+export async function fetchActorImage(ActorId: number): Promise<string | undefined> {
   try {
-    const fetchedActorIds = await fetch(`${config.server_url}/${querySubdirectory}`);
-    return fetchedActorIds as object;
+    const fetchedActorIds = await fetch(`${config.server_url}/actor_image/${ActorId}`);
+    return URL.createObjectURL(await fetchedActorIds.blob());
 
   } catch {
-    console.log('Something went wrong, as you can see')
+    console.error('Something went wrong, as you can see')
   }
-}
+} 
