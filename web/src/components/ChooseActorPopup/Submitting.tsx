@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import config from "../../data/Json/config.json";
+
 export default function Submitting({
   ActorId,
   Character,
@@ -5,6 +8,18 @@ export default function Submitting({
   ActorId: number;
   Character: string;
 }) {
+
+  const [actorName, setActorName] = useState("Actor name");
+
+  useEffect(() => {
+    fetch(`${config.server_url}/film/${ActorId}`).then(res => {
+      return res.json();
+    }).then((res) => {
+      setActorName(res?.id);
+    })
+  });
+
+  
   return (
     <>
       <div className="actor-image">
@@ -13,7 +28,7 @@ export default function Submitting({
 
       <div className="text-forms">
         <div>
-          <p className="actor-name">{ActorId}</p>
+          <p className="actor-name">{actorName}</p>
           <input placeholder="Enter the character's name" value={Character}/>
         </div>
       </div>
