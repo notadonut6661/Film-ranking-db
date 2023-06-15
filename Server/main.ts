@@ -2,6 +2,9 @@ import { Router } from './Routes/Router';
 import path from 'path';
 import dbConnection from './helpers/dbConnection';
 import express from 'express';
+import { config } from 'dotenv';
+
+config();
 
 const app = express();
 
@@ -11,6 +14,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 Router(app);
 
-app.listen(3000, () => {
-  console.log(`Example app listening on port ${3000}`)
+
+app.listen(process.env.PORT, () => {
+  console.log(`Example app listening on port ${process.env.PORT}`)
 })

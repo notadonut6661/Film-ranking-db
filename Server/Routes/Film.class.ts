@@ -4,7 +4,6 @@ import { ParsedQs } from "qs"
 import dbConnection from '../helpers/dbConnection';
 import Route from "./Route.class"
 import { uriParamsType } from "data/interfaces/uriParams.interface";
-import { userRecommendationManager } from '../helpers/userRecommendationManager';
 
 export class Film extends Route {
 
@@ -24,15 +23,6 @@ export class Film extends Route {
       const { query } = this.getDecodedURI("GET", req.originalUrl);
       if (typeof query === 'string') return;
 
-      const userRecommendationManagerI = new userRecommendationManager(Number(query['id']));
-
-      userRecommendationManagerI.createUserRecommendationsProfile([{
-        id: "name",
-        genres: ["genre_comedy"],
-        rank: 8,
-        tags: ["Gay"]
-      }]);
-      console.log(await userRecommendationManagerI.getRecommendations(6));
       res.json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${query['id']}`));
 
     } catch {
