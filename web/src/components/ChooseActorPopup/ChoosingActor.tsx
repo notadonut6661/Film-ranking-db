@@ -1,5 +1,4 @@
 import { useState } from "react";
-import config from "../../data/Json/config.json";
 
 
 export default function ChoosingActor({ ActorId}: {ActorId?: number}): JSX.Element {
@@ -21,8 +20,6 @@ export default function ChoosingActor({ ActorId}: {ActorId?: number}): JSX.Eleme
 
 
   return (  /**
-  * TODO
-  * Highlight selected actor
   * TODO
   * change search font
   */

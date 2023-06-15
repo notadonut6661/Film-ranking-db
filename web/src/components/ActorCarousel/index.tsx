@@ -14,6 +14,7 @@ interface CastElement {
   Character?: string;
 }
 
+// TODO new actor carousel item
 export default function ActorCarousel({
   EditMode,
 }: ActorCarouselProps): JSX.Element {
@@ -40,9 +41,6 @@ export default function ActorCarousel({
   const [carouselItems, updateCarouselItems] = useState(DraftCarousel);   
 
   useEffect(() => {
-    // updateCarouselItems(prev => [...prev, {}])
-    
-    
     // TODO add error handling
     setUlLength(document.querySelector("div.cast > ul")?.children.length ?? 0);
   }, []);

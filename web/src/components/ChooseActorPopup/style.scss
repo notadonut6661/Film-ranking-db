@@ -17,32 +17,41 @@
 }
 
 .text-forms {
+  display: flex;
+  background: #ddd;
   grid-area: B;
+  align-items: center;
+}
+
+.text-forms > div {
+  margin-left: 10px;
 }
 
 .actor-image {
   grid-area: A;
 }
 
-.ChooseActorPopup.SelectingCharacter {
+.ChooseActorPopup.SelectingCharacter,  .ChooseActorPopup.Submit {
   grid-template-rows: 300px 30px;
   grid-template-columns: repeat(2, 50%);
   grid-template-areas:  "A B"
   "C C";
 }
 
-.text-forms > .actor-name {
+.text-forms  p.actor-name {
   display: block;
   background: #fff;
   width: 170px;
+  border-radius: 1px; 
+}
+
+.ChooseActorPopup.SelectingCharacter .text-forms > input {
+  outline: none;
 }
 
 .ChooseActorPopup.SelectingCharacter > .popup-stage-navigation  {
   grid-area: C;
   height: 30px;
-}
-
-.ChooseActorPopup.Submit {
 }
 
 .ChooseActorPopup > .Search {

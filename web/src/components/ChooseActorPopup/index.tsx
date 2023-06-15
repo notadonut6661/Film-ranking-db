@@ -9,8 +9,6 @@ import Submitting from "./Submitting";
 import PopupStageNavigation from "./PopupStageNavigation";
 import getActorLocalStorageName from "./getActorLocalStorageName";
 
-// Submitting actor stage could be renamed to selecting character
-
 export default function ChooseCastMember({
   ActorId, id, PlayedCharacter,
   InitialPopupStage, top, left
