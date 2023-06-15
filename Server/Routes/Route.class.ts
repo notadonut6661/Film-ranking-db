@@ -16,8 +16,6 @@ export default abstract class Route {
 
   constructor() {
     this.MediaType = 'application/json';
-    this.Get = this.Get.bind(this);
-    this.Post = this.Post.bind(this);
   }
 
   private getAuthHeader(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>) {
@@ -71,10 +69,6 @@ export default abstract class Route {
     return realPass === generateSha256(input.password);
   }
 
-  public abstract Get(req: Request, res: Response): void;
-  public abstract Post(req: Request, res: Response): void;
-  public abstract Patch(req: Request, res: Response): void;
-  public abstract Delete(req: Request, res: Response): void;
 
   protected getDecodedURI(HTTPMethod: RequestType, uri: string) {
 
