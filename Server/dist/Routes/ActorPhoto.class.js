@@ -12,44 +12,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Film = void 0;
-const dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
+exports.ActorPhoto = void 0;
 const Route_class_1 = __importDefault(require("./Route.class"));
-class Film extends Route_class_1.default {
+const dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
+class ActorPhoto extends Route_class_1.default {
     constructor() {
         super();
-        this.dataType = [{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "id", type: "number" }] }];
-        this.routeName = "Film";
-        this.dbName = "films";
+        this.dataType = [{ name: "title", type: "string" }, { name: "id", type: "number" }];
+        this.routeName = "ActorPhoto";
+        this.dbName = "actors";
     }
     Get(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { id } = this.getDecodedURI("GET", req.originalUrl);
             try {
-                const { query } = this.getDecodedURI("GET", req.originalUrl);
-                if (typeof query === 'string')
-                    return;
-                res.json(yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${query['id']}`));
+                res.status(200).sendFile((yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`))[0].profile_picture);
             }
             catch (_a) {
-                res.status(404).json({ Error: "Wrong parameters" });
+                res.sendStatus(404);
             }
         });
     }
     Post(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (!req.is(this.MediaType)) {
-                res.sendStatus(404);
-                return;
-            }
-            // console.log(await this.Authorization(req));
-            res.json(req.body);
-        });
-    }
-    Delete(req, res) {
-        console.log(2);
+        throw new Error("Method not implemented.");
     }
     Patch(req, res) {
-        console.log(2);
+        throw new Error("Method not implemented.");
+    }
+    Delete(req, res) {
+        throw new Error("Method not implemented.");
     }
 }
-exports.Film = Film;
+exports.ActorPhoto = ActorPhoto;
