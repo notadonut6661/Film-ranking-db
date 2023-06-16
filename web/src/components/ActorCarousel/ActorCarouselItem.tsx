@@ -2,7 +2,8 @@
 export default function CarouselItem({id}: {id: number, }): JSX.Element {
   return (
     <li>
-      <button id={`CarouselItem${id}`} onClick={() => {
+      <button className="close"></button>
+      <button id={`CarouselItem${id}`}  className="carousel-item" onClick={() => {
         const popupElement = document.querySelector(`#ChooseActorPopup${id}`);
         if (popupElement?.className.includes('Active')) {
           popupElement?.classList.remove("Active");
@@ -14,7 +15,9 @@ export default function CarouselItem({id}: {id: number, }): JSX.Element {
         });
 
         popupElement?.classList.add("Active");
-      }}></button>
+      }}>
+        <img></img>
+      </button>
     </li>
   );
 }
