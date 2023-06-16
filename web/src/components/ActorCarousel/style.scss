@@ -1,5 +1,4 @@
-@import '../../index.scss';
-
+@import "../../index.scss";
 
 .CarouselForAddingActors {
   display: grid;
@@ -21,11 +20,9 @@
   margin: 0;
   padding: 0;
   height: 100%;
-  // height: 100%;
-  // background: white;
-  // margin-left: 6.5%;
 }
-.CarouselForAddingActors > .cast > ul > li > button { 
+
+.CarouselForAddingActors > .cast > ul > li > button {
   height: 100%;
   width: 100%;
   background: none;
@@ -56,4 +53,11 @@
   height: 100%;
 }
 
+.CarouselForAddingActors > .cast > ul > li > button:hover::before {
+  content: "\00d7";
+  color: red;
+  position: absolute;
+  height: 1em;
+  font-size: xx-large;
 
+}

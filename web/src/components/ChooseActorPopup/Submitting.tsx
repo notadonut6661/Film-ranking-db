@@ -27,7 +27,7 @@ export default function Submitting({ PopupId }: { PopupId: number }) {
       <div className="text-forms">
         <div>
           <p className="actor-name">{actorName}</p>
-          <input placeholder="Enter the character's name" value={Character} />
+          <p>{Character}</p>
         </div>
       </div>
     </>

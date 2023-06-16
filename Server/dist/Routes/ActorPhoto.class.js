@@ -13,23 +13,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActorPhoto = void 0;
+const path_1 = __importDefault(require("path"));
 const Route_class_1 = __importDefault(require("./Route.class"));
 const dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
 class ActorPhoto extends Route_class_1.default {
     constructor() {
         super();
-        this.dataType = [{ name: "title", type: "string" }, { name: "id", type: "number" }];
+        this.getQueryDataType = [{ name: "title", type: "string" }, { name: "id", type: "number" }];
         this.routeName = "ActorPhoto";
         this.dbName = "actors";
+        this.Get = this.Get.bind(this);
+        this.Post = this.Post.bind(this);
     }
     Get(req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = this.getDecodedURI("GET", req.originalUrl);
+            console.log(id);
+            const pathToProfilePhoto = (_a = (yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`))[0]) === null || _a === void 0 ? void 0 : _a.profile_picture;
             try {
-                res.status(200).sendFile((yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`))[0].profile_picture);
+                res.status(200).sendFile(path_1.default.resolve(pathToProfilePhoto));
             }
-            catch (_a) {
-                res.sendStatus(404);
+            catch (_b) {
+                res.sendStatus(503);
             }
         });
     }

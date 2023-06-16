@@ -16,6 +16,7 @@ interface PopupStageNavigationProps {
 export default function  PopupStageNavigation({currentPopupStage, PopupId, setCurrentPopupStage, PopupStageRequirements, CastElement}: PopupStageNavigationProps):  JSX.Element {
   const  checkPopupStageRequirements = (checkingStage: PopupStages) =>  !!PopupStageRequirements[checkingStage].filter(val => !val).length;
 
+
   const ChangePopupStage = (direction: 'toPrev' | 'toNext') => {
     const element = document.getElementById(`ChooseActorPopup${PopupId}`);
     const nextPopupStage = direction === 'toPrev' ? currentPopupStage - 1 : currentPopupStage + 1;
@@ -26,10 +27,10 @@ export default function  PopupStageNavigation({currentPopupStage, PopupId, setCu
     }
 
     if(direction === 'toNext' && currentPopupStage === PopupStages.Submitted) {
-      saveCurrentActorToLocalStorage(currentPopupStage, PopupId, CastElement);
       element?.classList.remove("Active");
       return;
     }
+    
     element?.classList.remove(PopupStages[currentPopupStage]);
     setCurrentPopupStage(nextPopupStage);
     element?.classList.add(PopupStages[nextPopupStage] ?? PopupStages[currentPopupStage]);

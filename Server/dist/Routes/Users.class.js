@@ -19,8 +19,10 @@ class Users extends Route_class_1.default {
     constructor() {
         super();
         this.routeName = "users";
-        this.dataType = [{ name: "title", type: "string" }, { name: "id", type: "number" }];
+        this.getQueryDataType = [{ name: "title", type: "string" }, { name: "id", type: "number" }];
         this.dbName = "users";
+        this.Get = this.Get.bind(this);
+        this.Post = this.Post.bind(this);
     }
     Get(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -29,7 +31,7 @@ class Users extends Route_class_1.default {
                 res.status(200).json(yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`));
             }
             catch (_a) {
-                res.sendStatus(404);
+                res.sendStatus(200);
             }
         });
     }

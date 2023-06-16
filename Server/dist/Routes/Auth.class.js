@@ -10,18 +10,13 @@ class Auth extends Route_class_1.default {
         super();
         this.routeName = "auth";
         this.dbName = "users";
-        this.dataType = [];
+        this.getQueryDataType = [];
     }
-    Get(req, res) {
-        throw new Error("Method not implemented.");
+    Signup(req, res) {
+        console.log(11);
+        res.status(200).send('20');
     }
-    Post(req, res) {
-        throw new Error("Method not implemented.");
-    }
-    Patch(req, res) {
-        throw new Error("Method not implemented.");
-    }
-    Delete(req, res) {
+    Login(req, res) {
         throw new Error("Method not implemented.");
     }
 }

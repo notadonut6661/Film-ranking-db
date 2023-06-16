@@ -3,9 +3,15 @@ import saveCurrentActorToLocalStorage from "./saveCurrentActorToLocalStorage";
 import { PopupStages } from "../../data/PopupStages.enum";
 
 
-export default function ChoosingActor({ PopupId }: {ActorId?: number, PopupId: number}): JSX.Element {
+interface ChoosingActorProps {
+  ActorId?: number;
+  PopupId: number;
+  SetActorState: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export default function ChoosingActor({ PopupId, SetActorState }: ChoosingActorProps): JSX.Element {
   // const [fetchedActors, updateFetchedActors] = useState(!ActorId ? Array<number> : [ActorId]);
-  const [fetchedActors, updateFetchedActors] = useState([11,34,54, 11,34,54, 11,34]);
+  const [fetchedActors, updateFetchedActors] = useState([11,34,54, 11,34,54, 13,34]);
 
   // const ActorSearch = document.querySelector('.ChooseActorPopup > input#ActorSearch') as HTMLInputElement;
 
@@ -29,8 +35,12 @@ export default function ChoosingActor({ PopupId }: {ActorId?: number, PopupId: n
      <input type="text" placeholder="Enter actor name" id="ActorSearch"/>
    </div>
    <div className="Actors" >
-     {fetchedActors.length ? (
-       fetchedActors.map((ActorId) => <button className="Actor" onClick={() => saveCurrentActorToLocalStorage(PopupStages.ChoosingActor,  PopupId, {ActorId})}><img src={(() => "")()}></img></button>)
+     {fetchedActors.length > 0 ? (
+       fetchedActors.map((ActorId) => <button className="Actor" onClick={() => {
+        saveCurrentActorToLocalStorage(PopupStages.ChoosingActor,  PopupId, {ActorId});
+        SetActorState(ActorId);
+      }
+      }><img src={(() => "")()}></img></button>)
      ) : (
        <span id="PlaceholderText">There will be actor suggestions</span>
      )}

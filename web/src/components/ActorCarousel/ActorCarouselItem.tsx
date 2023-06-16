@@ -1,3 +1,4 @@
+// TODO grid area
 export default function CarouselItem({id}: {id: number, }): JSX.Element {
   return (
     <li>

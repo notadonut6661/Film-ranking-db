@@ -1,9 +1,19 @@
 import config from "../../data/Json/config.json";
 
-export async function fetchActorImage(ActorId: number): Promise<string | undefined> {
+export async function fetchActorImage(ActorId: number): Promise<Blob | undefined> {
+
   try {
-    const fetchedActorIds = await fetch(`${config.server_url}/actor_image/${ActorId}`);
-    return URL.createObjectURL(await fetchedActorIds.blob());
+    console.log(`${config.server_url}/actorPhoto/13`);
+    
+    const fetchedActorIds = await fetch(`http://${config.server_url}/actorPhoto/13`, {
+      headers: {
+        "Content-Type": "image/jpeg"
+      },
+      mode: 'no-cors'
+    });
+    console.log(await fetchedActorIds.blob());
+    
+    return await fetchedActorIds.blob();
 
   } catch {
     console.error('Something went wrong, as you can see')

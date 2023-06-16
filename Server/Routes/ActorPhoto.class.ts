@@ -11,23 +11,30 @@ export class ActorPhoto extends Route {
 
   protected routeName: string;
   protected dbName: string;
-  protected readonly dataType: uriParamsType[];
+  protected readonly getQueryDataType: uriParamsType[];
 
   constructor() {
     super();
-    this.dataType = [{name: "title", type:"string"}, {name: "id", type: "number"}];
+    this.getQueryDataType = [{name: "title", type:"string"}, {name: "id", type: "number"}];
     this.routeName = "ActorPhoto";
     this.dbName = "actors";
+    this.Get = this.Get.bind(this);
+    this.Post = this.Post.bind(this);
   }
 
   public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
+	
     const { id } = this.getDecodedURI("GET", req.originalUrl);
+	console.log(id);
+    const pathToProfilePhoto = (await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`))[0]?.profile_picture;
+    
     try {
-      res.status(200).sendFile((await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`))[0].profile_picture);
+      res.status(200).sendFile(path.resolve(pathToProfilePhoto));
     } catch {
-      res.sendStatus(404);
+      res.sendStatus(503);
     }
   }
+  
   
   public Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
     throw new Error("Method not implemented.");

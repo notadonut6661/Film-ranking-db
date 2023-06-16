@@ -18,8 +18,6 @@ const generateSha256_1 = require("../utils/generateSha256");
 class Route {
     constructor() {
         this.MediaType = 'application/json';
-        this.Get = this.Get.bind(this);
-        this.Post = this.Post.bind(this);
     }
     getAuthHeader(req) {
         var _a;
@@ -34,11 +32,6 @@ class Route {
         if (typeof req.body != "object") {
             return false;
         }
-        // Object.entries(req.body).forEach(([key, value], i) => {
-        //   if (typeof value !== this.dataType[i].type || key !== this.dataType[i].name) {
-        //     doesRequestBodyRequiresPattern = false;
-        //   }
-        // });
         return true;
     }
     Authorization(req) {
@@ -65,7 +58,7 @@ class Route {
         });
     }
     getDecodedURI(HTTPMethod, uri) {
-        const uriDecoderE = new uriDecoder_1.uriDecoder(this.dataType);
+        const uriDecoderE = new uriDecoder_1.uriDecoder(this.getQueryDataType);
         return uriDecoderE.Decode(uri);
     }
 }

@@ -9,23 +9,26 @@ export class Film extends Route {
 
   protected routeName: string;
   protected dbName: string;
-  protected readonly dataType: uriParamsType[];
+  protected readonly getQueryDataType: uriParamsType[];
 
   constructor() {
     super();
-    this.dataType = [{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "id", type: "number" }] }];
+    this.getQueryDataType = [{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "id", type: "number" }] }];
     this.routeName = "Film";
     this.dbName = "films";
+    this.Get = this.Get.bind(this);
+    this.Post = this.Post.bind(this);
   }
 
   public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
     try {
       const { query } = this.getDecodedURI("GET", req.originalUrl);
       if (typeof query === 'string') return;
-
       res.json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${query['id']}`));
 
-    } catch {
+    } catch (err) {
+      console.log(err);
+      
       res.status(404).json({ Error: "Wrong parameters" });
     }
 

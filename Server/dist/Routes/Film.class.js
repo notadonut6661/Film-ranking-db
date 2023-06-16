@@ -18,9 +18,11 @@ const Route_class_1 = __importDefault(require("./Route.class"));
 class Film extends Route_class_1.default {
     constructor() {
         super();
-        this.dataType = [{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "id", type: "number" }] }];
+        this.getQueryDataType = [{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "id", type: "number" }] }];
         this.routeName = "Film";
         this.dbName = "films";
+        this.Get = this.Get.bind(this);
+        this.Post = this.Post.bind(this);
     }
     Get(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -30,7 +32,8 @@ class Film extends Route_class_1.default {
                     return;
                 res.json(yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${query['id']}`));
             }
-            catch (_a) {
+            catch (err) {
+                console.log(err);
                 res.status(404).json({ Error: "Wrong parameters" });
             }
         });

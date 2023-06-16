@@ -1,7 +1,7 @@
 {
   "title": "FRDB",
   "url": "localhost:3000",
-  "server_url": "localhost:4060",
+  "server_url": "192.168.0.164:4054",
   "shortcuts": {
     "submit_search_query": "Enter"
   }

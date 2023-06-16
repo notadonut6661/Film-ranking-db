@@ -12,10 +12,11 @@ export default abstract class Route {
   protected abstract routeName: string;
   protected abstract dbName: string;
   protected readonly MediaType: string;
-  protected abstract readonly dataType: Array<uriParamsType>;
+  protected abstract readonly getQueryDataType: Array<uriParamsType>;
 
   constructor() {
     this.MediaType = 'application/json';
+
   }
 
   private getAuthHeader(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>) {
@@ -33,12 +34,6 @@ export default abstract class Route {
     if (typeof req.body != "object") {
       return false;
     }
-
-    // Object.entries(req.body).forEach(([key, value], i) => {
-    //   if (typeof value !== this.dataType[i].type || key !== this.dataType[i].name) {
-    //     doesRequestBodyRequiresPattern = false;
-    //   }
-    // });
 
     return true;
   }
@@ -72,7 +67,7 @@ export default abstract class Route {
 
   protected getDecodedURI(HTTPMethod: RequestType, uri: string) {
 
-    const uriDecoderE = new uriDecoder(this.dataType);
+    const uriDecoderE = new uriDecoder(this.getQueryDataType);
 
     return uriDecoderE.Decode(uri);
   }

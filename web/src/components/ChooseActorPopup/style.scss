@@ -27,29 +27,34 @@
   margin-left: 10px;
 }
 
+.actor-image > img {
+  width: 100%;
+  height: 100%;
+}
+
 .actor-image {
   grid-area: A;
 }
 
-.ChooseActorPopup.SelectingCharacter,  .ChooseActorPopup.Submit {
+.ChooseActorPopup.SelectingCharacter,  .ChooseActorPopup.Submitted {
   grid-template-rows: 300px 30px;
   grid-template-columns: repeat(2, 50%);
   grid-template-areas:  "A B"
   "C C";
 }
 
-.text-forms  p.actor-name {
+.text-forms  p {
   display: block;
   background: #fff;
   width: 170px;
   border-radius: 1px; 
 }
 
-.ChooseActorPopup.SelectingCharacter .text-forms > input {
+.ChooseActorPopup .text-forms > input {
   outline: none;
 }
 
-.ChooseActorPopup.SelectingCharacter > .popup-stage-navigation  {
+.ChooseActorPopup:not(.ChoosingActor) .popup-stage-navigation  {
   grid-area: C;
   height: 30px;
 }
