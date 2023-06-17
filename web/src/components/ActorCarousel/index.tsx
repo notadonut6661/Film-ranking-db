@@ -15,7 +15,6 @@ interface CastElement {
   Character?: string;
 }
 
-// TODO new actor carousel item
 export default function ActorCarousel({
   EditMode,
 }: ActorCarouselProps): JSX.Element {
@@ -26,7 +25,7 @@ export default function ActorCarousel({
 
   const IfCurrentTitleNew = IsTitlePageNew();
 
-
+  // TODO add carousel element for adding actors
   // FIXME rename it
   const DraftCarousel: Array<CastElement>  = Object.entries(window.localStorage).filter(([key]) => {
     const filterLocalStorageName = IfCurrentTitleNew.isNew ? "draft-new-title-actor" : `draft-edit-${IfCurrentTitleNew.titleId}-title-actor`;
@@ -43,7 +42,7 @@ export default function ActorCarousel({
   }, []);
 
   // FIXME magic number
-  const getMaximalScrollIndex = (): number => ulLength - 4;
+  const getMaximalScrollIndex = (): number => carouselItems.length - 4;
   const getMinimalScrollIndex = (): number => 0;
 
   return (
@@ -62,13 +61,16 @@ export default function ActorCarousel({
         <div className="cast">
           <ul
             style={{
-              width: ulLength > 4 ? `${100 + (ulLength - 4) * 26.7}%` : "100%",
-              right: ulLength >= 4 ? `${26.667 * scrolledElements}%` : 0,
+              width: carouselItems.length  > 4 ? `${100 + (carouselItems.length - 4) * 27}%` : "100%",
+              right: carouselItems.length  >= 4 ? `${27 * scrolledElements}%` : 0,
             }}
           >
-            {carouselItems.map((_val, i) => (
-              <CarouselItem id={i} updateCarouselItems={updateCarouselItems} carouselItems={carouselItems}/>
-            ))}
+            {carouselItems.map((_val, i) => {
+              const isElementForCreation = carouselItems.length - 1 === i;
+              console.log(isElementForCreation, carouselItems);
+              
+              return <CarouselItem id={i} updateCarouselItems={updateCarouselItems} carouselItems={carouselItems} isCreator={isElementForCreation}/> 
+    })}
           </ul>
         </div>
 

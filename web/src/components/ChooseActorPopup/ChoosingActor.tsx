@@ -1,6 +1,7 @@
 import { useState } from "react";
 import saveCurrentActorToLocalStorage from "./saveCurrentActorToLocalStorage";
 import { PopupStages } from "../../data/PopupStages.enum";
+import getActorLocalStorageName from "./getActorLocalStorageName";
 
 
 interface ChoosingActorProps {
@@ -10,8 +11,8 @@ interface ChoosingActorProps {
 }
 
 export default function ChoosingActor({ PopupId, SetActorState }: ChoosingActorProps): JSX.Element {
-  // const [fetchedActors, updateFetchedActors] = useState(!ActorId ? Array<number> : [ActorId]);
-  const [fetchedActors, updateFetchedActors] = useState([11,34,54, 11,34,54, 13,34]);
+  const ActorId: number | undefined  = JSON.parse(localStorage.getItem(getActorLocalStorageName(PopupId)) ?? '{}')?.ActorId;
+  const [fetchedActors, updateFetchedActors] = useState(!ActorId ? Array<number> : [ActorId]);
 
   // const ActorSearch = document.querySelector('.ChooseActorPopup > input#ActorSearch') as HTMLInputElement;
 

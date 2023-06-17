@@ -5,26 +5,27 @@ import { getCarouselItemId } from "./getCarouselItemId";
 
 interface CarouselItemProps {
   id: number;
+  isCreator?: boolean;
   carouselItems: CastElement[];
   updateCarouselItems: React.Dispatch<React.SetStateAction<CastElement[]>>;
 }
 
-export default function CarouselItem({id,   updateCarouselItems, carouselItems}: CarouselItemProps): JSX.Element {
+export default function CarouselItem({id,   updateCarouselItems, carouselItems, isCreator}: CarouselItemProps): JSX.Element {
+  // FIXME function's name is not clearly understandable
   const deleteCurrentActorFromLocalStorage = (newCastElementData: CastElement[]) => {
     for (const i in newCastElementData) {
       const localStorageName = IsTitlePageNew().isNew ? `draft-new-title-actor-${i}` : `draft-edit-${IsTitlePageNew().titleId}-title-actor-${i}`;
       window.localStorage.setItem(localStorageName, JSON.stringify(newCastElementData[i]));
     }
-
-    console.log('hsk', newCastElementData);
     
     window.localStorage.removeItem(getActorLocalStorageName(newCastElementData.length));
   };
   
-  //TODO You need to rename all the localhost keys so it corresponds sliced array indexes.
+  console.log(isCreator);
+  
   return (
     <li>
-      <button className="close" onClick={() => {
+     { isCreator || <button className="close" onClick={() => {
         const newCastElementData: CastElement[] = [];
        Object.entries(window.localStorage).filter(([key]) => {
           const filterLocalStorageName = IsTitlePageNew().isNew ? "draft-new-title-actor" : `draft-edit-${IsTitlePageNew().titleId}-title-actor`;
@@ -37,32 +38,24 @@ export default function CarouselItem({id,   updateCarouselItems, carouselItems}:
           
           if (i === id) {
             newCastElementData[arr.length - 1] = {};  
-            // console.log(val, 190);
-
             return;
           }
           
           if (i < id) {
             newCastElementData[i] = val
-            // console.log(val);
-            
-            // window.localStorage.setItem(getActorLocalStorageName(i), JSON.stringify(val));
-            
             return;
           }
 
           newCastElementData[i - 1] = val
         });
-        console.log(newCastElementData);
                 
         newCastElementData.pop();
         deleteCurrentActorFromLocalStorage(newCastElementData);
 
-        console.log(newCastElementData);
         
         updateCarouselItems(newCastElementData);
-      }}></button>
-      <button id={`CarouselItem${id}`}  className="carousel-item" onClick={() => {
+      }}></button>}
+      {!isCreator ? <button id={`CarouselItem${id}`}  className="carousel-item" onClick={() => {
         const popupElement = document.querySelector(`#ChooseActorPopup${id}`);
         if (popupElement?.className.includes('Active')) {
           popupElement?.classList.remove("Active");
@@ -74,9 +67,12 @@ export default function CarouselItem({id,   updateCarouselItems, carouselItems}:
         });
 
         popupElement?.classList.add("Active");
-      }}>
+      }}> 
         <img></img>
-      </button>
+      </button>: <button className="new-carousel-item" onClick={() => {
+        window.localStorage.setItem(getActorLocalStorageName(carouselItems.length), '{}');
+        updateCarouselItems(arr => [...arr, {}])
+      }}></button>}
     </li>
   );
 }
