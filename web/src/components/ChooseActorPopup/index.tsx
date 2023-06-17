@@ -24,9 +24,7 @@ export default function ChooseCastMember({
   
   const [currentPopupStage, setCurrentPopupStage] = useState(InitialPopupStage);
   
-  const deleteCurrentActorFromLocalStorage = () => {
-    window.localStorage.removeItem(getActorLocalStorageName(id));
-  };
+
 
   return (
   <div className={`ChooseActorPopup ${PopupStages[InitialPopupStage]}`} id={`ChooseActorPopup${id}`} style={{ left }}>

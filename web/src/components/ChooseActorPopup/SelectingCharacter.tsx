@@ -17,7 +17,7 @@ export default function SelectingCharacter({ PopupId, SetCharacterState }: Selec
   const [Character, setCharacter] = useState(InitialCharacter);
   console.log(`http://${config.server_url}/actorPhoto/${ActorId}`);
   
-  const [actorImg, setActorImg] = useState(`http://${config.server_url}/actorPhoto/${ActorId}`);
+  // const [actorImg, setActorImg] = useState(`http://${config.server_url}/actorPhoto/${ActorId}`);
 
   
   const characterNameForm = useRef<HTMLInputElement | null>(null);
@@ -44,7 +44,7 @@ export default function SelectingCharacter({ PopupId, SetCharacterState }: Selec
   return (
     <>
       <div className="actor-image">
-        <img alt="Actor" src={actorImg}/>
+        {/* <img alt="Actor" src={actorImg}/> */}
       </div>
 
       <div className="text-forms">

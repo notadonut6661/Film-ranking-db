@@ -4,6 +4,7 @@ import "./style.scss";
 import CarouselItem from "./ActorCarouselItem";
 import IsTitlePageNew from "../../utils/GetIsTitlePageNew";
 import ChooseCastMember from "../ChooseActorPopup";
+import { getCarouselItemId } from "./getCarouselItemId";
 
 interface ActorCarouselProps {
   EditMode: boolean;
@@ -25,10 +26,6 @@ export default function ActorCarousel({
 
   const IfCurrentTitleNew = IsTitlePageNew();
 
-  const getCarouselItemId = (CarouselItemLocalStorageKey: string): number => {
-    const [actorId] = CarouselItemLocalStorageKey.split('-').reverse();
-    return parseInt(actorId);
-  };
 
   // FIXME rename it
   const DraftCarousel: Array<CastElement>  = Object.entries(window.localStorage).filter(([key]) => {
@@ -70,7 +67,7 @@ export default function ActorCarousel({
             }}
           >
             {carouselItems.map((_val, i) => (
-              <CarouselItem id={i}/>
+              <CarouselItem id={i} updateCarouselItems={updateCarouselItems} carouselItems={carouselItems}/>
             ))}
           </ul>
         </div>
