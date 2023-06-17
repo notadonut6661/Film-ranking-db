@@ -34,7 +34,12 @@ export default function ActorCarousel({
     return getCarouselItemId(keyA) - getCarouselItemId(keyB);
   }).map(([, value]) => JSON.parse(value)); 
 
-  const [carouselItems, updateCarouselItems] = useState(DraftCarousel);   
+
+  const [carouselItems, updateCarouselItems] =  useState(DraftCarousel);   
+
+  const getAllCarouselItems = () => {
+    return EditMode ? [...DraftCarousel, {}]: DraftCarousel
+  }
 
   useEffect(() => {
     // TODO add error handling
@@ -42,7 +47,7 @@ export default function ActorCarousel({
   }, []);
 
   // FIXME magic number
-  const getMaximalScrollIndex = (): number => carouselItems.length - 4;
+  const getMaximalScrollIndex = (): number => getAllCarouselItems().length - 4;
   const getMinimalScrollIndex = (): number => 0;
 
   return (
@@ -61,12 +66,12 @@ export default function ActorCarousel({
         <div className="cast">
           <ul
             style={{
-              width: carouselItems.length  > 4 ? `${100 + (carouselItems.length - 4) * 27}%` : "100%",
-              right: carouselItems.length  >= 4 ? `${27 * scrolledElements}%` : 0,
+              width: getAllCarouselItems().length  > 4 ? `${100 + (getAllCarouselItems().length - 4) * 27}%` : "100%",
+              right: getAllCarouselItems().length  >= 4 ? `${27 * scrolledElements}%` : 0,
             }}
           >
-            {carouselItems.map((_val, i) => {
-              const isElementForCreation = carouselItems.length - 1 === i;
+            {getAllCarouselItems().map((_val, i) => {
+              const isElementForCreation = getAllCarouselItems().length - 1 === i;
               console.log(isElementForCreation, carouselItems);
               
               return <CarouselItem id={i} updateCarouselItems={updateCarouselItems} carouselItems={carouselItems} isCreator={isElementForCreation}/> 
@@ -86,6 +91,7 @@ export default function ActorCarousel({
       </div>
       <div id="ChooseCastMemberPopups">
     { carouselItems.map((value, index) => {
+        if (index === carouselItems.length - 1) return <></>;
         let getCarouselForAddingActors = (document.querySelector(`#CarouselItem${index}`) as HTMLDivElement)?.getBoundingClientRect();
         return (
           <ChooseCastMember

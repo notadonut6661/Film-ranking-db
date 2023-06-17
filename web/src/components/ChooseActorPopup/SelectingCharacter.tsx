@@ -11,7 +11,7 @@ interface SelectingCharacterProps {
 
 export default function SelectingCharacter({ PopupId, SetCharacterState }: SelectingCharacterProps) {
   const { ActorId, Character: InitialCharacter } = JSON.parse(
-    localStorage.getItem(getActorLocalStorageName(PopupId)) || ""
+    localStorage.getItem(getActorLocalStorageName(PopupId)) || "{}"
   );
   const [actorName, setActorName] = useState("Actor name");
   const [Character, setCharacter] = useState(InitialCharacter);
