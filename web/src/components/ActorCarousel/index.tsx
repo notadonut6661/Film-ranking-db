@@ -91,7 +91,6 @@ export default function ActorCarousel({
       </div>
       <div id="ChooseCastMemberPopups">
     { carouselItems.map((value, index) => {
-        if (index === carouselItems.length - 1) return <></>;
         let getCarouselForAddingActors = (document.querySelector(`#CarouselItem${index}`) as HTMLDivElement)?.getBoundingClientRect();
         return (
           <ChooseCastMember
