@@ -6,21 +6,20 @@ export default function postTitle(): void {
     return {
       title: window.localStorage.getItem(getLocalStorageName('Title')),
       plot: window.localStorage.getItem(getLocalStorageName('Plot')),
-      services: window.localStorage.getItem(getLocalStorageName('WatchOn')) 
+      services: window.localStorage.getItem('WatchOn') 
     }
   }
 
+  console.log(JSON.stringify(getPostData()));
+  
   fetch(`${config.server_url}/film/`, {
-    method: "POST", 
-    mode: "cors", 
-    cache: "no-cache", 
-    credentials: "same-origin", 
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
-       "Authorization": "Basic username:password", 
     },
-    redirect: "follow", 
-    referrerPolicy: "no-referrer",
-    body: JSON.stringify(getPostData()), 
-})
+    body: JSON.stringify({x: 11, b: 22})
+  }).then(res => res.json()).then( val => {
+    console.log(val);
+    
+  }).catch(err => console.warn(err));
 }

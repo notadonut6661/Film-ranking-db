@@ -40,12 +40,10 @@ class Film extends Route_class_1.default {
     }
     Post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!req.is(this.MediaType)) {
-                res.sendStatus(404);
-                return;
-            }
-            // console.log(await this.Authorization(req));
-            res.json(req.body);
+            const data = req.body; // Access the data from the request body
+            // Process the data or perform any necessary operations
+            console.log(data);
+            res.send(data);
         });
     }
     Delete(req, res) {

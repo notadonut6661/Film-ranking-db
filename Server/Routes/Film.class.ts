@@ -35,16 +35,13 @@ export class Film extends Route {
 
   }
 
-  public async Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
-    if (!req.is(this.MediaType)) {
-      res.sendStatus(404);
-      return;
-    }
-
-    // console.log(await this.Authorization(req));
-
-
-    res.json(req.body);
+  public async Post(req: Request, res: Response): Promise<void> {
+    const data = req.body; // Access the data from the request body
+    // Process the data or perform any necessary operations
+  
+    console.log(data);
+    
+    res.send(data);
   }
 
   public Delete(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {

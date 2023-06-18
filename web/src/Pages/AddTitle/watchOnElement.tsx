@@ -15,10 +15,12 @@ export default function WatchOnElement({ name, serviceDomain = "https://wikipedi
 
     setIsOnService((val) => !val);    
   } 
+  
   const linkToTitleChangeHandler = (ev: React.ChangeEvent<HTMLInputElement>) => { 
     setLinkToTitleVal(ev.target.value);
     updateWatchOnLocalStorage(name, isOnService, ev.target.value);
   }
+
   return (
     <div>
       <input type="checkbox" onClick={checkboxClickHandler} />

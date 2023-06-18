@@ -5,16 +5,16 @@ div.body#Add {
   width: 100%;
   height: calc(100% - 5.95vh);
   grid-template-columns: 20% 30% 50%;
-  grid-template-rows: 25% 25% 50%;
+  grid-template-rows: 40% 60%;
   margin: 0;
 }
 
 .film-data {
-  grid-area: 3 / 2 / 3 / 3;
+  grid-area: 2 / 2 / 3 / 3;
 }
 
 .watch-on {
-  grid-area: 3 / 3 / 3 / 3;
+  grid-area: 2 / 3 / 3 / 3;
 }
 
 .watch-on > * {

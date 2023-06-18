@@ -49,10 +49,3 @@ div.body {
 .error {
   background: #ff1b1b;
 }
-
-input.error::after {
-  content: "This is a fancy orange box.";
-  background-color: #ffba10;
-  border-color: black;
-  border-style: dotted;
-}
