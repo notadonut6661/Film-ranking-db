@@ -1,7 +1,10 @@
 @import "../../index.scss";
 
 div.body#Add {
-    
+  display: grid;
+  width: 100%;
+  height: calc(100% - 5.95vh);
+  grid-template-columns: repeat(2, 50%);
 }
 
 .Enters > * > input {
