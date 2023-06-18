@@ -2,7 +2,18 @@
   "title": "FRDB",
   "url": "localhost:3000",
   "server_url": "192.168.0.164:4054",
-  "shortcuts": {
-    "submit_search_query": "Enter"
-  }
+  "services": [{
+    "name": "Netflix",
+    "url": "https://www.netflix.com/title/"
+  }, {
+    "name": "HULU",
+    "url": "https://www.hulu.com/movie"
+  }, {
+    "name": "MEGOGO",
+    "url": "https://megogo.net/view"
+  }, {
+    "name": "Amazon prime",
+    "url": "https://www.amazon.com/"
+  }],
+  "title_data_type": ["title", "category", "actors", "watch_on"]
 }
