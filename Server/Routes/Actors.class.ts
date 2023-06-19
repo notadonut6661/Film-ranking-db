@@ -15,16 +15,18 @@ export class Actors extends Route {
     super();
     this.routeName = "actors";
     this.dbName = "actors";
-    this.getQueryDataType = [{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "name", type: "string" }] }];
+    this.getQueryDataType = [{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "name", type: "string" }, { name: "length", type: "number"}]}];
   }
 
   public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void>  {
     try {
-      const query = this.getDecodedURI("GET", req.originalUrl);
-      // if (typeof query === 'string') return;
-      // res.json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${query['id']}`));
-      res.json(query);
-    } catch (err) {
+      const { query } = this.getDecodedURI("GET", req.originalUrl);
+      
+      if (typeof query === 'string') return;
+      const ActorsUncutArr = await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE name LIKE "${query.name}%"`);
+      res.json(ActorsUncutArr.slice(0, +query.length));
+
+     } catch (err) {
       console.log(err);
       
       res.status(404).json({ Error: "Wrong parameters" });
