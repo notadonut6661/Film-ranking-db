@@ -18,6 +18,8 @@ const generateSha256_1 = require("../utils/generateSha256");
 class Route {
     constructor() {
         this.MediaType = 'application/json';
+        this.Get = this.Get.bind(this);
+        this.Post = this.Post.bind(this);
     }
     getAuthHeader(req) {
         var _a;
@@ -58,6 +60,7 @@ class Route {
         });
     }
     getDecodedURI(HTTPMethod, uri) {
+        console.log(this.getQueryDataType);
         const uriDecoderE = new uriDecoder_1.uriDecoder(this.getQueryDataType);
         return uriDecoderE.Decode(uri);
     }

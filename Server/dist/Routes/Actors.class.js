@@ -12,28 +12,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ActorPhoto = void 0;
-const path_1 = __importDefault(require("path"));
+exports.Actors = void 0;
 const Route_class_1 = __importDefault(require("./Route.class"));
-const dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
-class ActorPhoto extends Route_class_1.default {
+class Actors extends Route_class_1.default {
     constructor() {
         super();
-        this.getQueryDataType = [{ name: "title", type: "string" }, { name: "id", type: "number" }];
-        this.routeName = "ActorPhoto";
+        this.routeName = "actors";
         this.dbName = "actors";
+        this.getQueryDataType = [{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "name", type: "string" }] }];
     }
     Get(req, res) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { id } = this.getDecodedURI("GET", req.originalUrl);
-                console.log(id);
-                const pathToProfilePhoto = (_a = (yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`))[0]) === null || _a === void 0 ? void 0 : _a.profile_picture;
-                res.status(200).sendFile(path_1.default.resolve(pathToProfilePhoto));
+                const query = this.getDecodedURI("GET", req.originalUrl);
+                // if (typeof query === 'string') return;
+                // res.json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${query['id']}`));
+                res.json(query);
             }
-            catch (_b) {
-                res.sendStatus(503);
+            catch (err) {
+                console.log(err);
+                res.status(404).json({ Error: "Wrong parameters" });
             }
         });
     }
@@ -47,4 +45,4 @@ class ActorPhoto extends Route_class_1.default {
         throw new Error("Method not implemented.");
     }
 }
-exports.ActorPhoto = ActorPhoto;
+exports.Actors = Actors;

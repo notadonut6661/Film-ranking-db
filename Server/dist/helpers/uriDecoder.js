@@ -19,6 +19,16 @@ class uriDecoder {
     getSplittedUri(uri) {
         return uri.replace(/^\//, '').split('/');
     }
+    getTypeOfElementInQuery(el) {
+        let elType = typeof '';
+        try {
+            elType = typeof JSON.parse(`${el}`);
+        }
+        catch (_a) {
+            elType = el instanceof Object ? "object" : "string";
+        }
+        return elType;
+    }
     getQuantityOfKeyValuePairsInRowRequestParams(rowRequestParams) {
         var _a;
         return (_a = Array.from(rowRequestParams.matchAll(/\?=/g)).length) !== null && _a !== void 0 ? _a : 0;
@@ -33,10 +43,10 @@ class uriDecoder {
             const currentQueryElement = this.uriParams[queryInSplittedPathId].type[i];
             if (typeof currentQueryElement !== 'object')
                 return;
-            if (typeof this.uriParams[queryInSplittedPathId].type[i] === 'object' && typeof this.uriParams[queryInSplittedPathId].type[i] !== 'string') {
-                if (currentQueryElement.name !== key || currentQueryElement.type !== typeof JSON.parse(value)) {
-                    console.log(this.uriParams[queryInSplittedPathId].type[i], typeof value);
-                }
+            console.log(13, this.getTypeOfElementInQuery(value));
+            if (currentQueryElement.name !== key || currentQueryElement.type !== this.getTypeOfElementInQuery(value)) {
+                console.log(this.uriParams[queryInSplittedPathId].type[i], typeof value);
+                throw Error("I FUCKING HATE YOU");
             }
             result[key] = value;
         });
@@ -57,13 +67,7 @@ class uriDecoder {
         decodedURI.forEach((el, i) => {
             if (!this.uriParams)
                 return;
-            let elType = typeof '';
-            try {
-                elType = typeof JSON.parse(`${el}`);
-            }
-            catch (_a) {
-                elType = el instanceof Object ? "object" : "string";
-            }
+            const elType = this.getTypeOfElementInQuery(el);
             if (elType !== this.uriParams[i].type && elType !== "object") {
                 throw new Error('Request param\'s type is wrong');
             }

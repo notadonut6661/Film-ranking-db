@@ -28,4 +28,4 @@ app.post('/auth/signup', x.Signup);
 
 
 
-app.listen(4054, '192.168.0.224');
+app.listen(4054, '192.168.0.228');

@@ -16,7 +16,8 @@ export default abstract class Route {
 
   constructor() {
     this.MediaType = 'application/json';
-
+    this.Get = this.Get.bind(this);
+    this.Post = this.Post.bind(this);
   }
 
   public abstract Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void;
@@ -71,7 +72,8 @@ export default abstract class Route {
 
 
   protected getDecodedURI(HTTPMethod: RequestType, uri: string) {
-
+    console.log(this.getQueryDataType);
+    
     const uriDecoderE = new uriDecoder(this.getQueryDataType);
 
     return uriDecoderE.Decode(uri);
