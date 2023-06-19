@@ -15,13 +15,13 @@ export default function Submitting({ PopupId }: { PopupId: number }) {
       })
       .then((res) => {
         setActorName(res?.id);
-      });
+      }).catch(() => {});
   });
 
   return (
     <>
       <div className="actor-image">
-        <img alt="Actor"></img>
+        <img alt="Actor" src={`${config.server_url}/actorPhoto/${ActorId}`} />
       </div>
 
       <div className="text-forms">

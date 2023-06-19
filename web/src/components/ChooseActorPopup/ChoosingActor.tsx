@@ -23,21 +23,17 @@ export default function ChoosingActor({ PopupId, SetActorState }: ChoosingActorP
   
           if ((ActorSearch?.current?.value.length ?? 0) < 3) return;
           try {
-            const fetchedActorIds = await fetch(`${config.server_url}/actors/name?=""&length?=8`);
-            updateFetchedActors(Object.entries(fetchedActorIds).map(([val]) => +val));
+            const fetchedActorIds = await fetch(`${config.server_url}/actors/name?=${ActorSearch?.current?.value}&length?=8`);
+            updateFetchedActors(Object.values(fetchedActorIds).map(({id}) => +id));
           } catch {
             console.log('Something went wrong, as you can see')
           }
-      });
+      }); 
   })
 
 
 
-  return (  /**
-  * TODO
-  * change search font
-  */
- <>
+  return (<>
    <div className="Search TextForm">
      <input ref={ActorSearch} type="text" placeholder="Enter actor name" id="ActorSearch" />
    </div>

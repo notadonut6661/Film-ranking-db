@@ -1,7 +1,7 @@
 {
   "title": "FRDB",
   "url": "localhost:3000",
-  "server_url": "http://192.168.0.224:4054",
+  "server_url": "http://192.168.0.228:4054",
   "services": [{
     "name": "Netflix",
     "url": "https://www.netflix.com/title/"

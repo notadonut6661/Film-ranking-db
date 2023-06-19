@@ -111,9 +111,16 @@ span#PlaceholderText {
 
 .Actor {
   display: block;
+  padding: 0;
+  margin: 0;
   background: rgb(0, 107, 139);
 }
 
+.Actor > img {
+  height: 100%;
+  width: 100%;
+}
 .Actor.Chosen {
   border: #dd9906 solid;
 }
+

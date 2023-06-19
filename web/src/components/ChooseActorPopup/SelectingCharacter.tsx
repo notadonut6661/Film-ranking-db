@@ -9,28 +9,24 @@ interface SelectingCharacterProps {
   SetCharacterState: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function SelectingCharacter({ PopupId, SetCharacterState }: SelectingCharacterProps) {
+export default function SelectingCharacter({
+  PopupId,
+  SetCharacterState,
+}: SelectingCharacterProps) {
   const { ActorId, Character: InitialCharacter } = JSON.parse(
     localStorage.getItem(getActorLocalStorageName(PopupId)) || "{}"
   );
   const [actorName, setActorName] = useState("Actor name");
   const [Character, setCharacter] = useState(InitialCharacter);
   console.log(`http://${config.server_url}/actorPhoto/${ActorId}`);
-  
-  // const [actorImg, setActorImg] = useState(`http://${config.server_url}/actorPhoto/${ActorId}`);
 
-  
+
   const characterNameForm = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    // fetch(`${config.server_url}/film/${ActorId}`)
-    //   .then((res) => {
-    //     return res.json();
-    //   })
-    //   .then((res) => {
-    //     setActorName(res?.id);
-    //   });
-
+    // setActorName(localStorage.getItem(getActorLocalStorageName())?.id);
+    console.log(ActorId);
+    
     characterNameForm.current?.addEventListener("change", () => {
       saveCurrentActorToLocalStorage(PopupStages.SelectingCharacter, PopupId, {
         ActorId,
@@ -38,13 +34,12 @@ export default function SelectingCharacter({ PopupId, SetCharacterState }: Selec
       });
       SetCharacterState(ActorId);
     });
-    
   });
 
   return (
     <>
       <div className="actor-image">
-        {/* <img alt="Actor" src={actorImg}/> */}
+        <img alt="Actor" src={`${config.server_url}/actorPhoto/${ActorId}`}/>
       </div>
 
       <div className="text-forms">
@@ -53,7 +48,7 @@ export default function SelectingCharacter({ PopupId, SetCharacterState }: Selec
           <input
             placeholder="Enter the character's name"
             value={Character}
-            onChange={event => setCharacter(event.target.value)}
+            onChange={(event) => setCharacter(event.target.value)}
             className="character-name"
             ref={characterNameForm}
           />
