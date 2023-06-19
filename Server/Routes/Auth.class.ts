@@ -6,16 +6,13 @@ import { ParsedQs } from "qs";
 import { uriParamsType } from "../data/interfaces/uriParams.interface";
 import { Transporter } from "../helpers/nodemailerTransporter";
 
-export class Auth extends Route {
+export class Auth {
   protected routeName: string;
   protected dbName: string;
-  protected getQueryDataType: uriParamsType[];
 
   constructor() {
-    super();
     this.routeName = "auth";
     this.dbName = "users";
-    this.getQueryDataType = [];
   }
 
   public Signup(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {

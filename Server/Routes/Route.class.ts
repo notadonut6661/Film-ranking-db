@@ -19,6 +19,11 @@ export default abstract class Route {
 
   }
 
+  public abstract Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void;
+  public abstract Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void;
+  public abstract Patch(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void;
+  public abstract Delete(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void;
+
   private getAuthHeader(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>) {
     return req.headers.authorization?.split(' ')[1];
   }
@@ -50,7 +55,7 @@ export default abstract class Route {
     }
 
     console.log(input);
-    
+
     let realPass: string | undefined;
 
     try {

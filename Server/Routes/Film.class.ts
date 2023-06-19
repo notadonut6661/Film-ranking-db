@@ -9,7 +9,7 @@ export class Film extends Route {
 
   protected routeName: string;
   protected dbName: string;
-  protected readonly getQueryDataType: uriParamsType[];
+  protected readonly getQueryDataType: uriParamsType[]; 
 
   constructor() {
     super();
