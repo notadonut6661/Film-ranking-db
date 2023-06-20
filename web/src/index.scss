@@ -48,3 +48,14 @@ div.body {
   top: 5.95vh;
   margin-left: 25px;
 }
+
+.login-wrapper {
+  display: grid;
+  grid-template-rows: repeat(16, 6.25%);
+  grid-template-columns: 12.5% 75% 12.5%;
+  width: 300px;
+  height: 400px;
+  border-radius: 15px;
+  background: $primary-black;
+  border: 2px solid $primary-orange;
+}
