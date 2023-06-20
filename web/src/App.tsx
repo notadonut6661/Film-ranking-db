@@ -3,6 +3,7 @@ import Home from "./Pages/Home";
 import './index.scss';
 import Personal from "./Pages/Personal";
 import Add from "./Pages/AddTitle/index";
+import Login from "./Pages/Login";
 
 
 function App() {
@@ -11,6 +12,8 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/personal" element={<Personal />} />
       <Route path="/add" element={<Add/>} />
+      <Route path="/login" element={<Login/>} />
+      <Route path="/signup" element={<Login/>} />
     </Routes>
   );
 }

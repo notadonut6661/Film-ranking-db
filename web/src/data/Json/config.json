@@ -15,5 +15,6 @@
     "name": "Amazon prime",
     "url": "https://www.amazon.com/"
   }],
+  "default_annotation_fade_out_delay": 2500,
   "title_data_type": ["title", "category", "actors", "watch_on"]
 }
