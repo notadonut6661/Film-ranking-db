@@ -4,6 +4,7 @@ import './index.scss';
 import Personal from "./Pages/Personal";
 import Add from "./Pages/AddTitle/index";
 import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
 
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
       <Route path="/personal" element={<Personal />} />
       <Route path="/add" element={<Add/>} />
       <Route path="/login" element={<Login/>} />
-      <Route path="/signup" element={<Login/>} />
+      <Route path="/signup" element={<Signup/>} />
     </Routes>
   );
 }

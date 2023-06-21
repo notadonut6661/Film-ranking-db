@@ -10,41 +10,36 @@
 }
 
 
-
-.login-wrapper > .TextForm:has(input:focus) {
-  border-radius: 5px;
-}
-
-.login-wrapper > .TextForm:has(#email) {
+.body#login > .login-wrapper > .TextForm:has(#email) {
   grid-area: 6 / 2 / 6 / 2;
 }
 
-.login-wrapper > .TextForm:has(#email:invalid) {
+.body#login > .login-wrapper > .TextForm:has(#email:invalid) {
   border: 1px solid red;
   border-radius: 5px;
 }
 
-.login-wrapper > .TextForm:has(#password) {
+.body#login > .login-wrapper > .TextForm:has(#password) {
   grid-area: 8 / 2 / 8 / 2;
 }
 
-.login-wrapper > #submit {
+.body#login > .login-wrapper > #submit {
   grid-area: 10 / 2 / 10 / 2;
   background: #fff;
 }
 
-.login-wrapper > #submit > input[type="button"] {
+.body#login > .login-wrapper > #submit > input[type="button"] {
   height: 100%;
   width: 100%;
   background: none;
   border: none;
 } 
 
-.login-wrapper > #submit:has(.pending-response) {
+.body#login > .login-wrapper > #submit:has(.pending-response) {
   animation: 2s pending-response infinite alternate;
 }
 
-.login-wrapper > #submit:has(.pending-response)::before {
+.body#login > .login-wrapper > #submit:has(.pending-response)::before {
   content: "Pending for server response";
   opacity: 1 !important;
   font-size: medium;
@@ -59,11 +54,11 @@
 }
 
 
-.login-wrapper > #submit:has(.unsuccessful-request) {
+.body#login > .login-wrapper > #submit:has(.unsuccessful-request) {
   border: 1px solid rgb(255, 25, 25);
 }
 
-.login-wrapper > #submit:has(.unsuccessful-request)::after {
+.body#login > .login-wrapper > #submit:has(.unsuccessful-request)::after {
   content: "Oops, server error. Please try again later";
   font-size: medium;
   position: absolute;
@@ -78,7 +73,7 @@
   width: 285px;
 }
 
-.login-wrapper > #submit:has(.invalid-inputs)::after  {
+.body#login > .login-wrapper > #submit:has(.invalid-inputs)::after  {
   content: "Login data is invalid";
   font-size: medium;
   position: absolute;
@@ -93,16 +88,7 @@
   width: 285px;
 } 
 
-.login-wrapper > .signup {
-  color: #fff;
+.body#login > .login-wrapper > .signup {
   font-size: medium;
   grid-area: 12 / 2 / 12 / 4;
 }
-
-@keyframes pending-response {
-  from {
-    opacity: 0.2;
-  } to {
-    opacity: 1;
-  }
-} 

@@ -3,6 +3,7 @@ $primary-black: #292929;
 
 a {
   text-decoration: none;
+  color: #fff;
 }
 
 ul {
@@ -59,3 +60,16 @@ div.body {
   background: $primary-black;
   border: 2px solid $primary-orange;
 }
+
+.login-wrapper > .TextForm:has(input:focus) {
+  border-radius: 5px;
+}
+
+
+@keyframes pending-response {
+  from {
+    opacity: 0.2;
+  } to {
+    opacity: 1;
+  }
+} 
