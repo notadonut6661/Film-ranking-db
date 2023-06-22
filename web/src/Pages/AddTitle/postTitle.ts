@@ -6,10 +6,10 @@ import getActorLocalStorageName from "../../utils/getActorLocalStorageName";
 export default function postTitle(): void {
   function getPostData() {
     return {
-      title: window.localStorage.getItem(getLocalStorageName('Title')),
-      category: window.localStorage.getItem(getLocalStorageName('Category')),
-      plot: window.localStorage.getItem(getLocalStorageName('Plot')),
-      services: window.localStorage.getItem('WatchOn'),
+      title: window.localStorage.getItem(getLocalStorageName('Title')) ?? '',
+      category: window.localStorage.getItem(getLocalStorageName('Category')) ?? 'Film',
+      plot: window.localStorage.getItem(getLocalStorageName('Plot')) ?? '',
+      services: window.localStorage.getItem('WatchOn')  ??  '{}',
       cast: getActorsFromLocalStorage()
     }
   }
@@ -33,10 +33,9 @@ export default function postTitle(): void {
     },
     body: JSON.stringify(getPostData())
   }).then(res => res.json()).then(val => {
-    console.log(val);
-    window.location.href = `${config.url}`
+    deleteAllActorsFromDraft();
+    window.location.href = `../`;
   }).catch(err => {
     console.warn(err);
-    deleteAllActorsFromDraft();
   });
 }

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import updateWatchOnLocalStorage from "./updateWatchOnLocalStorage";
+import { getLocalStorageName } from "./getLocalStorageName";
 
 interface WatchOnElementProps {
   name: string;
@@ -7,12 +8,12 @@ interface WatchOnElementProps {
 }
 
 export default function WatchOnElement({ name, serviceDomain = "https://wikipedia.org", }: WatchOnElementProps): JSX.Element {
+  const savedLinkToService = JSON.parse(localStorage.getItem(getLocalStorageName("WatchOn")) ?? '{}')[name];
   const [isOnService, setIsOnService] = useState(false);
-  const [linkToTitleVal, setLinkToTitleVal] = useState(serviceDomain);
-
+  const [linkToTitleVal, setLinkToTitleVal] = useState(savedLinkToService ?? serviceDomain);
+  
   const checkboxClickHandler = () => {
     updateWatchOnLocalStorage(name, !isOnService, linkToTitleVal);
-
     setIsOnService((val) => !val);    
   } 
   
@@ -21,9 +22,13 @@ export default function WatchOnElement({ name, serviceDomain = "https://wikipedi
     updateWatchOnLocalStorage(name, isOnService, ev.target.value);
   }
 
+  useEffect(() => {
+    if (savedLinkToService) setIsOnService(true);
+  }, [savedLinkToService]);
+
   return (
     <div>
-      <input type="checkbox" onClick={checkboxClickHandler} />
+      <input type="checkbox" onClick={checkboxClickHandler} checked={isOnService}/>
       <input
         type="url"
         className="linkToTitle"
