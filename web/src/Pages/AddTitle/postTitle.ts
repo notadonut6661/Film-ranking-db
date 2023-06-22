@@ -14,7 +14,7 @@ export default function postTitle(): void {
     }
   }
 
-  function deleteAllActorsFromDraft() {
+  function deleteAllActorsFromDraft(): void {
     for (const el of config.title_data_type) {
       window.localStorage.removeItem(getLocalStorageName(el));
     }

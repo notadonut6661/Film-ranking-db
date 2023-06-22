@@ -1,7 +1,11 @@
+import { getLocalStorageName } from "./getLocalStorageName";
+
 export default function updateWatchOnLocalStorage(name: string, isOnService: boolean, url: string): void {
-  if (window.localStorage.getItem('WatchOn') === null) window.localStorage.setItem('WatchOn', JSON.stringify({}));
+  if (window.localStorage.getItem(getLocalStorageName("WatchOn")) === null) {
+    window.localStorage.setItem(getLocalStorageName("WatchOn"), JSON.stringify({}));
+  }
   
-  const prevWatchOn = JSON.parse(window.localStorage.getItem("WatchOn") ?? '{}');
+  const prevWatchOn = JSON.parse(window.localStorage.getItem(getLocalStorageName("WatchOn")) ?? '{}');
   const newWatchOn: Record<string, string> = { ...prevWatchOn };
 
   if (isOnService) {
@@ -10,5 +14,5 @@ export default function updateWatchOnLocalStorage(name: string, isOnService: boo
     delete newWatchOn[name];
   }
 
-  window.localStorage.setItem("WatchOn", JSON.stringify(newWatchOn))
+  window.localStorage.setItem(getLocalStorageName("WatchOn"), JSON.stringify(newWatchOn))
 }

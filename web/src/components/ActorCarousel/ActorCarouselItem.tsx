@@ -12,7 +12,7 @@ interface CarouselItemProps {
 }
 
 export default function CarouselItem({id,  updateCarouselItems, carouselItems, isCreator}: CarouselItemProps): JSX.Element {
-  // FIXME function's name is not clearly understandable
+  
   const deleteCurrentActorFromLocalStorage = (newCastElementData: CastElement[]) => {
     for (const i in newCastElementData) {
       const localStorageName = IsTitlePageNew().isNew ? `draft-new-title-actor-${i}` : `draft-edit-${IsTitlePageNew().titleId}-title-actor-${i}`;
@@ -24,41 +24,43 @@ export default function CarouselItem({id,  updateCarouselItems, carouselItems, i
     window.localStorage.removeItem(getActorLocalStorageName(newCastElementData.length));
   };
   
-  console.log(isCreator);
-  
+  function deleteActor() {
+    return () => {
+      const newCastElementData: CastElement[] = [];
+      Object.entries(window.localStorage).filter(([key]) => {
+        const filterLocalStorageName = IsTitlePageNew().isNew ? "draft-new-title-actor" : `draft-edit-${IsTitlePageNew().titleId}-title-actor`;
+        return key.includes(filterLocalStorageName);
+      }).sort(([keyA], [keyB]) => {
+        return getCarouselItemId(keyA) - getCarouselItemId(keyB);
+      }).map(([, value]) => JSON.parse(value)).forEach((val, i, arr) => {
+
+        if (i === id) {
+          newCastElementData[arr.length - 1] = {};
+          return;
+        }
+
+        if (i < id) {
+          newCastElementData[i] = val;
+          return;
+        }
+
+        newCastElementData[i - 1] = val;
+      });
+
+      newCastElementData.pop();
+      console.warn(newCastElementData);
+
+
+      deleteCurrentActorFromLocalStorage(newCastElementData);
+
+
+      updateCarouselItems(newCastElementData);
+    };
+  }
+
   return (
     <li>
-     { isCreator || <button className="close" onClick={() => {
-        const newCastElementData: CastElement[] = [];
-       Object.entries(window.localStorage).filter(([key]) => {
-          const filterLocalStorageName = IsTitlePageNew().isNew ? "draft-new-title-actor" : `draft-edit-${IsTitlePageNew().titleId}-title-actor`;
-          return key.includes(filterLocalStorageName);
-        }).sort(([keyA], [keyB]) => {
-          return getCarouselItemId(keyA) - getCarouselItemId(keyB);
-        }).map(([, value]) => JSON.parse(value)).forEach((val, i, arr) => {
-          
-          if (i === id) {
-            newCastElementData[arr.length - 1] = {};  
-            return;
-          }
-          
-          if (i < id) {
-            newCastElementData[i] = val
-            return;
-          }
-
-          newCastElementData[i - 1] = val
-        });
-                
-        newCastElementData.pop();
-        console.warn(newCastElementData);
-        
-        
-        deleteCurrentActorFromLocalStorage(newCastElementData);
-
-        
-        updateCarouselItems(newCastElementData);
-      }}></button>}
+     { isCreator || <button className="close" onClick={deleteActor()}></button>}
       {!isCreator ? <button id={`CarouselItem${id}`}  className="carousel-item" onClick={() => {
         const popupElement = document.querySelector(`#ChooseActorPopup${id}`);
         if (popupElement?.className.includes('Active')) {
@@ -72,7 +74,7 @@ export default function CarouselItem({id,  updateCarouselItems, carouselItems, i
 
         popupElement?.classList.add("Active");
       }}> 
-        <img src={`${config.server_url}/`}></img>
+        <img src={`${config.server_url}/ActorPhoto/${carouselItems[id].ActorId}`}></img>
       </button>: <button className="new-carousel-item" onClick={() => {
         console.log(getActorLocalStorageName(carouselItems.length - 1), carouselItems);
         

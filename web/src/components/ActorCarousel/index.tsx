@@ -18,11 +18,7 @@ interface CastElement {
 export default function ActorCarousel({
   EditMode,
 }: ActorCarouselProps): JSX.Element {
-  // FIXME bad naming
-  const [ulLength, setUlLength] = useState(0);  
-  // FIXME scroll length not scrolledElements
   const [scrolledElements, setScrolledElements] = useState(0);
-
   const IfCurrentTitleNew = IsTitlePageNew();
 
   // TODO add carousel element for adding actors
@@ -41,10 +37,6 @@ export default function ActorCarousel({
     return EditMode ? [...DraftCarousel, {}]: DraftCarousel
   }
 
-  useEffect(() => {
-    // TODO add error handling
-    setUlLength(document.querySelector("div.cast > ul")?.children.length ?? 0);
-  }, []);
 
   // FIXME magic number
   const getMaximalScrollIndex = (): number => getAllCarouselItems().length - 4;

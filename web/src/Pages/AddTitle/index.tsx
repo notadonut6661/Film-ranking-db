@@ -7,7 +7,6 @@ import WatchOn from "./watchOn";
 import { getLocalStorageName } from "./getLocalStorageName";
 import postTitle from "./postTitle";
 
-//FIXME It's actually add&edit title, name doesn't correctly tells purposes of function
 export default function AddTitle(): JSX.Element {
   const [titleValue, setTitleValue] = useState(localStorage.getItem(getLocalStorageName('Title')) ?? '');
   const [categoryValue, setCategoryValue] = useState(localStorage.getItem(getLocalStorageName('Category')) ?? '' );
