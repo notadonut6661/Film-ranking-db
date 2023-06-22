@@ -3,44 +3,57 @@
 .body#signup {
   display: flex;
   align-items: center;
+  background: url('../../assets/sign-up-bg.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   justify-content: center;
   height: calc(100% - 5.95vh);
   width: 100%;
   margin: 0;
 }
 
-.login-wrapper > .TextForm:has(#nickname) {
+.signup-wrapper {
+  display: grid;
+  grid-template-rows: repeat(16, 6.25%);
+  grid-template-columns: 12.5% 75% 12.5%;
+  width: 450px;
+  height: 600px;
+  border-radius: 15px;
+  background: $primary-black;
+  border: 2px solid $primary-orange;
+}
+
+.signup-wrapper > .TextForm:has(#nickname) {
   grid-area: 4 / 2 / 4 / 2;
 }
 
-.login-wrapper > .TextForm:has(#email) {
+.signup-wrapper > .TextForm:has(#email) {
   grid-area: 6 / 2 / 6 / 2;
 }
 
-.login-wrapper > .TextForm:has(#password) {
+.signup-wrapper > .TextForm:has(#password) {
   grid-area: 8 / 2 / 8 / 2;
 }
 
-.login-wrapper > .TextForm:has(#confirm-password) {
+.signup-wrapper > .TextForm:has(#confirm-password) {
   grid-area: 10 / 2 / 10 / 2;
 }
 
-.login-wrapper > .TextForm:has(#confirm-password) {
-  grid-area: 10 / 2 / 10 / 2;
-}
 
-.login-wrapper > #create-account {
+.signup-wrapper > #create-account {
   grid-area: 12 / 2 / 12 / 2;
   border: 1px solid;
   background: #fff;
 }
 
-.login-wrapper > a.login {
-  grid-area: 14 / 2 / 14 / 4;
+.signup-wrapper > a.login {
+  grid-area: 13 / 2 / 13 / 4;
   
 }
 
-.login-wrapper > .TextForm:has(#nickname:invalid:focus)::before {
+.signup-wrapper > .TextForm:has(#nickname:invalid:not(:focus))::after {
   content: "Nickname should only contain letters from latin alphabet";
   font-size: medium;
   position: absolute;
@@ -48,30 +61,52 @@
   justify-content: center;
   height: 1.5em;
   margin-left: -30px;
-  margin-top: -1.5em;
   background: #000;
   color: #fff;
   border: 1px solid #ff0000;
   width: 405px;
 }
 
-.login-wrapper > .TextForm:has(#nickname:valid:focus) {
+
+.signup-wrapper > .TextForm:has(#email:invalid:not(:focus))::after {
+  content: "Email is not invalid";
+  font-size: medium;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  height: 1.5em;
+  background: #000;
+  color: #fff;
+  border: 1px solid #ff0000;
+  width: 335px;
+}
+
+.signup-wrapper > .TextForm:has(#nickname:valid:not(.empty):not(:focus)) {
   border: 2px solid #198754;
 }
 
-.login-wrapper > .TextForm:has(#password:invalid:focus)::before {
-  content: "Nickname should only contain letters from latin alphabet";
-  font-size: medium;
+.signup-wrapper > .TextForm:has(#password:invalid:focus)::after {
+  content: "Password must contain at least 8 character, there should be atleast 1 uppercase letter, lowercase letter and number";
+  font-size: small;
   position: absolute;
   display: flex;
   justify-content: center;
-  height: 1.5em;
-  margin-left: -30px;
-  margin-top: -1.5em;
-  background: #000;
+  height: 2.5em;
+  background: none;
+  border-radius: 5px;
   color: #fff;
-  border: 1px solid #ff0000;
-  width: 405px;
+  width: 335px;
+}
+
+.signup-wrapper > .TextForm:has(#confirm-password:not(.match-password):focus)::after {
+  content: "Passwords don not match";
+  font-size: small;
+  position: absolute;
+  display: flex;
+  height: 2.5em;
+  background: none;
+  color: #fff;
+  width: 335px;
 }
 
 #create-account > input {
