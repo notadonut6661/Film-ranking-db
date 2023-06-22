@@ -6,7 +6,7 @@ import ChoosingActor from "./ChoosingActor";
 import SelectingCharacter from "./SelectingCharacter";
 import Submitting from "./Submitting";
 import PopupStageNavigation from "./PopupStageNavigation";
-import getActorLocalStorageName from "./getActorLocalStorageName";
+import getActorLocalStorageName from "../../utils/getActorLocalStorageName";
 import CastElement from "../../data/Interfaces/castElement.interface";
 
 export default function ChooseCastMember({

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import config from "../../data/Json/config.json";
-import getActorLocalStorageName from "./getActorLocalStorageName";
+import getActorLocalStorageName from "../../utils/getActorLocalStorageName";
 
 export default function Submitting({ PopupId }: { PopupId: number }) {
   const { ActorId, Character } = JSON.parse(

@@ -1,4 +1,4 @@
-import IsTitlePageNew from "../../utils/GetIsTitlePageNew";
+import IsTitlePageNew from "./GetIsTitlePageNew";
 
 export default function getActorLocalStorageName(id: number) {
   const IfCurrentTitleNew = IsTitlePageNew();

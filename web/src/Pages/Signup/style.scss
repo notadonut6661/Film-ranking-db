@@ -98,8 +98,8 @@
   width: 335px;
 }
 
-.signup-wrapper > .TextForm:has(#confirm-password:not(.match-password):focus)::after {
-  content: "Passwords don not match";
+.signup-wrapper > .TextForm:has(#confirm-password:not(.match-password))::after {
+  content: "Passwords do not match";
   font-size: small;
   position: absolute;
   display: flex;

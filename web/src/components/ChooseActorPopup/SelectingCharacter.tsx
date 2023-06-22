@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import config from "../../data/Json/config.json";
 import saveCurrentActorToLocalStorage from "./saveCurrentActorToLocalStorage";
 import { PopupStages } from "../../data/PopupStages.enum";
-import getActorLocalStorageName from "./getActorLocalStorageName";
+import getActorLocalStorageName from "../../utils/getActorLocalStorageName";
 
 interface SelectingCharacterProps {
   PopupId: number;

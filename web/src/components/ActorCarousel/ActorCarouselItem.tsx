@@ -1,6 +1,6 @@
 import CastElement from "../../data/Interfaces/castElement.interface";
 import IsTitlePageNew from "../../utils/GetIsTitlePageNew";
-import getActorLocalStorageName from "../ChooseActorPopup/getActorLocalStorageName";
+import getActorLocalStorageName from "../../utils/getActorLocalStorageName";
 import { getCarouselItemId } from "./getCarouselItemId";
 import config from '../../data/Json/config.json';
 

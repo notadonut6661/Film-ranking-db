@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import saveCurrentActorToLocalStorage from "./saveCurrentActorToLocalStorage";
 import { PopupStages } from "../../data/PopupStages.enum";
-import getActorLocalStorageName from "./getActorLocalStorageName";
+import getActorLocalStorageName from "../../utils/getActorLocalStorageName";
 import config from "../../data/Json/config.json";
 
 interface ChoosingActorProps {
