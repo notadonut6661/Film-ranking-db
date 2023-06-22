@@ -14,15 +14,17 @@ export default function postTitle(): void {
     }
   }
 
-  const { category } = getPostData();
-
   function deleteAllActorsFromDraft() {
+    for (const el of config.title_data_type) {
+      window.localStorage.removeItem(getLocalStorageName(el));
+    }
+
     for (const i in getActorsFromLocalStorage()) {
       localStorage.removeItem(getActorLocalStorageName(Number(i)));
     }
   }
 
-  console.log(getActorsFromLocalStorage());
+  const { category } = getPostData();
 
   fetch(`${config.server_url}/${category?.toLocaleLowerCase()}/`, {
     method: "POST",
