@@ -34,7 +34,7 @@ export default function postTitle(): void {
     body: JSON.stringify(getPostData())
   }).then(res => res.json()).then(val => {
     console.log(val);
-
+    window.location.href = `${config.url}`
   }).catch(err => {
     console.warn(err);
     deleteAllActorsFromDraft();
