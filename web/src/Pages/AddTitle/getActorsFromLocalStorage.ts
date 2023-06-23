@@ -1,5 +1,5 @@
-import CastElement from "../../data/Interfaces/castElement.interface";
-import IsTitlePageNew from "../../utils/GetIsTitlePageNew";
+import CastElement from "data/Interfaces/castElement.interface";
+import IsTitlePageNew from "utils/GetIsTitlePageNew";
 
 export default function getActorsFromLocalStorage(): CastElement[] {
   const getActorLocalStorageNameTemplate = () => {

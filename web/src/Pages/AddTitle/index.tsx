@@ -1,6 +1,6 @@
-import Footer from "../../components/Footer";
-import Navbar from "../../components/Navbar";
-import ActorCarousel from "../../components/ActorCarousel";
+import Footer from "components/Footer";
+import Navbar from "components/Navbar";
+import ActorCarousel from "components/ActorCarousel";
 import "./style.scss";
 import { useEffect, useState } from "react";
 import WatchOn from "./watchOn";

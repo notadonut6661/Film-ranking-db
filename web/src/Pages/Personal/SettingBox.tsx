@@ -7,13 +7,9 @@ interface SettingBoxProps {
   }[];
 }
 
-export function SettingBox({
-  label,
-  settings,
-  id,
-}: SettingBoxProps): JSX.Element {
+export function SettingBox({ label, settings, id,}: SettingBoxProps): JSX.Element {
   return (
-    <div className="SettingBox" id={`${id}`}>
+    <div className="SettingBox" id={id}>
       <span className="SettingBoxLabel">{label}</span>
       <div className="SettingBoxBody">{
         settings.map((el) => {

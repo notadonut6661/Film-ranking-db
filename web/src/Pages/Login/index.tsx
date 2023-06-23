@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import "./style.scss";
-import Footer from "../../components/Footer";
-import Navbar from "../../components/Navbar";
-import config from "../../data/Json/config.json";
+import Footer from "components/Footer";
+import Navbar from "components/Navbar";
+import config from "data/Json/config.json";
 
 export default function Login(): JSX.Element {
   const [email, setEmail] = useState("");

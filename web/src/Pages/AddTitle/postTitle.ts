@@ -1,7 +1,7 @@
 import { getLocalStorageName } from "./getLocalStorageName";
-import config from '../../data/Json/config.json';
+import config from 'data/Json/config.json';
 import getActorsFromLocalStorage from "./getActorsFromLocalStorage";
-import getActorLocalStorageName from "../../utils/getActorLocalStorageName";
+import getActorLocalStorageName from "utils/getActorLocalStorageName";
 
 export default function postTitle(): void {
   function getPostData() {

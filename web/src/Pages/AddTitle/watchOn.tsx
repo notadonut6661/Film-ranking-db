@@ -1,5 +1,5 @@
 import WatchOnElement from "./watchOnElement";
-import config from '../../data/Json/config.json';
+import config from 'data/Json/config.json';
 
 export default function WatchOn(): JSX.Element {
   
