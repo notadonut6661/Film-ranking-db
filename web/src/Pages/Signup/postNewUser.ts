@@ -24,9 +24,12 @@ export default async function postNewUser(user: UserData): Promise<string | obje
       password: user.password,
     })});
     
-    if(signupResponse.status === StatusCodes.NOT_ACCEPTABLE) {
-      throw new Error("");
+    const fetchedSignupResponse = await signupResponse.json();
+
+    if (!signupResponse.ok) {
+      return String(fetchedSignupResponse?.ERROR);
     }
 
-  return "";
+    
+    return fetchedSignupResponse as object;
 }
