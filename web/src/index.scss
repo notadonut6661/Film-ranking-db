@@ -65,6 +65,24 @@ div.body {
   border-radius: 5px;
 }
 
+@mixin message {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+}
+
+@mixin error-message {
+  @include message;
+  background: black;
+  border: 1px solid #ff0000;
+}
+
+@mixin info-message {
+  @include message;
+  background: none;
+  color: #fff;
+}
 
 @keyframes pending-response {
   from {

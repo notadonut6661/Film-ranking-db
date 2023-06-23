@@ -2,17 +2,41 @@ import { useEffect, useRef, useState } from "react";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import "./style.scss";
+import postNewUser from "./postNewUser";
 
 export default function Signup(): JSX.Element {
   const nickname: React.MutableRefObject<HTMLInputElement | null> = useRef(null);
-  const email: React.MutableRefObject<HTMLInputElement | null> = useRef(null);
   const confirmPassword: React.MutableRefObject<HTMLInputElement | null> = useRef(null);
 
   const [nicknameVal, setNicknameVal] = useState("");
   const [emailVal, setEmailVal] = useState("");
   const [passwordVal, setPasswordVal] = useState("");
   const [confirmPasswordVal, setConfirmPasswordVal] = useState("");
+  const [isEmailAvailable, setIsEmailAvailable] = useState(true);
+  
+  function postUser() {
+    const user = {
+      nickname: nicknameVal,
+      email: emailVal,
+      password: passwordVal,
+      confirmedPassword: confirmPasswordVal
+    }
 
+    postNewUser(user).then(val => {
+      if (val === "UNAVAILABLE_EMAIL") {
+        setIsEmailAvailable(false);
+        return;
+      }
+
+      if (val instanceof Object) {
+        window.location.replace('../Personal');
+      }
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  // FIXME refactor this shit
   useEffect(() => {
     if (nicknameVal.length === 0) {
       nickname.current?.classList.add("empty");
@@ -23,8 +47,6 @@ export default function Signup(): JSX.Element {
   }, [nicknameVal]);
 
   useEffect(() => {
-    console.log(passwordVal);
-    
     if (passwordVal !== confirmPasswordVal) {
       confirmPassword.current?.classList.remove("match-password");
       return;
@@ -49,7 +71,7 @@ export default function Signup(): JSX.Element {
             />
           </div>
           <div className="TextForm">
-            <input type="email" id="email" placeholder="Your email" />
+            <input type="email" id="email" placeholder="Your email" className={`${isEmailAvailable ? '': 'unavailable'}`} />
           </div>
           <div className="TextForm">
             <input
@@ -77,6 +99,7 @@ export default function Signup(): JSX.Element {
               type="button"
               value="Create an account"
               className="create-account"
+              onClick={postUser}
             />
           </div>
           <a href="../login" className="login">

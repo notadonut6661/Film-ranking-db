@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import config from '../../data/Json/config.json';
 
 interface UserData {
@@ -30,6 +29,5 @@ export default async function postNewUser(user: UserData): Promise<string | obje
       return String(fetchedSignupResponse?.ERROR);
     }
 
-    
     return fetchedSignupResponse as object;
 }
