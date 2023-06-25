@@ -1,29 +1,26 @@
 import { useState } from "react";
 import PostersPopupTrigger from "./postersPopupTrigger";
+import posterData from '../../data/Interfaces/posterData.interface';
 
-interface posterData {
-  src: "";
-  isAddButton: boolean;
+interface PosterProps {
+  addedPosters: posterData[];
+  updateAddedPosters: React.Dispatch<React.SetStateAction<posterData[]>>;
 }
 
-export default function AddTitlePoster(): JSX.Element {
-  const [addedPosters, updateAddedPosters] = useState<posterData[]>([]);
-  const popupActivated = useState(false);
+export default function Poster({addedPosters, updateAddedPosters}: PosterProps): JSX.Element {
 
   const getAllElements = () => {
-    const maxShowLength = popupActivated ? null : 3;
-    return [...(addedPosters.slice(0, maxShowLength || undefined)), {src: "", isAddButton: true}];
+    const maxShowLength = 3;
+    return [...addedPosters.slice(0, maxShowLength), {src: "", isAddButton: true}];
   }
 
   const fileInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.error(11);
-    
     const file = e.target.files?.[0];
 
     if (file === undefined) return;
 
     const urlToPoster = URL.createObjectURL(file);
-    updateAddedPosters(prev => [...prev,  {src: String(urlToPoster), isAddButton: false} ] as posterData[]);
+    updateAddedPosters(prev => [...prev,  {src: urlToPoster, isAddButton: false} ] as posterData[]);
   }
 
   return (<ul className="add-title-poster">

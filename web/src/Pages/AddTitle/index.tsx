@@ -6,12 +6,14 @@ import { useEffect, useState } from "react";
 import WatchOn from "./watchOn";
 import { getLocalStorageName } from "./getLocalStorageName";
 import postTitle from "./postTitle";
-import AddTitlePoster from "./AddTitlePoster";
+import Poster from "./Poster";
+import posterData from "data/Interfaces/posterData.interface";
 
 export default function AddTitle(): JSX.Element {
   const [titleValue, setTitleValue] = useState(localStorage.getItem(getLocalStorageName('Title')) ?? '');
   const [categoryValue, setCategoryValue] = useState(localStorage.getItem(getLocalStorageName('Category')) ?? '' );
   const [plotValue, setPlotValue] = useState(localStorage.getItem(getLocalStorageName('Plot')) ?? '' );
+  const [addedPosters, updateAddedPosters] = useState<posterData[]>([]);
 
   const saveFormDataToLocalStorage = (CurrentFormData: {
     Title?: string;
@@ -83,7 +85,7 @@ export default function AddTitle(): JSX.Element {
               <option value="Film">Film</option>
               <option value="Series">Series</option>
             </select>
-            <AddTitlePoster />
+            <Poster addedPosters={addedPosters} updateAddedPosters={updateAddedPosters}/>
             <textarea maxLength={512} className="TextForm" id="Plot" value={plotValue} onChange={ev => {
                 setPlotValue(ev.target.value);
             }}></textarea>
