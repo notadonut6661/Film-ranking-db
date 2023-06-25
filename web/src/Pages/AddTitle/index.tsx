@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import WatchOn from "./watchOn";
 import { getLocalStorageName } from "./getLocalStorageName";
 import postTitle from "./postTitle";
+import AddTitlePoster from "./AddTitlePoster";
 
 export default function AddTitle(): JSX.Element {
   const [titleValue, setTitleValue] = useState(localStorage.getItem(getLocalStorageName('Title')) ?? '');
@@ -82,6 +83,7 @@ export default function AddTitle(): JSX.Element {
               <option value="Film">Film</option>
               <option value="Series">Series</option>
             </select>
+            <AddTitlePoster />
             <textarea maxLength={512} className="TextForm" id="Plot" value={plotValue} onChange={ev => {
                 setPlotValue(ev.target.value);
             }}></textarea>
@@ -89,7 +91,9 @@ export default function AddTitle(): JSX.Element {
           <ActorCarousel EditMode={true} />
           <input type="button" value={"Submit"} className="Submit" onClick={postTitle}/>
         </div>
-        <WatchOn/>
+        <div>
+          <WatchOn/>
+        </div>
       </div>
       <Footer></Footer>
       <Navbar></Navbar>
