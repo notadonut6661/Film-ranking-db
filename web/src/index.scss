@@ -84,6 +84,10 @@ div.body {
   color: #fff;
 }
 
+@mixin popup {
+  display: none;
+}
+
 @keyframes pending-response {
   from {
     opacity: 0.2;

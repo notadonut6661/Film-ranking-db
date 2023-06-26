@@ -26,7 +26,7 @@ export default function Poster({addedPosters, updateAddedPosters}: PosterProps):
   return (<ul className="add-title-poster">
     {getAllElements().map(({src, isAddButton}, index) => {
       return <li className={isAddButton ? "add-poster-button" : "poster"}>
-          {isAddButton && <label><input type="file" onInput={(fileInputHandler)}/></label>}
+          {isAddButton && <label><input type="file" onInput={(fileInputHandler)} accept="image/png, image/jpeg" /></label>}
           {isAddButton || <PostersPopupTrigger index={index} src={src}/>}
       </li>;
     })}
