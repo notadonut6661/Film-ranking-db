@@ -8,6 +8,7 @@ import { getLocalStorageName } from "./getLocalStorageName";
 import postTitle from "./postTitle";
 import Poster from "./Poster";
 import posterData from "data/Interfaces/posterData.interface";
+import PosterCropPopup from "../../components/CropPopup/PosterCropPopup";
 
 export default function AddTitle(): JSX.Element {
   const [titleValue, setTitleValue] = useState(localStorage.getItem(getLocalStorageName('Title')) ?? '');
@@ -97,6 +98,7 @@ export default function AddTitle(): JSX.Element {
           <WatchOn/>
         </div>
       </div>
+      <PosterCropPopup />
       <Footer></Footer>
       <Navbar></Navbar>
     </>

@@ -1,6 +1,6 @@
 export default function PosterCropPopup(): JSX.Element {
    return <div className="poster-crop-popup">
-    <div>
+    <div className="crop-editor">
       <canvas />
       <div id="crop-chooser">
         <span></span>
@@ -9,6 +9,13 @@ export default function PosterCropPopup(): JSX.Element {
         <span></span>
       </div>
     </div>
-    <div className="control-panel"></div>
+    <div className="control-panel">
+      <label>
+        <input type="radio" name="poster-ratio"/>
+      </label>
+      <label>
+        <input type="radio" name="poster-ratio"/>
+      </label>
+    </div>
   </div>;
 } 
