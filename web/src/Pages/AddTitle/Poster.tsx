@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PostersPopupTrigger from "./postersPopupTrigger";
 import posterData from '../../data/Interfaces/posterData.interface';
+import setNewImageToCropTools from "./setNewImageToCropTools";
 
 interface PosterProps {
   addedPosters: posterData[];
@@ -19,8 +20,8 @@ export default function Poster({addedPosters, updateAddedPosters}: PosterProps):
 
     if (file === undefined) return;
 
-    const urlToPoster = URL.createObjectURL(file);
-    updateAddedPosters(prev => [...prev,  {src: urlToPoster, isAddButton: false} ] as posterData[]);
+    setNewImageToCropTools(file);
+    // updateAddedPosters(prev => [...prev,  {src: urlToPoster, isAddButton: false} ] as posterData[]);
   }
 
   return (<ul className="add-title-poster">
