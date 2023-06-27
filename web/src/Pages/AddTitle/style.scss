@@ -119,25 +119,3 @@ div.body#Add {
   height: 100%;
 }
 
-
-.poster-crop-popup {
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: 5.95vh;
-  left: 0;
-  height: calc(100% - 5.95vh);
-  background: #000;
-}
-
-.poster-crop-popup > .crop-editor {
-  height: calc(100% - 40px);
-}
-
-.poster-crop-popup > .control-panel {
-  background-color: #e9e9e9;
-  position: absolute;
-  height: 40px;
-  bottom: 0;
-  width: 100%;
-}

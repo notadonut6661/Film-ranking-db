@@ -4,5 +4,5 @@ export default function setNewImageToCropTools(rawImage: File): void {
   const newImage = new Image(); 
   newImage.src = url;
   
-  ctx?.drawImage(newImage, 0, 0)
+  ctx?.drawImage(newImage, 0, 0);
 }
