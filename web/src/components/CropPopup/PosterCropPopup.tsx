@@ -2,8 +2,8 @@ import "./style.scss";
 import { useCallback, useState, useMemo, useRef, useEffect } from "react";
 
 interface Coords {
-  x: number;
-  y: number;
+  x?: number;
+  y?: number;
 }
 
 export default function PosterCropPopup(): JSX.Element {
@@ -11,7 +11,7 @@ export default function PosterCropPopup(): JSX.Element {
   const cropArea = useRef<HTMLDivElement  | null>(null);
   const imageCanvas = useRef<HTMLCanvasElement |null>(null);
 
-  const [cropAreaPos, setCropAreaPos] = useState<Coords | null>(null);
+  const [cropAreaPos, setCropAreaPos] = useState<Coords>({});
 
   const submitClickHandler = useCallback(() => {}, []);
 
@@ -22,11 +22,13 @@ export default function PosterCropPopup(): JSX.Element {
     console.log(shiftY, ev.pageY);
         
     function onMouseMove(event: MouseEvent) {
+      if (Number(imageCanvas.current?.getBoundingClientRect().top) <= (event.pageY - shiftY) && Number(imageCanvas.current?.getBoundingClientRect().bottom) >= (event.pageY  - shiftY + Number(cropArea.current?.getBoundingClientRect().height))) {
+        setCropAreaPos(prev => {return {...prev, y: event.pageY - shiftY}});
+      }
+      if(Number(imageCanvas.current?.getBoundingClientRect().left) <= (event.pageX - shiftX) && Number(imageCanvas.current?.getBoundingClientRect().right) >= (event.pageX  - shiftX + Number(cropArea.current?.getBoundingClientRect().width))) {
+        setCropAreaPos(prev => {return {...prev, x: event.pageX - shiftX}});
+      };
       
-      console.log(shiftY, event.pageY );
-      
-        setCropAreaPos({x: event.pageX - shiftX, y: event.pageY - shiftY});
-        
       }
 
       document.addEventListener('mousemove', onMouseMove);
@@ -45,7 +47,7 @@ export default function PosterCropPopup(): JSX.Element {
         <div id="current-image">
           <canvas ref={imageCanvas}/>
         </div>
-        <div id="crop-chooser"  style={null === cropAreaPos ? {} : {left: cropAreaPos.x, top: cropAreaPos.y - 59.0625} } ref={cropArea}>
+        <div id="crop-chooser"  style={ undefined === cropAreaPos.x && cropAreaPos.y === undefined ? {} : {left: cropAreaPos.x, top: Number(cropAreaPos.y) - 59.0625} } ref={cropArea}>
           <div id="move-crop-chooser" onMouseDown={cropAreaSelectorDragHandler} draggable="true"></div>
         </div>
       </div>
