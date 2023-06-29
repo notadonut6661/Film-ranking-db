@@ -91,7 +91,7 @@ export class userRecommendationManager {
 
     const tagsRankSum: number = title.tags.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
     const genreRankSum: number = title.genres.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
-
+    //!IMPORTANT FIXME This is bad weigthing, make so it has static weight
     return Math.pow(genreRankSum, 2) + tagsRankSum;
   }
 
