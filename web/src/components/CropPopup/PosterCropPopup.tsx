@@ -20,17 +20,36 @@ export default function PosterCropPopup(): JSX.Element {
     const shiftY = ev.clientY -  Number(cropArea.current?.getBoundingClientRect().top);
     
     console.log(shiftY, ev.pageY);
-        
+    
     function onMouseMove(event: MouseEvent) {
-      if (Number(imageCanvas.current?.getBoundingClientRect().top) <= (event.pageY - shiftY) && Number(imageCanvas.current?.getBoundingClientRect().bottom) >= (event.pageY  - shiftY + Number(cropArea.current?.getBoundingClientRect().height))) {
-        setCropAreaPos(prev => {return {...prev, y: event.pageY - shiftY}});
-      }
-      if(Number(imageCanvas.current?.getBoundingClientRect().left) <= (event.pageX - shiftX) && Number(imageCanvas.current?.getBoundingClientRect().right) >= (event.pageX  - shiftX + Number(cropArea.current?.getBoundingClientRect().width))) {
-        setCropAreaPos(prev => {return {...prev, x: event.pageX - shiftX}});
+      // FIXME Make an interface called Position 
+      const newCropAreaPosition = Object.freeze({
+        top: event.pageY - shiftY,
+        bottom: event.pageY  - shiftY + Number(cropArea.current?.getBoundingClientRect().height),
+        left: event.pageX - shiftX,
+        right: event.pageX - shiftX + Number(cropArea.current?.getBoundingClientRect().width)
+      });
+
+      // TODO Talk with Jenya about making checkCollision function, maybe make CollideableObject class 
+      if (Number(imageCanvas.current?.getBoundingClientRect().top) <= newCropAreaPosition.top && Number(imageCanvas.current?.getBoundingClientRect().bottom) >= newCropAreaPosition.bottom) {
+        setCropAreaPos(prev => {return {...prev, y: newCropAreaPosition.top}});
+      } else if (Number(imageCanvas.current?.getBoundingClientRect().top) >= newCropAreaPosition.top) {
+       setCropAreaPos(prev => {return {...prev, y: Number(imageCanvas.current?.getBoundingClientRect().top)}});
+      }  else if (Number(imageCanvas.current?.getBoundingClientRect().bottom) <= newCropAreaPosition.bottom) {
+         setCropAreaPos(prev => {return {...prev, y: Number(imageCanvas.current?.getBoundingClientRect().bottom) - Number(cropArea.current?.getBoundingClientRect().height)}});
+       };
+      
+      if(Number(imageCanvas.current?.getBoundingClientRect().left) <= newCropAreaPosition.left && Number(imageCanvas.current?.getBoundingClientRect().right) >= newCropAreaPosition.right) {
+        setCropAreaPos(prev => {return {...prev, x: newCropAreaPosition.left}});
+      } 
+      else if (Number(imageCanvas.current?.getBoundingClientRect().left) >= newCropAreaPosition.left) {
+        setCropAreaPos(prev => {return {...prev, x: Number(imageCanvas.current?.getBoundingClientRect().left)}});
+      } else if (Number(imageCanvas.current?.getBoundingClientRect().right) <= newCropAreaPosition.right) {
+        setCropAreaPos(prev => {return {...prev, x: Number(imageCanvas.current?.getBoundingClientRect().right) - Number(cropArea.current?.getBoundingClientRect().width)}})
       };
       
       }
-
+		
       document.addEventListener('mousemove', onMouseMove);
 
       document.addEventListener('mouseup', () => {
