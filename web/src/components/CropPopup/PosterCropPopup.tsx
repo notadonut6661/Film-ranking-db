@@ -22,7 +22,6 @@ export default function PosterCropPopup(): JSX.Element {
     console.log(shiftY, ev.pageY);
     
     function onMouseMove(event: MouseEvent) {
-      // FIXME Make an interface called Position 
       const newCropAreaPosition = Object.freeze({
         top: event.pageY - shiftY,
         bottom: event.pageY  - shiftY + Number(cropArea.current?.getBoundingClientRect().height),
