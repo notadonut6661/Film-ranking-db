@@ -1,18 +1,8 @@
-interface CollisionCheckReturn {
-  bottom: boolean,
-  top: boolean,
-  left: boolean,
-  right: boolean
-}
+import { CollideableObjectsRelationship } from "data/Interfaces/CollideableObjectsRelationship.enum";
+import { CanMove } from "data/Interfaces/CanMove.interface";
 
-enum CollideableObjectsRelationship {
-  A_IN_B = 0,
-  B_IN_A,
-  NOT_RELATED
-}
-
-export function CheckCollision(newFirstObject: DOMRect, secondObject: DOMRect, objectsRelationship: CollideableObjectsRelationship): CollisionCheckReturn {
-  const canMove: CollisionCheckReturn = {
+export function CheckCollision(newFirstObject: DOMRect, secondObject: DOMRect, objectsRelationship: CollideableObjectsRelationship): CanMove {
+  const canMove: CanMove = {
     bottom: false,
     left: false,
     right: false,
