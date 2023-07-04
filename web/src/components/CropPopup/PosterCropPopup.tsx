@@ -30,7 +30,8 @@ export default function PosterCropPopup(): JSX.Element {
         right: event.pageX - shiftX + Number(cropArea.current?.getBoundingClientRect().width)
       });
 
-      if (Number(imageCanvas.current?.getBoundingClientRect().top) <= newCropAreaPosition.top && Number(imageCanvas.current?.getBoundingClientRect().bottom) >= newCropAreaPosition.bottom) {
+    
+  if (Number(imageCanvas.current?.getBoundingClientRect().top) <= newCropAreaPosition.top && Number(imageCanvas.current?.getBoundingClientRect().bottom) >= newCropAreaPosition.bottom) {
         setCropAreaPos(prev => {return {...prev, y: newCropAreaPosition.top}});
       } else if (Number(imageCanvas.current?.getBoundingClientRect().top) >= newCropAreaPosition.top) {
        setCropAreaPos(prev => {return {...prev, y: Number(imageCanvas.current?.getBoundingClientRect().top)}});
