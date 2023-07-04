@@ -1,5 +1,6 @@
 import "./style.scss";
 import { useCallback, useState, useMemo, useRef, useEffect } from "react";
+import { CheckCollision } from './CheckCollision';
 
 interface Coords {
   x?: number;
@@ -29,7 +30,6 @@ export default function PosterCropPopup(): JSX.Element {
         right: event.pageX - shiftX + Number(cropArea.current?.getBoundingClientRect().width)
       });
 
-      // TODO Talk with Jenya about making checkCollision function, maybe make CollideableObject class 
       if (Number(imageCanvas.current?.getBoundingClientRect().top) <= newCropAreaPosition.top && Number(imageCanvas.current?.getBoundingClientRect().bottom) >= newCropAreaPosition.bottom) {
         setCropAreaPos(prev => {return {...prev, y: newCropAreaPosition.top}});
       } else if (Number(imageCanvas.current?.getBoundingClientRect().top) >= newCropAreaPosition.top) {
