@@ -41,6 +41,8 @@
   height: 210px;
   min-width: 150px;
   min-height: 150px;
+  background: #000;
+  opacity: calc(1 / 2);
   border: dashed 2px #fff;
   resize: both;
   overflow: auto; 

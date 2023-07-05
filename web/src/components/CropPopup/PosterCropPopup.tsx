@@ -1,6 +1,7 @@
 import "./style.scss";
 import { useCallback, useState, useMemo, useRef, useEffect } from "react";
 import { CheckCollision } from './CheckCollision';
+import { CollideableObjectsRelationship } from "data/Interfaces/CollideableObjectsRelationship.enum";
 
 interface Coords {
   x?: number;
@@ -23,31 +24,34 @@ export default function PosterCropPopup(): JSX.Element {
     console.log(shiftY, ev.pageY);
     
     function onMouseMove(event: MouseEvent) {
-      const newCropAreaPosition = Object.freeze({
+      if (cropArea.current === null || imageCanvas.current === null) return;
+
+      const newCropAreaPosition: Readonly<DOMRect> = {
+        ...cropArea.current.getBoundingClientRect(), 
         top: event.pageY - shiftY,
         bottom: event.pageY  - shiftY + Number(cropArea.current?.getBoundingClientRect().height),
         left: event.pageX - shiftX,
         right: event.pageX - shiftX + Number(cropArea.current?.getBoundingClientRect().width)
-      });
+      }
+      
+      const canMove = CheckCollision(newCropAreaPosition, imageCanvas.current?.getBoundingClientRect(), CollideableObjectsRelationship.A_IN_B);
 
-    
-  if (Number(imageCanvas.current?.getBoundingClientRect().top) <= newCropAreaPosition.top && Number(imageCanvas.current?.getBoundingClientRect().bottom) >= newCropAreaPosition.bottom) {
+      if (canMove.top && canMove.bottom) {
+        console.log(canMove)
         setCropAreaPos(prev => {return {...prev, y: newCropAreaPosition.top}});
-      } else if (Number(imageCanvas.current?.getBoundingClientRect().top) >= newCropAreaPosition.top) {
+      } else if (!canMove.top) {
        setCropAreaPos(prev => {return {...prev, y: Number(imageCanvas.current?.getBoundingClientRect().top)}});
-      }  else if (Number(imageCanvas.current?.getBoundingClientRect().bottom) <= newCropAreaPosition.bottom) {
+      }  else if (!canMove.bottom) {
          setCropAreaPos(prev => {return {...prev, y: Number(imageCanvas.current?.getBoundingClientRect().bottom) - Number(cropArea.current?.getBoundingClientRect().height)}});
        };
       
-      if(Number(imageCanvas.current?.getBoundingClientRect().left) <= newCropAreaPosition.left && Number(imageCanvas.current?.getBoundingClientRect().right) >= newCropAreaPosition.right) {
+      if(canMove.left && canMove.right) {
         setCropAreaPos(prev => {return {...prev, x: newCropAreaPosition.left}});
-      } 
-      else if (Number(imageCanvas.current?.getBoundingClientRect().left) >= newCropAreaPosition.left) {
+      } else if (!canMove.left) {
         setCropAreaPos(prev => {return {...prev, x: Number(imageCanvas.current?.getBoundingClientRect().left)}});
-      } else if (Number(imageCanvas.current?.getBoundingClientRect().right) <= newCropAreaPosition.right) {
+      } else if (!canMove.right) {
         setCropAreaPos(prev => {return {...prev, x: Number(imageCanvas.current?.getBoundingClientRect().right) - Number(cropArea.current?.getBoundingClientRect().width)}})
       };
-      
       }
 		
       document.addEventListener('mousemove', onMouseMove);

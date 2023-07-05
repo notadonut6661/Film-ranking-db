@@ -2,6 +2,7 @@ import { CollideableObjectsRelationship } from "data/Interfaces/CollideableObjec
 import { CanMove } from "data/Interfaces/CanMove.interface";
 
 export function CheckCollision(newFirstObject: DOMRect, secondObject: DOMRect, objectsRelationship: CollideableObjectsRelationship): CanMove {
+  console.log(newFirstObject.top, secondObject.top)
   const canMove: CanMove = {
     bottom: false,
     left: false,
@@ -11,9 +12,9 @@ export function CheckCollision(newFirstObject: DOMRect, secondObject: DOMRect, o
 
   if (CollideableObjectsRelationship.A_IN_B === objectsRelationship) {
     canMove.bottom = newFirstObject.bottom <= secondObject.bottom;
-    canMove.top = newFirstObject.top >= secondObject.top;
-    canMove.left = newFirstObject.left <= secondObject.left;
-    canMove.right = newFirstObject.height >= secondObject.right;
+    canMove.top = newFirstObject.top > secondObject.top;
+    canMove.left = newFirstObject.left >= secondObject.left;
+    canMove.right = newFirstObject.right <= secondObject.right;
   } 
 
   if(CollideableObjectsRelationship.B_IN_A === objectsRelationship) {
