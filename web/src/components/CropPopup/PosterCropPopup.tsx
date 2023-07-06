@@ -11,17 +11,25 @@ interface Coords {
 }
 
 export default function PosterCropPopup(): JSX.Element {
-  const [isPosterRatioNormal, setIsPosterRatioNormal] = useState(true);
-  const cropArea = useRef<HTMLDivElement  | null>(null);
-  const imageCanvas = useRef<HTMLCanvasElement |null>(null);
+  const [isPosterRatioNormal, setIsPosterRatioNormal] = useState<boolean>(true);
+  const cropArea = useRef<HTMLDivElement | null>(null);
+  const imageCanvas = useRef<HTMLCanvasElement | null>(null);
 
   const [cropAreaPos, setCropAreaPos] = useState<Coords>({});
 
   const submitClickHandler = useCallback(() => {}, []);
 
   useEffect(() => {
-    cropAreaPos.height = cropArea.current?.getBoundingClientRect().height;
+    setCropAreaPos(() => {
+      return {
+        height: cropArea.current?.getBoundingClientRect().height,
+        width: cropArea.current?.getBoundingClientRect().width,
+        x: cropArea.current?.getBoundingClientRect().x,
+        y: cropArea.current?.getBoundingClientRect().y
+      }
+    })
   }, []);
+  
   const cropAreaSelectorDragHandler = useCallback((ev:  React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const shiftX  = ev.clientX - Number(cropArea.current?.getBoundingClientRect().left);
     const shiftY = ev.clientY -  Number(cropArea.current?.getBoundingClientRect().top);
@@ -67,10 +75,19 @@ export default function PosterCropPopup(): JSX.Element {
       ev.preventDefault();
     }, []);
     
-  const cropAreaResizeHandler = useCallback((ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const cropAreaResizeHandler = useCallback((ev: React.MouseEvent<HTMLDivElement, MouseEvent>, linePos: 'right' | 'left' | 'top' | 'bottom') => {
     function onMouseMove(event: MouseEvent) {
-      console.log('√-1 = i^2')
+      console.log(event.pageY - (cropAreaPos.y ?? 0), event.pageX)
+      
+      //#################################################################
+      const newHeight = event.pageY - (cropAreaPos.y ?? 0);
+      
+      setCropAreaPos(prev => {
+        // TODO consider there is 2 possible ratios
+        return {...prev, height: newHeight, width: newHeight*0.666}
+      });
     }
+    console.log(isPosterRatioNormal)
 
     document.addEventListener('mousemove', onMouseMove);
 
@@ -78,8 +95,7 @@ export default function PosterCropPopup(): JSX.Element {
       document.removeEventListener('mousemove', onMouseMove);
     });
     ev.preventDefault();
-    console.log('1j')
-  }, [])
+  }, [isPosterRatioNormal, cropAreaPos])
   
 
   return (
@@ -88,24 +104,24 @@ export default function PosterCropPopup(): JSX.Element {
         <div id="current-image">
           <canvas ref={imageCanvas}/>
         </div>
-        <div id="crop-chooser"  style={ undefined === cropAreaPos.x && cropAreaPos.y === undefined ? {} : {left: cropAreaPos.x, top: Number(cropAreaPos.y) - 59.0625} } ref={cropArea}>
+        <div id="crop-chooser"  style={ undefined === cropAreaPos.x || cropAreaPos.y === undefined || cropAreaPos.height === undefined ? {} : {left: cropAreaPos.x, top: cropAreaPos.y - 59.0625, height: cropAreaPos.height, width: cropAreaPos.width} } ref={cropArea}>
           <div id="move-crop-chooser" onMouseDown={cropAreaSelectorDragHandler}></div>
-          <div id="left-side-line" className="crop-editor-line" onMouseDown={cropAreaResizeHandler}></div>
-          <div id="top-side-line" className="crop-editor-line" onMouseDown={cropAreaResizeHandler}></div>
-          <div id="right-side-line" className="crop-editor-line" onMouseDown={cropAreaResizeHandler}></div>
-          <div id="bottom-side-line" className="crop-editor-line" onMouseDown={cropAreaResizeHandler}></div>
+          <div id="left-side-line" className="crop-editor-line" onMouseDown={ev => cropAreaResizeHandler(ev, 'left')}></div>
+          <div id="top-side-line" className="crop-editor-line" onMouseDown={ev => cropAreaResizeHandler(ev, 'top')}></div>
+          <div id="right-side-line" className="crop-editor-line" onMouseDown={ev => cropAreaResizeHandler(ev, 'right')}></div>
+          <div id="bottom-side-line" className="crop-editor-line" onMouseDown={ev => cropAreaResizeHandler(ev, 'bottom')}></div>
         </div>
       </div>
       <div className="control-panel">
         <input type="button" id="submit" value="Submit" onClick={submitClickHandler}/>
         <ul className="select-ratio">
-          <label id="normal-width">
+          <label id="normal-width" >
             <span>2:3</span>
-            <input type="radio" name="poster-ratio" checked={true}/>
+            <input type="radio" name="poster-ratio" checked={isPosterRatioNormal} onClick={( ) => setIsPosterRatioNormal(true)} />
           </label>
-          <label id="double-width">
+          <label id="double-width" >
             <span>4:3</span>
-            <input type="radio" name="poster-ratio" />
+            <input type="radio" name="poster-ratio" checked={!isPosterRatioNormal} onClick={( ) => setIsPosterRatioNormal(false)} />
           </label>
         </ul>
       </div>
