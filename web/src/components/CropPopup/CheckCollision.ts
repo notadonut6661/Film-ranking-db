@@ -10,21 +10,21 @@ export function CheckCollision(newFirstObject: DOMRect, secondObject: DOMRect, o
     top: false
   }; 
 
-  if (CollideableObjectsRelationship.A_IN_B === objectsRelationship) {
+  if (CollideableObjectsRelationship.FirstInsideSecond === objectsRelationship) {
     canMove.bottom = newFirstObject.bottom <= secondObject.bottom;
     canMove.top = newFirstObject.top > secondObject.top;
     canMove.left = newFirstObject.left >= secondObject.left;
     canMove.right = newFirstObject.right <= secondObject.right;
   } 
 
-  if(CollideableObjectsRelationship.B_IN_A === objectsRelationship) {
+  if(CollideableObjectsRelationship.SecondInsideFirst === objectsRelationship) {
     canMove.bottom = newFirstObject.bottom >= secondObject.bottom;
     canMove.top = newFirstObject.top <= secondObject.top;
     canMove.left = newFirstObject.left >= secondObject.left;
     canMove.right = newFirstObject.height <= secondObject.right;
   }
 
-  if (CollideableObjectsRelationship.NOT_RELATED === objectsRelationship) {
+  if (CollideableObjectsRelationship.NotRelated === objectsRelationship) {
     canMove.bottom = newFirstObject.bottom < secondObject.top || newFirstObject.right < secondObject.left || newFirstObject.left > secondObject.right || newFirstObject.top > secondObject.bottom;
     canMove.top = newFirstObject.top > secondObject.bottom || newFirstObject.right < secondObject.left || newFirstObject.left > secondObject.right ||  newFirstObject.bottom <= secondObject.top;
     canMove.left = newFirstObject.left <  secondObject.right || newFirstObject.bottom < secondObject.top || newFirstObject.top < secondObject.bottom || newFirstObject.right > secondObject.left; 

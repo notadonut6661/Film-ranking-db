@@ -6,6 +6,8 @@ import { CollideableObjectsRelationship } from "data/Interfaces/CollideableObjec
 interface Coords {
   x?: number;
   y?: number;
+  height?: number; 
+  width?: number;
 }
 
 export default function PosterCropPopup(): JSX.Element {
@@ -17,6 +19,9 @@ export default function PosterCropPopup(): JSX.Element {
 
   const submitClickHandler = useCallback(() => {}, []);
 
+  useEffect(() => {
+    cropAreaPos.height = cropArea.current?.getBoundingClientRect().height;
+  }, []);
   const cropAreaSelectorDragHandler = useCallback((ev:  React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const shiftX  = ev.clientX - Number(cropArea.current?.getBoundingClientRect().left);
     const shiftY = ev.clientY -  Number(cropArea.current?.getBoundingClientRect().top);
@@ -34,7 +39,7 @@ export default function PosterCropPopup(): JSX.Element {
         right: event.pageX - shiftX + Number(cropArea.current?.getBoundingClientRect().width)
       }
       
-      const canMove = CheckCollision(newCropAreaPosition, imageCanvas.current?.getBoundingClientRect(), CollideableObjectsRelationship.A_IN_B);
+      const canMove = CheckCollision(newCropAreaPosition, imageCanvas.current?.getBoundingClientRect(), CollideableObjectsRelationship.FirstInsideSecond);
 
       if (canMove.top && canMove.bottom) {
         console.log(canMove)
@@ -61,7 +66,20 @@ export default function PosterCropPopup(): JSX.Element {
       });
       ev.preventDefault();
     }, []);
-  const cropAreaResizeHandler = useCallback(() => {}, [])
+    
+  const cropAreaResizeHandler = useCallback((ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    function onMouseMove(event: MouseEvent) {
+      console.log('√-1 = i^2')
+    }
+
+    document.addEventListener('mousemove', onMouseMove);
+
+    document.addEventListener('mouseup', () => {
+      document.removeEventListener('mousemove', onMouseMove);
+    });
+    ev.preventDefault();
+    console.log('1j')
+  }, [])
   
 
   return (
@@ -71,7 +89,11 @@ export default function PosterCropPopup(): JSX.Element {
           <canvas ref={imageCanvas}/>
         </div>
         <div id="crop-chooser"  style={ undefined === cropAreaPos.x && cropAreaPos.y === undefined ? {} : {left: cropAreaPos.x, top: Number(cropAreaPos.y) - 59.0625} } ref={cropArea}>
-          <div id="move-crop-chooser" onMouseDown={cropAreaSelectorDragHandler} draggable="true"></div>
+          <div id="move-crop-chooser" onMouseDown={cropAreaSelectorDragHandler}></div>
+          <div id="left-side-line" className="crop-editor-line" onMouseDown={cropAreaResizeHandler}></div>
+          <div id="top-side-line" className="crop-editor-line" onMouseDown={cropAreaResizeHandler}></div>
+          <div id="right-side-line" className="crop-editor-line" onMouseDown={cropAreaResizeHandler}></div>
+          <div id="bottom-side-line" className="crop-editor-line" onMouseDown={cropAreaResizeHandler}></div>
         </div>
       </div>
       <div className="control-panel">

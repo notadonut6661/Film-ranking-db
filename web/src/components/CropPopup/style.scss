@@ -43,8 +43,8 @@
   min-height: 150px;
   background: #000;
   opacity: calc(1 / 2);
-  border: dashed 2px #fff;
-  resize: both;
+  // border: dashed 2px #fff;
+  resize: none;
   overflow: auto; 
   z-index: 1000;
 }
@@ -110,4 +110,34 @@
   height: 100%;
   outline: none;  
   width: 100px;
+}
+
+.crop-editor-line { 
+  @include line;
+  position: absolute;
+  display: block;
+  height: 100%;
+  background: blue;
+}
+
+#left-side-line {
+  left: 0;
+}
+
+#top-side-line {
+  top: 0;
+  z-index: 3000;
+  height: 5px;
+  width:100%;
+}
+
+#right-side-line {
+  right: 0;
+}
+
+#bottom-side-line {
+  bottom: 0;
+  z-index: 3000;
+  height: 5px;
+  width:100%;
 }
