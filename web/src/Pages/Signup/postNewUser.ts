@@ -9,7 +9,7 @@ interface UserData {
 
 export default async function postNewUser(user: UserData): Promise<string | object> {
   if(user.password !== user.confirmedPassword) {
-    return "Passwords do not match";
+    return "Passwords do not match"; 
   }
 
   const signupResponse = await fetch(`${config.server_url}/signup`, {

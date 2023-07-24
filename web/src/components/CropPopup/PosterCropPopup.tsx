@@ -14,20 +14,18 @@ export default function PosterCropPopup(): JSX.Element {
   const [isPosterRatioNormal, setIsPosterRatioNormal] = useState<boolean>(true);
   const cropArea = useRef<HTMLDivElement | null>(null);
   const imageCanvas = useRef<HTMLCanvasElement | null>(null);
-
   const [cropAreaPos, setCropAreaPos] = useState<Coords>({});
-
+  const [cropAreaMinWidth, setCropAreaMinWidth] = useState(150);
+  
   const submitClickHandler = useCallback(() => {}, []);
 
   useEffect(() => {
-    setCropAreaPos(() => {
-      return {
+    setCropAreaPos({
         height: cropArea.current?.getBoundingClientRect().height,
         width: cropArea.current?.getBoundingClientRect().width,
         x: cropArea.current?.getBoundingClientRect().x,
         y: cropArea.current?.getBoundingClientRect().y
-      }
-    })
+      });
   }, []);
   
   const cropAreaSelectorDragHandler = useCallback((ev:  React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -36,7 +34,7 @@ export default function PosterCropPopup(): JSX.Element {
     
     console.log(shiftY, ev.pageY);
     
-    function onMouseMove(event: MouseEvent) {
+    function onMouseMove(event: MouseEvent) { 
       if (cropArea.current === null || imageCanvas.current === null) return;
 
       const newCropAreaPosition: Readonly<DOMRect> = {
@@ -77,18 +75,40 @@ export default function PosterCropPopup(): JSX.Element {
     
   const cropAreaResizeHandler = useCallback((ev: React.MouseEvent<HTMLDivElement, MouseEvent>, linePos: 'right' | 'left' | 'top' | 'bottom') => {
     function onMouseMove(event: MouseEvent) {
+      if (cropArea.current === null || imageCanvas.current === null) return;
+
+      console.log(cropArea.current?.style.minHeight)
+
       console.log(event.pageY - (cropAreaPos.y ?? 0), event.pageX)
       
       //#################################################################
-      const newHeight = event.pageY - (cropAreaPos.y ?? 0);
+      const newHeight = linePos === 'bottom' ?  event.pageY - (cropAreaPos.y ?? 0) : (cropAreaPos.height ?? 0) - event.pageY + (cropAreaPos.y ?? 0);
+      const newWidth = isPosterRatioNormal ? newHeight*0.666: newHeight*1.33333;
       
-      setCropAreaPos(prev => {
-        // TODO consider there is 2 possible ratios
-        return {...prev, height: newHeight, width: newHeight*0.666}
-      });
+      const newSize: Readonly<Coords> = {
+        ...cropAreaPos,
+        y: linePos === 'top' && newHeight > 150? Number(cropAreaPos.y) + Number(cropAreaPos.height) - newHeight : cropAreaPos.y,
+        height: newHeight > 150 && newWidth > 150 ? newHeight: 150,
+        width: newWidth < 150 ? 150: newWidth
+      }
+
+      const canMove = CheckCollision({
+        ...cropArea.current.getBoundingClientRect(), 
+        top: newSize.y ?? 0,
+        bottom: (newSize.y ?? 0) + Number(newSize.height),
+        left: cropArea.current?.getBoundingClientRect().left,
+        right: cropArea.current?.getBoundingClientRect().left + Number(newSize.width)
+      }, imageCanvas.current?.getBoundingClientRect(),  CollideableObjectsRelationship.FirstInsideSecond)
+
+      if (('bottom'=== linePos || 'right' === linePos ) && canMove.right && canMove.bottom && (newSize.width ?? 0)  > 150 && (newSize.height ?? 0) > 150) {
+        setCropAreaPos(newSize);
+      } else if (('top' === linePos || 'left' === linePos) && canMove.left && canMove.top  && (newSize.width ?? 0)  > 150 && (newSize.height ?? 0) > 150) {
+        setCropAreaPos(newSize);
+      }
     }
     console.log(isPosterRatioNormal)
 
+    // FIXME Make function and call it something like "clearDragHandle"
     document.addEventListener('mousemove', onMouseMove);
 
     document.addEventListener('mouseup', () => {

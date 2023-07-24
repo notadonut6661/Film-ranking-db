@@ -5,7 +5,7 @@ import { Users } from "./Users.class";
 
 export const Routes = [
   { name: 'film', method: (new Film()) },
-  { name: 'actorPhoto', method: (new ActorPhoto())},
   { name: 'users', method: (new Users())},
+  { name: 'actorPhoto', method: (new ActorPhoto())},
   { name: 'actors', method: (new Actors())}
 ]

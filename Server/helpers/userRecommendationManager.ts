@@ -89,17 +89,21 @@ export class userRecommendationManager {
       throw new Error("No recommendation profile has been generated");
     }
 
+    const WEIGHTS = Object.freeze({
+      TAG: 0.2,
+      GENRE: 0.8  
+    });
+
     const tagsRankSum: number = title.tags.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
     const genreRankSum: number = title.genres.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
-    //!IMPORTANT FIXME This is bad weigthing, make so it has static weight
-    return Math.pow(genreRankSum, 2) + tagsRankSum;
+    return genreRankSum * WEIGHTS.GENRE + tagsRankSum * WEIGHTS.TAG;
   }
 
   /**
    * getRecommendations
    * @returns 
    */
-  public async getRecommendations(recommendationListLength: number): Promise<Array<string>> {
+  public async getRecommendations(p_RecommendationListLength: number): Promise<Array<string>> {
     let filmsInPreferredGenreQuery = `SELECT * FROM user_${this.userId}_title_ranks WHERE `;
 
     for (const key in this.usersPrefers.Genres) {
@@ -127,7 +131,6 @@ export class userRecommendationManager {
         };
         return;
       } 
-        console.log(filmsInPreferredGenreAnalyticsData[index]);
         
         filmsInPreferredGenreAnalyticsData[index][dataType].push(key);
       })
