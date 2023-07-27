@@ -40,15 +40,6 @@ export abstract class Route {
     return req.headers.authorization?.split(' ')[1];
   }
 
-  protected async Response_GetById(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) {
-      const { id } = this.uriDecoder.Decode(req.originalUrl);
-  
-      try {
-        res.status(200).json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`));
-      } catch {
-        res.sendStatus(200);
-      } 
-  }
   
   protected Validation(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): boolean {
 

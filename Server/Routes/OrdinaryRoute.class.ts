@@ -18,6 +18,17 @@ export class OrdinaryRoute extends Route {
     super();
     this.routeName =  _routeName;
     this.dbName = _dbName;
-    this.uriDecoder = new UriDecoder([]);
+    this.uriDecoder = new UriDecoder([{name: "title", type:"string"}, {name: "id", type: "number"}]);
   }
+  
+  public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) {
+    const { id } = this.uriDecoder.Decode(req.originalUrl);
+
+    try {
+      res.status(200).json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`));
+    } catch {
+      res.sendStatus(200);
+    } 
+  }
+
 }
