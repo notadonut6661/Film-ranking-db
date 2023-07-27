@@ -36,25 +36,12 @@ export abstract class Route{
     res.status(404).send("Not Implemented");
   }
   
-  private getAuthHeader(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>) {
+  private getAuthHeader(req: Request) {
     return req.headers.authorization?.split(' ')[1];
   }
-
   
-  // FIXME Questionable
-  protected ValidateRequest(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): boolean {
-
-    let doesRequestBodyRequiresPattern: boolean;
-
-    if (!this.getAuthHeader(req)?.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/)) {
-      return false;
-    }
-
-    if (typeof req.body != "object") {
-      return false;
-    }
-
-    return true;
+  protected ValidateRequest(req: Request): boolean {
+    return !!this.getAuthHeader(req)?.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/);
   }
 
   protected async Authorization(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): Promise<boolean> {
