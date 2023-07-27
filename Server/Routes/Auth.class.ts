@@ -18,7 +18,7 @@ export class Auth extends Route {
   }
 
   public Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
-      
+    
   }
 
   public Signup(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {

@@ -1,6 +1,6 @@
 import path from "path";
 import {Route} from "./Route.class";
-import dbConnection from "../helpers/dbConnection";
+import dbConnection from "helpers/dbConnection";
 import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
@@ -19,10 +19,9 @@ export class ActorPhoto extends Route {
     this.dbName = "actors";
   }
 
-  public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
+  public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response): Promise<void> {
     try {
       const { id } = this.uriDecoder.Decode(req.originalUrl);
-      console.log(id);
       const pathToProfilePhoto = (await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`))[0]?.profile_picture;
 
       res.status(200).sendFile(path.resolve(pathToProfilePhoto));

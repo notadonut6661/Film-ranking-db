@@ -1,10 +1,10 @@
 import { Express } from "express";
-import { Routes } from "./Routes";
+import { Routes } from "./RouteFactory.class";
 import { RouteFactory } from "./RouteFactory.class";
 import { Route } from "./Route.class";
 
 export function Router(app: Express): void {
-  Routes.forEach((name) => {
+  Object.values(Routes).forEach((name) => {
     const currRoute: Route = RouteFactory.Create(name);
 
     app.get(`/${name}/*`, currRoute.Get);

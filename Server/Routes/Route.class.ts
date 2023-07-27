@@ -5,13 +5,13 @@ import { ParsedQs } from "qs"
 import dbConnection from '../helpers/dbConnection';
 import { generateSha256 } from '../utils/generateSha256';
 
-export abstract class Route {
+export abstract class Route{
 
   protected readonly abstract routeName: string;
   protected readonly abstract dbName: string;
   protected readonly MediaType: string;
   protected uriDecoder: UriDecoder | null;
-  
+
   constructor() {
     this.MediaType = 'application/json';
     this.Get = this.Get.bind(this);
@@ -41,7 +41,8 @@ export abstract class Route {
   }
 
   
-  protected Validation(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): boolean {
+  // FIXME Questionable
+  protected ValidateRequest(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): boolean {
 
     let doesRequestBodyRequiresPattern: boolean;
 
@@ -58,7 +59,7 @@ export abstract class Route {
 
   protected async Authorization(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): Promise<boolean> {
     const authHeader = this.getAuthHeader(req);
-    if (!this.Validation(req)) {
+    if (!this.ValidateRequest(req)) {
       return false;
     }
 
@@ -67,13 +68,12 @@ export abstract class Route {
       password: authHeader?.split(':')[1]
     }
 
-    console.log(input);
-
     let realPass: string | undefined;
 
     try {
       realPass = await (await dbConnection).query(`SELECT passwordHash FROM users WHERE email = ${input.email}`);
-    } catch {
+    } catch (err) {
+      console.error(err);
       return false;
     }
 
