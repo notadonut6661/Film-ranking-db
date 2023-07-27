@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const uriDecoder_1 = require("../helpers/uriDecoder");
+exports.Route = void 0;
 const dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
 const generateSha256_1 = require("../utils/generateSha256");
 class Route {
@@ -20,6 +20,17 @@ class Route {
         this.MediaType = 'application/json';
         this.Get = this.Get.bind(this);
         this.Post = this.Post.bind(this);
+    }
+    Get(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = this.uriDecoder.Decode(req.originalUrl);
+            try {
+                res.status(200).json(yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`));
+            }
+            catch (_a) {
+                res.sendStatus(200);
+            }
+        });
     }
     getAuthHeader(req) {
         var _a;
@@ -59,10 +70,5 @@ class Route {
             return realPass === (0, generateSha256_1.generateSha256)(input.password);
         });
     }
-    getDecodedURI(HTTPMethod, uri) {
-        console.log(this.getQueryDataType);
-        const uriDecoderE = new uriDecoder_1.uriDecoder(this.getQueryDataType);
-        return uriDecoderE.Decode(uri);
-    }
 }
-exports.default = Route;
+exports.Route = Route;

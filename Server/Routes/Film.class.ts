@@ -1,46 +1,29 @@
 import { Request, Response } from "express"
 import { ParamsDictionary } from "express-serve-static-core"
 import { ParsedQs } from "qs"
-import dbConnection from '../helpers/dbConnection';
-import Route from "./Route.class"
-import { uriParamsType } from "data/interfaces/uriParams.interface";
+import { Route } from "./Route.class"
+import { UriDecoder } from "helpers/uriDecoder";
 
 export class Film extends Route {
 
   protected routeName: string;
   protected dbName: string;
-  protected readonly getQueryDataType: uriParamsType[]; 
+  protected readonly uriDecoder: UriDecoder;
 
   constructor() {
     super();
-    this.getQueryDataType = [{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "id", type: "number" }] }];
+    this.uriDecoder = new UriDecoder([{name: "title", type:"string"}, {name: "id", type: "number"}]);
     this.routeName = "Film";
     this.dbName = "films";
     this.Get = this.Get.bind(this);
     this.Post = this.Post.bind(this);
   }
 
-  public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
-    try {
-      const { query } = this.getDecodedURI("GET", req.originalUrl);
-      if (typeof query === 'string') return;
-      res.json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${query['id']}`));
+  public override Get = this.Response_GetById;
 
-    } catch (err) {
-      console.log(err);
-      
-      res.status(404).json({ Error: "Wrong parameters" });
-    }
+  public async Post(req: Request, res: Response): Promise<void> { 
+    const data = req.body;
 
-
-  }
-
-  public async Post(req: Request, res: Response): Promise<void> {
-    const data = req.body; // Access the data from the request body
-    // Process the data or perform any necessary operations
-  
-    console.log(data);
-    
     res.send(data);
   }
 
@@ -53,7 +36,4 @@ export class Film extends Route {
     console.log(2);
 
   }
-
-
-
 } 

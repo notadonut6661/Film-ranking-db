@@ -1,0 +1,23 @@
+import {Route} from "./Route.class";
+import dbConnection from "helpers/dbConnection";
+import { Request, Response } from "express";
+import { ParamsDictionary } from "express-serve-static-core";
+import { ParsedQs } from "qs";
+import { UriDecoder } from "../helpers/uriDecoder";
+
+
+/**
+ * OrdinaryRoute - takes in routName and dbName, it's class with default http routes, implements 4 verbs, GET, POST, PATCH, DELETE, and does basic stuff with db at every request
+ */
+export class OrdinaryRoute extends Route {
+  protected routeName: string;
+  protected dbName: string;
+  protected uriDecoder: UriDecoder;
+
+  constructor (_routeName: string, _dbName: string) {
+    super();
+    this.routeName =  _routeName;
+    this.dbName = _dbName;
+    this.uriDecoder = new UriDecoder([]);
+  }
+}

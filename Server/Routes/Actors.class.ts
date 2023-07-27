@@ -1,26 +1,26 @@
 import { Request, Response } from "express"
 import { ParamsDictionary } from "express-serve-static-core"
 import { ParsedQs } from "qs"
-import dbConnection from '../helpers/dbConnection';
-import Route from "./Route.class"
-import { uriParamsType } from "data/interfaces/uriParams.interface";
+import dbConnection from 'helpers/dbConnection';
+import {Route} from "./Route.class"
+import { UriDecoder } from "helpers/uriDecoder";
 
 export class Actors extends Route {
 
   protected routeName: string;
   protected dbName: string;
-  protected getQueryDataType: uriParamsType[];
+  protected uriDecoder: UriDecoder;
 
   constructor() {
     super();
     this.routeName = "actors";
     this.dbName = "actors";
-    this.getQueryDataType = [{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "name", type: "string" }, { name: "length", type: "number"}]}];
+    this.uriDecoder = new UriDecoder([{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "name", type: "string" }, { name: "length", type: "number"}]}]);
   }
 
   public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void>  {
     try {
-      const { query } = this.getDecodedURI("GET", req.originalUrl);
+      const { query } = this.uriDecoder.Decode(req.originalUrl);
       
       if (typeof query === 'string') return;
       const ActorsUncutArr = await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE name LIKE "${query.name}%"`);

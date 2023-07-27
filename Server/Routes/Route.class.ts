@@ -1,34 +1,55 @@
 import { Request, Response } from "express";
-import { RequestType } from "data/interfaces/requestTypes.interface";
-import { uriDecoder } from '../helpers/uriDecoder';
-import { uriParamsType } from "../data/interfaces/uriParams.interface";
+import { UriDecoder } from '../helpers/uriDecoder';
 import { ParamsDictionary } from "express-serve-static-core"
 import { ParsedQs } from "qs"
 import dbConnection from '../helpers/dbConnection';
 import { generateSha256 } from '../utils/generateSha256';
 
-export default abstract class Route {
+export abstract class Route {
 
-  protected abstract routeName: string;
-  protected abstract dbName: string;
+  protected readonly abstract routeName: string;
+  protected readonly abstract dbName: string;
   protected readonly MediaType: string;
-  protected abstract readonly getQueryDataType: Array<uriParamsType>;
-
+  protected uriDecoder: UriDecoder | null;
+  
   constructor() {
     this.MediaType = 'application/json';
     this.Get = this.Get.bind(this);
     this.Post = this.Post.bind(this);
+    this.uriDecoder = null;
+  }
+  
+  public Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
+    res.status(404).send("Not Implemented");
+  } 
+
+
+  public Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
+    res.status(404).send("Not Implemented");
+  }
+  
+  public Patch(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
+    res.status(404).send("Not Implemented");
   }
 
-  public abstract Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void;
-  public abstract Post(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void;
-  public abstract Patch(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void;
-  public abstract Delete(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void;
-
+  public Delete(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
+    res.status(404).send("Not Implemented");
+  }
+  
   private getAuthHeader(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>) {
     return req.headers.authorization?.split(' ')[1];
   }
 
+  protected async Response_GetById(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) {
+      const { id } = this.uriDecoder.Decode(req.originalUrl);
+  
+      try {
+        res.status(200).json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`));
+      } catch {
+        res.sendStatus(200);
+      } 
+  }
+  
   protected Validation(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): boolean {
 
     let doesRequestBodyRequiresPattern: boolean;
@@ -68,14 +89,5 @@ export default abstract class Route {
     if (!realPass || !input.password) return false;
 
     return realPass === generateSha256(input.password);
-  }
-
-
-  protected getDecodedURI(HTTPMethod: RequestType, uri: string) {
-    console.log(this.getQueryDataType);
-    
-    const uriDecoderE = new uriDecoder(this.getQueryDataType);
-
-    return uriDecoderE.Decode(uri);
   }
 }

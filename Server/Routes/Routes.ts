@@ -1,11 +1,9 @@
 import { ActorPhoto } from "./ActorPhoto.class";
 import { Actors } from "./Actors.class";
 import { Film } from "./Film.class";
+import { Routes } from "./RouteFactory.class";
 import { Users } from "./Users.class";
 
-export const Routes = [
-  { name: 'film', method: (new Film()) },
-  { name: 'users', method: (new Users())},
-  { name: 'actorPhoto', method: (new ActorPhoto())},
-  { name: 'actors', method: (new Actors())}
+export const Routes: Array<Routes> = [
+ 'film', 'users', Rou, 'actors'
 ]

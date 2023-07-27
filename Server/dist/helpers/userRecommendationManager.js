@@ -70,15 +70,19 @@ class userRecommendationManager {
         if (Object.keys(this.usersPrefers.Genres).length === 0 || Object.keys(this.usersPrefers.Tags).length === 0) {
             throw new Error("No recommendation profile has been generated");
         }
+        const WEIGHTS = Object.freeze({
+            TAG: 0.2,
+            GENRE: 0.8
+        });
         const tagsRankSum = title.tags.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
         const genreRankSum = title.genres.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
-        return Math.pow(genreRankSum, 2) + tagsRankSum;
+        return genreRankSum * WEIGHTS.GENRE + tagsRankSum * WEIGHTS.TAG;
     }
     /**
      * getRecommendations
      * @returns
      */
-    getRecommendations(recommendationListLength) {
+    getRecommendations(p_RecommendationListLength) {
         return __awaiter(this, void 0, void 0, function* () {
             let filmsInPreferredGenreQuery = `SELECT * FROM user_${this.userId}_title_ranks WHERE `;
             for (const key in this.usersPrefers.Genres) {
@@ -102,7 +106,6 @@ class userRecommendationManager {
                         };
                         return;
                     }
-                    console.log(filmsInPreferredGenreAnalyticsData[index]);
                     filmsInPreferredGenreAnalyticsData[index][dataType].push(key);
                 });
             });

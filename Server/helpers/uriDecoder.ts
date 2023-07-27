@@ -10,7 +10,7 @@ import 'dotenv/config';
 
 config();
 
-export class uriDecoder {
+export class UriDecoder {
   private uriParams: uriParamsType[];
 
   constructor(_uriParams: uriParamsType[]) {
@@ -55,11 +55,7 @@ export class uriDecoder {
 
       if (typeof currentQueryElement !== 'object') return;
 
-      console.log(13, this.getTypeOfElementInQuery(value));
-
-
       if (currentQueryElement.name !== key || currentQueryElement.type !== this.getTypeOfElementInQuery(value)) {
-        console.log(this.uriParams[queryInSplittedPathId].type[i], typeof value);
         throw Error("I FUCKING HATE YOU")
       }
 

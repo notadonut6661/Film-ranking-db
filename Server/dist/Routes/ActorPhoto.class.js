@@ -14,12 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActorPhoto = void 0;
 const path_1 = __importDefault(require("path"));
-const Route_class_1 = __importDefault(require("./Route.class"));
+const Route_class_1 = require("./Route.class");
 const dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
-class ActorPhoto extends Route_class_1.default {
+const uriDecoder_1 = require("helpers/uriDecoder");
+class ActorPhoto extends Route_class_1.Route {
     constructor() {
         super();
-        this.getQueryDataType = [{ name: "title", type: "string" }, { name: "id", type: "number" }];
+        this.uriDecoder = new uriDecoder_1.UriDecoder([{ name: "title", type: "string" }, { name: "id", type: "number" }]);
         this.routeName = "ActorPhoto";
         this.dbName = "actors";
     }
@@ -27,7 +28,7 @@ class ActorPhoto extends Route_class_1.default {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { id } = this.getDecodedURI("GET", req.originalUrl);
+                const { id } = this.uriDecoder.Decode(req.originalUrl);
                 console.log(id);
                 const pathToProfilePhoto = (_a = (yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`))[0]) === null || _a === void 0 ? void 0 : _a.profile_picture;
                 res.status(200).sendFile(path_1.default.resolve(pathToProfilePhoto));

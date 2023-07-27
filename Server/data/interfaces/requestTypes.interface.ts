@@ -7,6 +7,6 @@ export interface RequestTypes {
   DELETE: Array<uriParamsType>;
 }
 
-export type RequestType = "GET" | "POST" | "PATCH" | "DELETE";
+export type HTTPVerb = "GET" | "POST" | "PATCH" | "DELETE";
 
 

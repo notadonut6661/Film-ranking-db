@@ -14,18 +14,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Actors = void 0;
 const dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
-const Route_class_1 = __importDefault(require("./Route.class"));
-class Actors extends Route_class_1.default {
+const Route_class_1 = require("./Route.class");
+const uriDecoder_1 = require("helpers/uriDecoder");
+class Actors extends Route_class_1.Route {
     constructor() {
         super();
         this.routeName = "actors";
         this.dbName = "actors";
-        this.getQueryDataType = [{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "name", type: "string" }, { name: "length", type: "number" }] }];
+        this.uriDecoder = new uriDecoder_1.UriDecoder([{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "name", type: "string" }, { name: "length", type: "number" }] }]);
     }
     Get(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { query } = this.getDecodedURI("GET", req.originalUrl);
+                const { query } = this.uriDecoder.Decode(req.originalUrl);
                 if (typeof query === 'string')
                     return;
                 const ActorsUncutArr = yield (yield dbConnection_1.default).query(`SELECT * FROM ${this.dbName} WHERE name LIKE "${query.name}%"`);

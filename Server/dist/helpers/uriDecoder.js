@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uriDecoder = void 0;
+exports.UriDecoder = void 0;
 const getNumberOfCharacterMentionInString_1 = require("../utils/getNumberOfCharacterMentionInString");
 const dotenv_1 = require("dotenv");
 require("dotenv/config");
@@ -9,7 +9,7 @@ require("dotenv/config");
  * @param uriParams is an array containing all the parts of uri (part is a term that defines string in uri splitted by "/" sign)
  */
 (0, dotenv_1.config)();
-class uriDecoder {
+class UriDecoder {
     constructor(_uriParams) {
         this.uriParams = _uriParams;
     }
@@ -43,9 +43,7 @@ class uriDecoder {
             const currentQueryElement = this.uriParams[queryInSplittedPathId].type[i];
             if (typeof currentQueryElement !== 'object')
                 return;
-            console.log(13, this.getTypeOfElementInQuery(value));
             if (currentQueryElement.name !== key || currentQueryElement.type !== this.getTypeOfElementInQuery(value)) {
-                console.log(this.uriParams[queryInSplittedPathId].type[i], typeof value);
                 throw Error("I FUCKING HATE YOU");
             }
             result[key] = value;
@@ -89,4 +87,4 @@ class uriDecoder {
         return this.organizeDecodedURI(decodedURI);
     }
 }
-exports.uriDecoder = uriDecoder;
+exports.UriDecoder = UriDecoder;

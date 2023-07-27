@@ -4,7 +4,9 @@
     "module": "commonjs",
     "baseUrl": "./",
     "paths": {
-      "*": ["./*"]
+      "*": ["./*"],
+      "data": ["./data/*"],
+      "helpers": ["./helpers/*"]
     },
     "outDir": "./dist",
     "esModuleInterop": true,
