@@ -81,16 +81,15 @@ export default function PosterCropPopup(): JSX.Element {
 
       console.log(event.pageY - (cropAreaPos.y ?? 0), event.pageX)
       
-      //#################################################################
       const newHeight = linePos === 'bottom' ?  event.pageY - (cropAreaPos.y ?? 0) : (cropAreaPos.height ?? 0) - event.pageY + (cropAreaPos.y ?? 0);
       const newWidth = isPosterRatioNormal ? newHeight*0.666: newHeight*1.33333;
       
-      const newSize: Readonly<Coords> = {
+      const newSize: Readonly<Coords> =  ('top' === linePos  || 'bottom' === linePos) ? { 
         ...cropAreaPos,
         y: linePos === 'top' && newHeight > 150? Number(cropAreaPos.y) + Number(cropAreaPos.height) - newHeight : cropAreaPos.y,
         height: newHeight > 150 && newWidth > 150 ? newHeight: 150,
         width: newWidth < 150 ? 150: newWidth
-      }
+      } : {};
 
       const canMove = CheckCollision({
         ...cropArea.current.getBoundingClientRect(), 
@@ -106,9 +105,7 @@ export default function PosterCropPopup(): JSX.Element {
         setCropAreaPos(newSize);
       }
     }
-    console.log(isPosterRatioNormal)
 
-    // FIXME Make function and call it something like "clearDragHandle"
     document.addEventListener('mousemove', onMouseMove);
 
     document.addEventListener('mouseup', () => {

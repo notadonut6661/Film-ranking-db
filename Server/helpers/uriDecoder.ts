@@ -24,7 +24,7 @@ export class UriDecoder {
     return uri.replace(/^\//, '').split('/');
   }
 
-  private getTypeOfElementInQuery(el: any) {
+  private getTypeOfElementInQuery(el: unknown) {
     let elType = typeof '';
 
     try {

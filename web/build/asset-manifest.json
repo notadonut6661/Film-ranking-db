@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/FRDB/static/css/main.64888067.css",
+    "main.js": "/FRDB/static/js/main.23ce6b88.js",
+    "static/js/787.d1d4a2c2.chunk.js": "/FRDB/static/js/787.d1d4a2c2.chunk.js",
+    "static/media/sign-up-bg.jpg": "/FRDB/static/media/sign-up-bg.2f07b0a465a2f07cc7c8.jpg",
+    "index.html": "/FRDB/index.html",
+    "main.64888067.css.map": "/FRDB/static/css/main.64888067.css.map",
+    "main.23ce6b88.js.map": "/FRDB/static/js/main.23ce6b88.js.map",
+    "787.d1d4a2c2.chunk.js.map": "/FRDB/static/js/787.d1d4a2c2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.64888067.css",
+    "static/js/main.23ce6b88.js"
+  ]
+}

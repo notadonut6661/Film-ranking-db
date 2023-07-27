@@ -7,7 +7,7 @@ import { UriDecoder } from "helpers/uriDecoder";
 
 
 /**
- * OrdinaryRoute - takes in routName and dbName, it's class with default http routes, implements 4 verbs, GET, POST, PATCH, DELETE, and does basic stuff with db at every request
+ * OrdinaryRoute - takes in routeName and dbName, it's class with default http routes, implements 4 verbs, GET, POST, PATCH, DELETE, and does basic stuff with db at every request
  */
 export class OrdinaryRoute<POST_REQ extends Request, PATCH_REQ extends Request>  extends Route {
   protected routeName: string;
@@ -32,8 +32,8 @@ export class OrdinaryRoute<POST_REQ extends Request, PATCH_REQ extends Request> 
   }
 
   public override async Post(req: POST_REQ, res: Response) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => resolve(0), 100)
+    return new Promise((resolve: (value: string) => void, reject) => {
+      setTimeout(() => resolve("0"), 100)
     })
   }
 
