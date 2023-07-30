@@ -1,14 +1,9 @@
 # API
 
 - Language: Typescript
-- Database: MySQL, and Redis
-
-# Front-end
+- Database: MySQL
+- API Type: REST
+ # Front-end
 
 - Language: Typescript  
 - Framework: React
-
-# Mobile 
-
-- Language: Dart or Java
-- Framework (Dart): Flutter

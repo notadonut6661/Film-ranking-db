@@ -5,7 +5,6 @@ import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
 import { uriParamsType } from "data/interfaces/uriParams.interface";
-import { Transporter } from "helpers/nodemailerTransporter";
 
 export class Auth extends Route {
   protected routeName: string;

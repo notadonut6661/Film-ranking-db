@@ -10,8 +10,8 @@ import 'dotenv/config';
 
 config();
 
-export class UriDecoder {
-  private uriParams: uriParamsType[];
+export class UriDecoder<RT> {
+  private readonly uriParams: uriParamsType[];
 
   constructor(_uriParams: uriParamsType[]) {
     this.uriParams = _uriParams;
@@ -90,7 +90,6 @@ export class UriDecoder {
       if (elType !== this.uriParams[i].type && elType !== "object") {
         throw new Error('Request param\'s type is wrong');
       }
-
 
       organizedDecodedURI[this.uriParams[i].name] = el;
     });

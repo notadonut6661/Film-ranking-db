@@ -12,13 +12,13 @@ import { UriDecoder } from "helpers/uriDecoder";
 export class OrdinaryRoute<POST_REQ extends Request, PATCH_REQ extends Request>  extends Route {
   protected routeName: string;
   protected dbName: string;
-  protected uriDecoder: UriDecoder;
+  protected uriDecoder: UriDecoder<boolean>;
 
   constructor (_routeName: string, _dbName: string) {
     super();
     this.routeName =  _routeName;
     this.dbName = _dbName;
-    this.uriDecoder = new UriDecoder([{name: "title", type:"string"}, {name: "id", type: "number"}]);
+    this.uriDecoder = new UriDecoder([{name: "title", type:"string", isOptional: true}, {name: "id", type: "number", isOptional: true}]);
   }
   
   public override async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response) {

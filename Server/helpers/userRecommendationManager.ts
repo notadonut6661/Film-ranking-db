@@ -94,8 +94,11 @@ export class userRecommendationManager {
       GENRE: 0.8  
     });
 
-    const tagsRankSum: number = title.tags.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
-    const genreRankSum: number = title.genres.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
+    // FIXME current time complexity is O(4n), increase the performance of the algorithm
+    const tagsRankSum: number = Math.max(title.tags.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr), 9);
+    const genreRankSum: number = Math.max(title.genres.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr), 9);
+   // FIXME END
+
     return genreRankSum * WEIGHTS.GENRE + tagsRankSum * WEIGHTS.TAG;
   }
 
@@ -109,7 +112,7 @@ export class userRecommendationManager {
     for (const key in this.usersPrefers.Genres) {
       if (this.usersPrefers.Genres[key] < 5) break;
 
-      filmsInPreferredGenreQuery += `${key} = 1`;
+      filmsInPreferredGenreQuery += `${key} = 1`; // 1 is used as boolean true here
     }
 
     const filmsInPreferredGenre = (await (await dbConnection).query(filmsInPreferredGenreQuery)) as Array<Record<string, any>>;
