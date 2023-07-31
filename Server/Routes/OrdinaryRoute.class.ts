@@ -12,7 +12,7 @@ import { UriDecoder } from "helpers/uriDecoder";
 export class OrdinaryRoute<POST_REQ extends Request, PATCH_REQ extends Request>  extends Route {
   protected routeName: string;
   protected dbName: string;
-  protected uriDecoder: UriDecoder<boolean>;
+  protected uriDecoder: UriDecoder;
 
   constructor (_routeName: string, _dbName: string) {
     super();

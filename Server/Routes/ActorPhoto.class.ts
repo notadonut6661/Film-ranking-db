@@ -14,7 +14,7 @@ export class ActorPhoto extends Route {
 
   constructor() {
     super();
-    this.uriDecoder = new UriDecoder([{ name: "title", type: "string" }, { name: "id", type: "number" }]);
+    this.uriDecoder = new UriDecoder([{ name: "title", type: "string", isOptional: false }, { name: "id", type: "number", isOptional: false }]);
     this.routeName = "ActorPhoto";
     this.dbName = "actors";
   }

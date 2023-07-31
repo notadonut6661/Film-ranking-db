@@ -1,4 +1,4 @@
-import { getNumberOfCharacterMentionInString } from "../utils/getNumberOfCharacterMentionInString";
+import { getNumberOfCharacterMentionInString } from "utils/getNumberOfCharacterMentionInString";
 import { uriParamsType } from "data/interfaces/uriParams.interface";
 import { config } from "dotenv";
 import 'dotenv/config';
@@ -10,7 +10,7 @@ import 'dotenv/config';
 
 config();
 
-export class UriDecoder<RT> {
+export class UriDecoder {
   private readonly uriParams: uriParamsType[];
 
   constructor(_uriParams: uriParamsType[]) {
@@ -40,24 +40,20 @@ export class UriDecoder<RT> {
     return Array.from(rowRequestParams.matchAll(/\?=/g)).length ?? 0;
   }
 
+  // FIXME Ich sicher nicht über zweite parameter
   private getKeyValuePairsAsObject(keyValuePairs: Array<string>, queryInSplittedPathId: number): Record<string, string> {
-    const result: Record<string, string> = {}
-
-
-    if (keyValuePairs.length !== this.uriParams[queryInSplittedPathId].type.length) {
-      throw Error('Length of provided query differs from required');
-    }
+    const result: Record<string, string> = {};  
+    const currentQueryElement = this.uriParams[queryInSplittedPathId].type;
+    const queryRequiredLength = Object.keys(currentQueryElement).length; 
 
     keyValuePairs.forEach((pair, i) => {
       const [key, value] = pair.split('?=');
 
-      const currentQueryElement = this.uriParams[queryInSplittedPathId].type[i];
-
       if (typeof currentQueryElement !== 'object') return;
 
-      if (currentQueryElement.name !== key || currentQueryElement.type !== this.getTypeOfElementInQuery(value)) {
-        throw Error("I FUCKING HATE YOU")
-      }
+      if (currentQueryElement.Required.hasOwnProperty("d") || currentQueryElement.type !== this.getTypeOfElementInQuery(value)) {
+      //   throw Error("I FUCKING HATE YOU")
+      // }
 
       result[key] = value;
     });

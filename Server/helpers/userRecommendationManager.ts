@@ -94,7 +94,7 @@ export class userRecommendationManager {
       GENRE: 0.8  
     });
 
-    // FIXME current time complexity is O(4n), increase the performance of the algorithm
+    // FIXME current time complexity is O(2n + 2k), increase the performance of the algorithm
     const tagsRankSum: number = Math.max(title.tags.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr), 9);
     const genreRankSum: number = Math.max(title.genres.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr), 9);
    // FIXME END

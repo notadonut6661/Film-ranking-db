@@ -15,7 +15,7 @@ export class Actors extends Route {
     super();
     this.routeName = "actors";
     this.dbName = "actors";
-    this.uriDecoder = new UriDecoder([{ name: 'title', type: 'string' }, { name: 'query', type: [{ name: "name", type: "string" }, { name: "length", type: "number"}]}]);
+    this.uriDecoder = new UriDecoder([{ name: 'title', type: 'string', isOptional: false }, { name: 'query', type: {name: { type: "string", isOptional: true }, length: {type: "number", isOptional: false}}, isOptional: true}]);
   }
 
   public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void>  {
@@ -43,3 +43,4 @@ export class Actors extends Route {
     throw new Error("Method not implemented.");
   }
 } 
+
