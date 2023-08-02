@@ -8,14 +8,41 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userRecommendationManager = void 0;
-const dbConnection_1 = __importDefault(require("./dbConnection"));
-class userRecommendationManager {
-    constructor(_userId) {
+var dbConnection_1 = __importDefault(require("./dbConnection"));
+var userRecommendationManager = /** @class */ (function () {
+    function userRecommendationManager(_userId) {
         this.userId = _userId;
         this.usersPrefers = {
             Genres: {},
@@ -27,16 +54,17 @@ class userRecommendationManager {
      * fills user's index selected by given id (maybe using email to select users is better) preferred_tags and preferred_genres are changed
      * rated films should be stored in `user_{id}_title_ranks`
     */
-    createUserRecommendationsProfile(rankedTitles) {
+    userRecommendationManager.prototype.createUserRecommendationsProfile = function (rankedTitles) {
+        var _this = this;
         /**
          * If the arithmetic mean of rated films with this tag is =< 5, then we won't add the value to the record
          */
-        const counts = {
+        var counts = {
             Tags: {},
             Genres: {}
         };
-        rankedTitles.forEach(value => {
-            const updateCounts = (propName, currentFilmRank, countType) => {
+        rankedTitles.forEach(function (value) {
+            var updateCounts = function (propName, currentFilmRank, countType) {
                 if (counts[countType][propName] === undefined) {
                     counts[countType][propName] = {
                         totalNumber: 1,
@@ -51,71 +79,91 @@ class userRecommendationManager {
                 counts[countType][propName].rank += counts[countType][propName].totalRatingsSum / counts[countType][propName].totalNumber;
                 counts[countType][propName].presenceRank = counts[countType][propName].totalNumber / (rankedTitles.length / 100);
             };
-            value.tags.forEach(tagName => updateCounts(tagName, value.rank, 'Tags'));
-            value.genres.forEach(genreName => updateCounts(genreName, value.rank, 'Genres'));
+            value.tags.forEach(function (tagName) { return updateCounts(tagName, value.rank, 'Tags'); });
+            value.genres.forEach(function (genreName) { return updateCounts(genreName, value.rank, 'Genres'); });
         });
-        Object.entries(counts).forEach(([countType, props]) => {
+        Object.entries(counts).forEach(function (_a) {
+            var countType = _a[0], props = _a[1];
             if (countType !== 'Tags' && countType !== 'Genres')
                 return;
-            Object.entries(props).forEach(([key, value]) => {
-                this.usersPrefers[countType][key] = value.presenceRank !== undefined ? (value.rank * (value.presenceRank / 100)) : 0;
+            Object.entries(props).forEach(function (_a) {
+                var key = _a[0], value = _a[1];
+                _this.usersPrefers[countType][key] = value.presenceRank !== undefined ? (value.rank * (value.presenceRank / 100)) : 0;
             });
         });
-    }
+    };
     /**
      * estimateFilmRateForUser
      * @returns a number that estimates probability that the user will click and rate the film(series) positively at scale from 0 to 9 where 0 means that it's not really probable that the user will click at the film and  9 means the opposite
      */
-    estimateTitleRateForUser(title) {
+    userRecommendationManager.prototype.estimateTitleRateForUser = function (title) {
+        var _this = this;
         if (Object.keys(this.usersPrefers.Genres).length === 0 || Object.keys(this.usersPrefers.Tags).length === 0) {
             throw new Error("No recommendation profile has been generated");
         }
-        const WEIGHTS = Object.freeze({
+        var WEIGHTS = Object.freeze({
             TAG: 0.2,
             GENRE: 0.8
         });
-        const tagsRankSum = title.tags.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
-        const genreRankSum = title.genres.map(genre => this.usersPrefers.Genres[genre]).reduce((prev, curr) => prev + curr);
+        // FIXME current time complexity is O(2n + 2k), increase the performance of the algorithm
+        var tagsRankSum = Math.max(title.tags.map(function (genre) { return _this.usersPrefers.Genres[genre]; }).reduce(function (prev, curr) { return prev + curr; }), 9);
+        var genreRankSum = Math.max(title.genres.map(function (genre) { return _this.usersPrefers.Genres[genre]; }).reduce(function (prev, curr) { return prev + curr; }), 9);
+        // FIXME END
         return genreRankSum * WEIGHTS.GENRE + tagsRankSum * WEIGHTS.TAG;
-    }
+    };
     /**
      * getRecommendations
      * @returns
      */
-    getRecommendations(p_RecommendationListLength) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let filmsInPreferredGenreQuery = `SELECT * FROM user_${this.userId}_title_ranks WHERE `;
-            for (const key in this.usersPrefers.Genres) {
-                if (this.usersPrefers.Genres[key] < 5)
-                    break;
-                filmsInPreferredGenreQuery += `${key} = 1`;
-            }
-            const filmsInPreferredGenre = (yield (yield dbConnection_1.default).query(filmsInPreferredGenreQuery));
-            const filmsInPreferredGenreAnalyticsData = [];
-            filmsInPreferredGenre.forEach(title => {
-                Object.entries(title).forEach(([key, value], index) => {
-                    if (!key.includes('genre') && !key.includes('tag') || value === 0)
-                        return;
-                    const dataType = key.includes('genre') ? 'genres' : 'tags';
-                    if (filmsInPreferredGenreAnalyticsData[index] === undefined) {
-                        filmsInPreferredGenreAnalyticsData[index] = {
-                            id: title.id,
-                            rank: title === null || title === void 0 ? void 0 : title.rank,
-                            genres: dataType === 'genres' ? [key] : [],
-                            tags: dataType === 'tags' ? [key] : []
-                        };
-                        return;
-                    }
-                    filmsInPreferredGenreAnalyticsData[index][dataType].push(key);
-                });
+    userRecommendationManager.prototype.getRecommendations = function (p_RecommendationListLength) {
+        return __awaiter(this, void 0, void 0, function () {
+            var filmsInPreferredGenreQuery, key, filmsInPreferredGenre, filmsInPreferredGenreAnalyticsData;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        filmsInPreferredGenreQuery = "SELECT * FROM user_".concat(this.userId, "_title_ranks WHERE ");
+                        for (key in this.usersPrefers.Genres) {
+                            if (this.usersPrefers.Genres[key] < 5)
+                                break;
+                            filmsInPreferredGenreQuery += "".concat(key, " = 1"); // 1 is used as boolean true here
+                        }
+                        return [4 /*yield*/, dbConnection_1.default];
+                    case 1: return [4 /*yield*/, (_a.sent()).query(filmsInPreferredGenreQuery)];
+                    case 2:
+                        filmsInPreferredGenre = (_a.sent());
+                        filmsInPreferredGenreAnalyticsData = [];
+                        filmsInPreferredGenre.forEach(function (title) {
+                            Object.entries(title).forEach(function (_a, index) {
+                                var key = _a[0], value = _a[1];
+                                if (!key.includes('genre') && !key.includes('tag') || value === 0)
+                                    return;
+                                var dataType = key.includes('genre') ? 'genres' : 'tags';
+                                if (filmsInPreferredGenreAnalyticsData[index] === undefined) {
+                                    filmsInPreferredGenreAnalyticsData[index] = {
+                                        id: title.id,
+                                        rank: title === null || title === void 0 ? void 0 : title.rank,
+                                        genres: dataType === 'genres' ? [key] : [],
+                                        tags: dataType === 'tags' ? [key] : []
+                                    };
+                                    return;
+                                }
+                                filmsInPreferredGenreAnalyticsData[index][dataType].push(key);
+                            });
+                        });
+                        return [2 /*return*/, this.sortByEstimatedUserFilmRate(filmsInPreferredGenreAnalyticsData).map(function (_a) {
+                                var titleName = _a.id;
+                                return titleName;
+                            })];
+                }
             });
-            return this.sortByEstimatedUserFilmRate(filmsInPreferredGenreAnalyticsData).map(({ id: titleName }) => titleName);
         });
-    }
-    sortByEstimatedUserFilmRate(unsortedFilms) {
-        return unsortedFilms.sort((a, b) => {
-            return this.estimateTitleRateForUser(a) - this.estimateTitleRateForUser(b);
+    };
+    userRecommendationManager.prototype.sortByEstimatedUserFilmRate = function (unsortedFilms) {
+        var _this = this;
+        return unsortedFilms.sort(function (a, b) {
+            return _this.estimateTitleRateForUser(a) - _this.estimateTitleRateForUser(b);
         });
-    }
-}
+    };
+    return userRecommendationManager;
+}());
 exports.userRecommendationManager = userRecommendationManager;

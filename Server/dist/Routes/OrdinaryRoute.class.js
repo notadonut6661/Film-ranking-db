@@ -54,54 +54,65 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Actors = void 0;
-var dbConnection_1 = __importDefault(require("@helpers/dbConnection"));
+exports.OrdinaryRoute = void 0;
 var Route_class_1 = require("./Route.class");
-var uriDecoder_1 = require("@helpers/uriDecoder");
-var Actors = /** @class */ (function (_super) {
-    __extends(Actors, _super);
-    function Actors() {
+var dbConnection_1 = __importDefault(require("helpers/dbConnection"));
+var uriDecoder_1 = require("helpers/uriDecoder");
+/**
+ * OrdinaryRoute - takes in routeName and dbName, it's class with default http routes, implements 4 verbs, GET, POST, PATCH, DELETE, and does basic stuff with db at every request
+ */
+var OrdinaryRoute = /** @class */ (function (_super) {
+    __extends(OrdinaryRoute, _super);
+    function OrdinaryRoute(_routeName, _dbName) {
         var _this = _super.call(this) || this;
-        _this.routeName = "actors";
-        _this.dbName = "actors";
-        _this.uriDecoder = new uriDecoder_1.UriDecoder([{ name: 'title', type: 'string' }, { name: 'query', type: { Required: { id: "number" } } }]);
+        _this.routeName = _routeName;
+        _this.dbName = _dbName;
+        _this.uriDecoder = new uriDecoder_1.UriDecoder([{ name: "title", type: "string" }, { name: "id", type: "number" }]);
         return _this;
     }
-    Actors.prototype.Get = function (req, res) {
+    OrdinaryRoute.prototype.Get = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var query, ActorsUncutArr, err_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var id, _a, _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        query = this.uriDecoder.Decode(req.originalUrl).query;
-                        if (typeof query === 'string')
-                            return [2 /*return*/];
+                        id = this.uriDecoder.Decode(req.originalUrl).id;
+                        _d.label = 1;
+                    case 1:
+                        _d.trys.push([1, 4, , 5]);
+                        _b = (_a = res.status(200)).json;
                         return [4 /*yield*/, dbConnection_1.default];
-                    case 1: return [4 /*yield*/, (_a.sent()).query("SELECT * FROM ".concat(this.dbName, " WHERE name LIKE \"").concat(query.name, "%\""))];
-                    case 2:
-                        ActorsUncutArr = _a.sent();
-                        res.json(ActorsUncutArr.slice(0, +query.length));
-                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, (_d.sent()).query("SELECT * FROM ".concat(this.dbName, " WHERE id = ").concat(id))];
                     case 3:
-                        err_1 = _a.sent();
-                        console.log(err_1);
-                        res.status(404).json({ Error: "Wrong parameters" });
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        _b.apply(_a, [_d.sent()]);
+                        return [3 /*break*/, 5];
+                    case 4:
+                        _c = _d.sent();
+                        res.sendStatus(200);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
             });
         });
     };
-    Actors.prototype.Post = function (req, res) {
-        throw new Error("Method not implemented.");
+    OrdinaryRoute.prototype.Post = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        setTimeout(function () { return resolve("0"); }, 100);
+                    })];
+            });
+        });
     };
-    Actors.prototype.Patch = function (req, res) {
-        throw new Error("Method not implemented.");
+    OrdinaryRoute.prototype.Patch = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        setTimeout(function () { return resolve(0); }, 100);
+                    })];
+            });
+        });
     };
-    Actors.prototype.Delete = function (req, res) {
-        throw new Error("Method not implemented.");
-    };
-    return Actors;
+    return OrdinaryRoute;
 }(Route_class_1.Route));
-exports.Actors = Actors;
+exports.OrdinaryRoute = OrdinaryRoute;

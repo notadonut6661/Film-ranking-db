@@ -1,13 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Router = void 0;
-const Routes_1 = require("./Routes");
+var RouteFactory_class_1 = require("./RouteFactory.class");
+var RouteFactory_class_2 = require("./RouteFactory.class");
 function Router(app) {
-    Routes_1.Routes.forEach(({ name, method }) => {
-        app.get(`/${name}/*`, method.Get);
-        app.post(`/${name}`, method.Post);
-        app.patch(`/${name}/*`, method.Patch);
-        app.delete(`/${name}/*`, method.Delete);
+    Object.values(RouteFactory_class_1.Routes).forEach(function (name) {
+        var currRoute = RouteFactory_class_2.RouteFactory.Create(name);
+        app.get("/".concat(name, "/*"), currRoute.Get);
+        app.post("/".concat(name), currRoute.Post);
+        app.patch("/".concat(name, "/*"), currRoute.Patch);
+        app.delete("/".concat(name, "/*"), currRoute.Delete);
     });
 }
 exports.Router = Router;

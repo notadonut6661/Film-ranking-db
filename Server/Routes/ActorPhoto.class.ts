@@ -1,10 +1,10 @@
 import path from "path";
 import {Route} from "./Route.class";
-import dbConnection from "helpers/dbConnection";
+import dbConnection from "../helpers/dbConnection";
 import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
-import { UriDecoder } from "helpers/uriDecoder";
+import { UriDecoder } from "../helpers/uriDecoder";
 
 export class ActorPhoto extends Route {
 
@@ -14,7 +14,7 @@ export class ActorPhoto extends Route {
 
   constructor() {
     super();
-    this.uriDecoder = new UriDecoder([{ name: "title", type: "string", isOptional: false }, { name: "id", type: "number", isOptional: false }]);
+    this.uriDecoder = new UriDecoder([{ name: "title", type: "string"}, { name: "id", type: "number" }]);
     this.routeName = "ActorPhoto";
     this.dbName = "actors";
   }

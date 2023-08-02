@@ -1,9 +1,9 @@
 import { Request, Response } from "express"
 import { ParamsDictionary } from "express-serve-static-core"
 import { ParsedQs } from "qs"
-import dbConnection from 'helpers/dbConnection';
+import dbConnection from '@helpers/dbConnection';
 import {Route} from "./Route.class"
-import { UriDecoder } from "helpers/uriDecoder";
+import { UriDecoder } from "@helpers/uriDecoder";
 
 export class Actors extends Route {
 
@@ -15,7 +15,7 @@ export class Actors extends Route {
     super();
     this.routeName = "actors";
     this.dbName = "actors";
-    this.uriDecoder = new UriDecoder([{ name: 'title', type: 'string', isOptional: false }, { name: 'query', type: {name: { type: "string", isOptional: true }, length: {type: "number", isOptional: false}}, isOptional: true}]);
+    this.uriDecoder = new UriDecoder([{ name: 'title', type: 'string' }, { name: 'query', type: {Required: {id: "number"}}}]);
   }
 
   public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void>  {

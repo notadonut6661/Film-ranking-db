@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const mariadb_1 = require("mariadb");
-const dotenv_1 = require("dotenv");
+var mariadb_1 = require("mariadb");
+var dotenv_1 = require("dotenv");
 (0, dotenv_1.config)();
 exports.default = (0, mariadb_1.createConnection)({
     host: process.env.DB_HOST,

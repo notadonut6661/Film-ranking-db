@@ -18,7 +18,7 @@ export class OrdinaryRoute<POST_REQ extends Request, PATCH_REQ extends Request> 
     super();
     this.routeName =  _routeName;
     this.dbName = _dbName;
-    this.uriDecoder = new UriDecoder([{name: "title", type:"string", isOptional: true}, {name: "id", type: "number", isOptional: true}]);
+    this.uriDecoder = new UriDecoder([{name: "title", type:"string"}, {name: "id", type: "number"}]);
   }
   
   public override async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response) {

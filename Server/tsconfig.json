@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es2016",
+    "target": "ES5",
     "module": "commonjs",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "*": ["./*"],
-      "data": ["./data/*"],
-      "helpers": ["./helpers/*"]
+      "@data/*": ["./data/*"],
+      "@helpers/*": ["./helpers/*"],
+      "@utils/*": ["./utils/*"]
     },
     "outDir": "./dist",
     "esModuleInterop": true,

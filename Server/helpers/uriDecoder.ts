@@ -1,4 +1,4 @@
-import { getNumberOfCharacterMentionInString } from "utils/getNumberOfCharacterMentionInString";
+import { getNumberOfCharacterMentionInString } from "@utils/getNumberOfCharacterMentionInString";
 import { uriParamsType } from "data/interfaces/uriParams.interface";
 import { config } from "dotenv";
 import 'dotenv/config';
@@ -41,17 +41,22 @@ export class UriDecoder {
   }
 
   // FIXME Ich sicher nicht über zweite parameter
-  private getKeyValuePairsAsObject(keyValuePairs: Array<string>, queryInSplittedPathId: number): Record<string, string> {
+  private getKeyValuePairsAsObject(keyValuePairs: Array<string>, queryInSplittedPathId: number): Record<string, string> | never {
     const result: Record<string, string> = {};  
     const currentQueryElement = this.uriParams[queryInSplittedPathId].type;
     const queryRequiredLength = Object.keys(currentQueryElement).length;  
-
+    let minimalQueryLength = queryRequiredLength;
+    
     keyValuePairs.forEach((pair, i) => {
       const [key, value] = pair.split('?=');
       let isElOptional: boolean;
+      // !FIXME Will cause perfomance related issues
+      if (typeof currentQueryElement !== 'object') return;  
       
-      if (typeof currentQueryElement !== 'object') return;
-
+      if (keyValuePairs.length <= minimalQueryLength) {
+        throw new Error("");
+      }
+      
       if (!Object.prototype.hasOwnProperty.call(currentQueryElement.Required, key) && !Object.prototype.hasOwnProperty.call(currentQueryElement.Optional, key)) {
         throw Error("I FUCKING HATE YOU")
       } else {
@@ -62,13 +67,12 @@ export class UriDecoder {
         throw new Error("KURWA");
       }
 
-      if (!isElOptional || currentQueryElement.Required[key].type !== this.getTypeOfElementInQuery(value)) {
+      if (!isElOptional || currentQueryElement.Required[key] !== this.getTypeOfElementInQuery(value)) {
         throw new Error("KURWA");
       }
       
-
       result[key] = value;
-      
+      minimalQueryLength = isElOptional ? minimalQueryLength+1 : minimalQueryLength;
     });
 
     return result;
