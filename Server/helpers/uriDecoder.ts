@@ -44,18 +44,31 @@ export class UriDecoder {
   private getKeyValuePairsAsObject(keyValuePairs: Array<string>, queryInSplittedPathId: number): Record<string, string> {
     const result: Record<string, string> = {};  
     const currentQueryElement = this.uriParams[queryInSplittedPathId].type;
-    const queryRequiredLength = Object.keys(currentQueryElement).length; 
+    const queryRequiredLength = Object.keys(currentQueryElement).length;  
 
     keyValuePairs.forEach((pair, i) => {
       const [key, value] = pair.split('?=');
-
+      let isElOptional: boolean;
+      
       if (typeof currentQueryElement !== 'object') return;
 
-      if (currentQueryElement.Required.hasOwnProperty("d") || currentQueryElement.type !== this.getTypeOfElementInQuery(value)) {
-      //   throw Error("I FUCKING HATE YOU")
-      // }
+      if (!Object.prototype.hasOwnProperty.call(currentQueryElement.Required, key) && !Object.prototype.hasOwnProperty.call(currentQueryElement.Optional, key)) {
+        throw Error("I FUCKING HATE YOU")
+      } else {
+        isElOptional = Object.prototype.hasOwnProperty.call(currentQueryElement.Optional, key);
+      }
+
+      if (!(isElOptional && (currentQueryElement.Optional === undefined || currentQueryElement.Optional[key].type === this.getTypeOfElementInQuery(value)))) {
+        throw new Error("KURWA");
+      }
+
+      if (!isElOptional || currentQueryElement.Required[key].type !== this.getTypeOfElementInQuery(value)) {
+        throw new Error("KURWA");
+      }
+      
 
       result[key] = value;
+      
     });
 
     return result;
