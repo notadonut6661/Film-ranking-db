@@ -4,9 +4,9 @@
     "module": "commonjs",
     "baseUrl": ".",
     "paths": {
-      "@data/*": ["./data/*"],
-      "@helpers/*": ["./helpers/*"],
-      "@utils/*": ["./utils/*"]
+      "data/*": ["data/*"],
+      "helpers/*": ["helpers/*"],
+      "utils/*": ["utils/*"]
     },
     "outDir": "./dist",
     "esModuleInterop": true,
@@ -14,7 +14,10 @@
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "noEmitOnError": true
+    "noEmitOnError": true,
+    "moduleResolution": "node",
+    "removeComments": true,
+    "experimentalDecorators": true
   },
   "include": ["./"],
   "exclude": ["node_modules", "dist"]

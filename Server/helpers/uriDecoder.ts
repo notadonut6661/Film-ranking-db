@@ -1,5 +1,5 @@
-import { getNumberOfCharacterMentionInString } from "@utils/getNumberOfCharacterMentionInString";
-import { uriParamsType } from "data/interfaces/uriParams.interface";
+import { getNumberOfCharacterMentionInString } from "../utils/getNumberOfCharacterMentionInString";
+import { uriParamsType } from "../data/interfaces/uriParams.interface";
 import { config } from "dotenv";
 import 'dotenv/config';
 
@@ -50,7 +50,7 @@ export class UriDecoder {
     keyValuePairs.forEach((pair, i) => {
       const [key, value] = pair.split('?=');
       let isElOptional: boolean;
-      // !FIXME Will cause perfomance related issues
+      // !FIXME Will cause performance related issues
       if (typeof currentQueryElement !== 'object') return;  
       
       if (keyValuePairs.length <= minimalQueryLength) {

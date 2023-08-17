@@ -1,9 +1,9 @@
 import {Route} from "./Route.class";
-import dbConnection from "helpers/dbConnection";
+import dbConnection from "../helpers/dbConnection";
 import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
-import { UriDecoder } from "helpers/uriDecoder";
+import { UriDecoder } from "../helpers/uriDecoder";
 
 
 /**
@@ -22,8 +22,9 @@ export class OrdinaryRoute<POST_REQ extends Request, PATCH_REQ extends Request> 
   }
   
   public override async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response) {
+    console.log("fff");
     const { id } = this.uriDecoder.Decode(req.originalUrl);
-
+    
     try {
       res.status(200).json(await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`));
     } catch {
@@ -32,9 +33,9 @@ export class OrdinaryRoute<POST_REQ extends Request, PATCH_REQ extends Request> 
   }
 
   public override async Post(req: POST_REQ, res: Response) {
-    return new Promise((resolve: (value: string) => void, reject) => {
-      setTimeout(() => resolve("0"), 100)
-    })
+    console.log("fff");
+    res.json({"ff": "ff"});
+
   }
 
   public override async Patch(req: PATCH_REQ, res: Response) {

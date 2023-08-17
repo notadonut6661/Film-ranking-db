@@ -13,14 +13,12 @@ var cors_1 = __importDefault(require("cors"));
 var app = (0, express_1.default)();
 var x = new Auth_class_1.Auth();
 app.use((0, cors_1.default)({
-    origin: 'http://192.168.0.224:3000' // Replace with your allowed origin
+    origin: '192.168.50.18'
 }));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.static(path_1.default.join(__dirname, 'public')));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
 (0, Router_1.Router)(app);
 app.post('/auth/login', x.Login);
 app.post('/auth/signup', x.Signup);
-app.listen(4054, '192.168.0.228');
+app.listen(4054, '192.168.50.18');

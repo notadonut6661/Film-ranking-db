@@ -56,12 +56,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrdinaryRoute = void 0;
 var Route_class_1 = require("./Route.class");
-var dbConnection_1 = __importDefault(require("helpers/dbConnection"));
-var uriDecoder_1 = require("helpers/uriDecoder");
-/**
- * OrdinaryRoute - takes in routeName and dbName, it's class with default http routes, implements 4 verbs, GET, POST, PATCH, DELETE, and does basic stuff with db at every request
- */
-var OrdinaryRoute = /** @class */ (function (_super) {
+var dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
+var uriDecoder_1 = require("../helpers/uriDecoder");
+var OrdinaryRoute = (function (_super) {
     __extends(OrdinaryRoute, _super);
     function OrdinaryRoute(_routeName, _dbName) {
         var _this = _super.call(this) || this;
@@ -76,21 +73,22 @@ var OrdinaryRoute = /** @class */ (function (_super) {
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
+                        console.log("fff");
                         id = this.uriDecoder.Decode(req.originalUrl).id;
                         _d.label = 1;
                     case 1:
                         _d.trys.push([1, 4, , 5]);
                         _b = (_a = res.status(200)).json;
-                        return [4 /*yield*/, dbConnection_1.default];
-                    case 2: return [4 /*yield*/, (_d.sent()).query("SELECT * FROM ".concat(this.dbName, " WHERE id = ").concat(id))];
+                        return [4, dbConnection_1.default];
+                    case 2: return [4, (_d.sent()).query("SELECT * FROM ".concat(this.dbName, " WHERE id = ").concat(id))];
                     case 3:
                         _b.apply(_a, [_d.sent()]);
-                        return [3 /*break*/, 5];
+                        return [3, 5];
                     case 4:
                         _c = _d.sent();
                         res.sendStatus(200);
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
+                        return [3, 5];
+                    case 5: return [2];
                 }
             });
         });
@@ -98,16 +96,16 @@ var OrdinaryRoute = /** @class */ (function (_super) {
     OrdinaryRoute.prototype.Post = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        setTimeout(function () { return resolve("0"); }, 100);
-                    })];
+                console.log("fff");
+                res.json({ "ff": "ff" });
+                return [2];
             });
         });
     };
     OrdinaryRoute.prototype.Patch = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
+                return [2, new Promise(function (resolve, reject) {
                         setTimeout(function () { return resolve(0); }, 100);
                     })];
             });

@@ -13,7 +13,7 @@ const app = express();
 const x = new Auth();
 
 app.use(cors({
-  origin: 'http://192.168.0.224:3000' // Replace with your allowed origin
+  origin: '192.168.50.18' // Replace with your allowed origin
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -28,4 +28,4 @@ app.post('/auth/signup', x.Signup);
 
 
 
-app.listen(4054, '192.168.0.228');
+app.listen(4054, '192.168.50.18');

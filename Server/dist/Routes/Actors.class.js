@@ -55,10 +55,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Actors = void 0;
-var dbConnection_1 = __importDefault(require("@helpers/dbConnection"));
+var dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
 var Route_class_1 = require("./Route.class");
-var uriDecoder_1 = require("@helpers/uriDecoder");
-var Actors = /** @class */ (function (_super) {
+var uriDecoder_1 = require("../helpers/uriDecoder");
+var Actors = (function (_super) {
     __extends(Actors, _super);
     function Actors() {
         var _this = _super.call(this) || this;
@@ -76,19 +76,19 @@ var Actors = /** @class */ (function (_super) {
                         _a.trys.push([0, 3, , 4]);
                         query = this.uriDecoder.Decode(req.originalUrl).query;
                         if (typeof query === 'string')
-                            return [2 /*return*/];
-                        return [4 /*yield*/, dbConnection_1.default];
-                    case 1: return [4 /*yield*/, (_a.sent()).query("SELECT * FROM ".concat(this.dbName, " WHERE name LIKE \"").concat(query.name, "%\""))];
+                            return [2];
+                        return [4, dbConnection_1.default];
+                    case 1: return [4, (_a.sent()).query("SELECT * FROM ".concat(this.dbName, " WHERE name LIKE \"").concat(query.name, "%\""))];
                     case 2:
                         ActorsUncutArr = _a.sent();
                         res.json(ActorsUncutArr.slice(0, +query.length));
-                        return [3 /*break*/, 4];
+                        return [3, 4];
                     case 3:
                         err_1 = _a.sent();
                         console.log(err_1);
                         res.status(404).json({ Error: "Wrong parameters" });
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3, 4];
+                    case 4: return [2];
                 }
             });
         });

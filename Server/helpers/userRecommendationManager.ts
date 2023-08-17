@@ -143,7 +143,7 @@ export class userRecommendationManager {
     return this.sortByEstimatedUserFilmRate(filmsInPreferredGenreAnalyticsData).map(({id: titleName}) => titleName);
   }
 
-  public sortByEstimatedUserFilmRate(unsortedFilms: Array<TitleAnalyticsData>): Array<TitleAnalyticsData> {
+  private sortByEstimatedUserFilmRate(unsortedFilms: Array<TitleAnalyticsData>): Array<TitleAnalyticsData> {
     return unsortedFilms.sort((a, b) => {
       return this.estimateTitleRateForUser(a) - this.estimateTitleRateForUser(b);
     });

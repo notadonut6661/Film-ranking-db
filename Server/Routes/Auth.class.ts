@@ -1,10 +1,10 @@
-import { UriDecoder } from 'helpers/uriDecoder';
+import { UriDecoder } from '../helpers/uriDecoder';
 import {Route} from "./Route.class";
-import dbConnection from "helpers/dbConnection";
+import dbConnection from "../helpers/dbConnection";
 import { Request, Response } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { ParsedQs } from "qs";
-import { uriParamsType } from "data/interfaces/uriParams.interface";
+import { uriParamsType } from "../data/interfaces/uriParams.interface";
 
 export class Auth extends Route {
   protected routeName: string;

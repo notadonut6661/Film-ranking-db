@@ -17,7 +17,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Auth = void 0;
 var Route_class_1 = require("./Route.class");
-var Auth = /** @class */ (function (_super) {
+var Auth = (function (_super) {
     __extends(Auth, _super);
     function Auth() {
         var _this = _super.call(this) || this;

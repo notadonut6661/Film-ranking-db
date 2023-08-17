@@ -1,9 +1,9 @@
 import { Request, Response } from "express"
 import { ParamsDictionary } from "express-serve-static-core"
 import { ParsedQs } from "qs"
-import dbConnection from '@helpers/dbConnection';
+import dbConnection from '../helpers/dbConnection';
 import {Route} from "./Route.class"
-import { UriDecoder } from "@helpers/uriDecoder";
+import { UriDecoder } from "../helpers/uriDecoder";
 
 export class Actors extends Route {
 

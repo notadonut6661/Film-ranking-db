@@ -42,7 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Route = void 0;
 var dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
 var generateSha256_1 = require("../utils/generateSha256");
-var Route = /** @class */ (function () {
+var Route = (function () {
     function Route() {
         this.MediaType = 'application/json';
         this.Get = this.Get.bind(this);
@@ -77,7 +77,7 @@ var Route = /** @class */ (function () {
                     case 0:
                         authHeader = this.getAuthHeader(req);
                         if (!this.ValidateRequest(req)) {
-                            return [2 /*return*/, false];
+                            return [2, false];
                         }
                         input = {
                             email: authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(':')[0],
@@ -86,19 +86,19 @@ var Route = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 4, , 5]);
-                        return [4 /*yield*/, dbConnection_1.default];
-                    case 2: return [4 /*yield*/, (_a.sent()).query("SELECT passwordHash FROM users WHERE email = ".concat(input.email))];
+                        return [4, dbConnection_1.default];
+                    case 2: return [4, (_a.sent()).query("SELECT passwordHash FROM users WHERE email = ".concat(input.email))];
                     case 3:
                         realPass = _a.sent();
-                        return [3 /*break*/, 5];
+                        return [3, 5];
                     case 4:
                         err_1 = _a.sent();
                         console.error(err_1);
-                        return [2 /*return*/, false];
+                        return [2, false];
                     case 5:
                         if (!realPass || !input.password)
-                            return [2 /*return*/, false];
-                        return [2 /*return*/, realPass === (0, generateSha256_1.generateSha256)(input.password)];
+                            return [2, false];
+                        return [2, realPass === (0, generateSha256_1.generateSha256)(input.password)];
                 }
             });
         });

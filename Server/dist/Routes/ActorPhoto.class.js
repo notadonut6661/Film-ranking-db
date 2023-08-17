@@ -59,7 +59,7 @@ var path_1 = __importDefault(require("path"));
 var Route_class_1 = require("./Route.class");
 var dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
 var uriDecoder_1 = require("../helpers/uriDecoder");
-var ActorPhoto = /** @class */ (function (_super) {
+var ActorPhoto = (function (_super) {
     __extends(ActorPhoto, _super);
     function ActorPhoto() {
         var _this = _super.call(this) || this;
@@ -77,17 +77,17 @@ var ActorPhoto = /** @class */ (function (_super) {
                     case 0:
                         _c.trys.push([0, 3, , 4]);
                         id = this.uriDecoder.Decode(req.originalUrl).id;
-                        return [4 /*yield*/, dbConnection_1.default];
-                    case 1: return [4 /*yield*/, (_c.sent()).query("SELECT * FROM ".concat(this.dbName, " WHERE id = ").concat(id))];
+                        return [4, dbConnection_1.default];
+                    case 1: return [4, (_c.sent()).query("SELECT * FROM ".concat(this.dbName, " WHERE id = ").concat(id))];
                     case 2:
                         pathToProfilePhoto = (_a = (_c.sent())[0]) === null || _a === void 0 ? void 0 : _a.profile_picture;
                         res.status(200).sendFile(path_1.default.resolve(pathToProfilePhoto));
-                        return [3 /*break*/, 4];
+                        return [3, 4];
                     case 3:
                         _b = _c.sent();
                         res.sendStatus(503);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3, 4];
+                    case 4: return [2];
                 }
             });
         });

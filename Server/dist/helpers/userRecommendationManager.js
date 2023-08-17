@@ -41,7 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userRecommendationManager = void 0;
 var dbConnection_1 = __importDefault(require("./dbConnection"));
-var userRecommendationManager = /** @class */ (function () {
+var userRecommendationManager = (function () {
     function userRecommendationManager(_userId) {
         this.userId = _userId;
         this.usersPrefers = {
@@ -49,16 +49,8 @@ var userRecommendationManager = /** @class */ (function () {
             Tags: {}
         };
     }
-    /**
-     * createUserRecommendationsProfile
-     * fills user's index selected by given id (maybe using email to select users is better) preferred_tags and preferred_genres are changed
-     * rated films should be stored in `user_{id}_title_ranks`
-    */
     userRecommendationManager.prototype.createUserRecommendationsProfile = function (rankedTitles) {
         var _this = this;
-        /**
-         * If the arithmetic mean of rated films with this tag is =< 5, then we won't add the value to the record
-         */
         var counts = {
             Tags: {},
             Genres: {}
@@ -92,10 +84,6 @@ var userRecommendationManager = /** @class */ (function () {
             });
         });
     };
-    /**
-     * estimateFilmRateForUser
-     * @returns a number that estimates probability that the user will click and rate the film(series) positively at scale from 0 to 9 where 0 means that it's not really probable that the user will click at the film and  9 means the opposite
-     */
     userRecommendationManager.prototype.estimateTitleRateForUser = function (title) {
         var _this = this;
         if (Object.keys(this.usersPrefers.Genres).length === 0 || Object.keys(this.usersPrefers.Tags).length === 0) {
@@ -105,16 +93,10 @@ var userRecommendationManager = /** @class */ (function () {
             TAG: 0.2,
             GENRE: 0.8
         });
-        // FIXME current time complexity is O(2n + 2k), increase the performance of the algorithm
         var tagsRankSum = Math.max(title.tags.map(function (genre) { return _this.usersPrefers.Genres[genre]; }).reduce(function (prev, curr) { return prev + curr; }), 9);
         var genreRankSum = Math.max(title.genres.map(function (genre) { return _this.usersPrefers.Genres[genre]; }).reduce(function (prev, curr) { return prev + curr; }), 9);
-        // FIXME END
         return genreRankSum * WEIGHTS.GENRE + tagsRankSum * WEIGHTS.TAG;
     };
-    /**
-     * getRecommendations
-     * @returns
-     */
     userRecommendationManager.prototype.getRecommendations = function (p_RecommendationListLength) {
         return __awaiter(this, void 0, void 0, function () {
             var filmsInPreferredGenreQuery, key, filmsInPreferredGenre, filmsInPreferredGenreAnalyticsData;
@@ -125,10 +107,10 @@ var userRecommendationManager = /** @class */ (function () {
                         for (key in this.usersPrefers.Genres) {
                             if (this.usersPrefers.Genres[key] < 5)
                                 break;
-                            filmsInPreferredGenreQuery += "".concat(key, " = 1"); // 1 is used as boolean true here
+                            filmsInPreferredGenreQuery += "".concat(key, " = 1");
                         }
-                        return [4 /*yield*/, dbConnection_1.default];
-                    case 1: return [4 /*yield*/, (_a.sent()).query(filmsInPreferredGenreQuery)];
+                        return [4, dbConnection_1.default];
+                    case 1: return [4, (_a.sent()).query(filmsInPreferredGenreQuery)];
                     case 2:
                         filmsInPreferredGenre = (_a.sent());
                         filmsInPreferredGenreAnalyticsData = [];
@@ -150,7 +132,7 @@ var userRecommendationManager = /** @class */ (function () {
                                 filmsInPreferredGenreAnalyticsData[index][dataType].push(key);
                             });
                         });
-                        return [2 /*return*/, this.sortByEstimatedUserFilmRate(filmsInPreferredGenreAnalyticsData).map(function (_a) {
+                        return [2, this.sortByEstimatedUserFilmRate(filmsInPreferredGenreAnalyticsData).map(function (_a) {
                                 var titleName = _a.id;
                                 return titleName;
                             })];

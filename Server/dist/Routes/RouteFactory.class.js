@@ -14,7 +14,7 @@ var Routes;
     Routes["ACTOR_PHOTO"] = "ACTOR_PHOTO";
     Routes["USERS"] = "USERS";
 })(Routes = exports.Routes || (exports.Routes = {}));
-var RouteFactory = /** @class */ (function () {
+var RouteFactory = (function () {
     function RouteFactory() {
     }
     RouteFactory.Create = function (route) {

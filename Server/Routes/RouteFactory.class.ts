@@ -26,7 +26,7 @@ export class RouteFactory {
         return new Actors();
       case "ACTOR_PHOTO":
         return new ActorPhoto();
-      case "USERS":
+      case "USERS": 
         return new OrdinaryRoute("users", "users");
       
       default: 

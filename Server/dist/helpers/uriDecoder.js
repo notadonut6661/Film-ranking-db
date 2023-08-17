@@ -1,21 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UriDecoder = void 0;
-var getNumberOfCharacterMentionInString_1 = require("@utils/getNumberOfCharacterMentionInString");
+var getNumberOfCharacterMentionInString_1 = require("../utils/getNumberOfCharacterMentionInString");
 var dotenv_1 = require("dotenv");
 require("dotenv/config");
-/**
- *
- * @param uriParams is an array containing all the parts of uri (part is a term that defines string in uri splitted by "/" sign)
- */
 (0, dotenv_1.config)();
-var UriDecoder = /** @class */ (function () {
+var UriDecoder = (function () {
     function UriDecoder(_uriParams) {
         this.uriParams = _uriParams;
     }
-    /**
-   * @returns Splitted URI without first character slash
-   */
     UriDecoder.prototype.getSplittedUri = function (uri) {
         return uri.replace(/^\//, '').split('/');
     };
@@ -33,7 +26,6 @@ var UriDecoder = /** @class */ (function () {
         var _a;
         return (_a = Array.from(rowRequestParams.matchAll(/\?=/g)).length) !== null && _a !== void 0 ? _a : 0;
     };
-    // FIXME Ich sicher nicht über zweite parameter
     UriDecoder.prototype.getKeyValuePairsAsObject = function (keyValuePairs, queryInSplittedPathId) {
         var _this = this;
         var result = {};
@@ -43,7 +35,6 @@ var UriDecoder = /** @class */ (function () {
         keyValuePairs.forEach(function (pair, i) {
             var _a = pair.split('?='), key = _a[0], value = _a[1];
             var isElOptional;
-            // !FIXME Will cause perfomance related issues
             if (typeof currentQueryElement !== 'object')
                 return;
             if (keyValuePairs.length <= minimalQueryLength) {
@@ -90,9 +81,6 @@ var UriDecoder = /** @class */ (function () {
         });
         return organizedDecodedURI;
     };
-    /**
-     * @returns If this.uriParams is undefined in constructor it returns array with path parts, and with object if it has ?= params, but if it's then the method returns an object with named path parts and sub-object with params
-     */
     UriDecoder.prototype.Decode = function (uri) {
         var _this = this;
         var decodedURI = this.getSplittedUri(uri).map(function (el, index) {
