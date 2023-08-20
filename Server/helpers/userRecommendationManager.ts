@@ -1,6 +1,6 @@
 import dbConnection from './dbConnection';
 
-interface TitleAnalyticsData {
+export interface TitleAnalyticsData {
   id: string;
   rank: number;
   tags: Array<string>;
