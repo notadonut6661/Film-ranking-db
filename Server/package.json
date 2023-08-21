@@ -26,7 +26,8 @@
     "mariadb": "^3.0.2",
     "mysql": "^2.18.1",
     "nodemailer": "^6.9.3",
-    "pino": "^8.11.0"
+    "pino": "^8.11.0",
+    "ts-enum-util": "^4.0.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",

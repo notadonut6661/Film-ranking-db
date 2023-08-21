@@ -40,17 +40,18 @@ export class UriDecoder {
     return Array.from(rowRequestParams.matchAll(/\?=/g)).length ?? 0;
   }
 
-  // FIXME Ich sicher nicht über zweite parameter
+  // FIXME Ich sicher nicht über zweite Parameter
   private getKeyValuePairsAsObject(keyValuePairs: Array<string>, queryInSplittedPathId: number): Record<string, string> | never {
     const result: Record<string, string> = {};  
     const currentQueryElement = this.uriParams[queryInSplittedPathId].type;
     const queryRequiredLength = Object.keys(currentQueryElement).length;  
+    // ?? WTF ?
     let minimalQueryLength = queryRequiredLength;
     
     keyValuePairs.forEach((pair, i) => {
       const [key, value] = pair.split('?=');
       let isElOptional: boolean;
-      // !FIXME Will cause performance related issues
+
       if (typeof currentQueryElement !== 'object') return;  
       
       if (keyValuePairs.length <= minimalQueryLength) {
