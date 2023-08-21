@@ -1,0 +1,23 @@
+@import "../../index.scss";
+
+div.body#search {
+  margin: 0;
+  height: calc(100% - 5.95vh);
+  width: 100%;
+}
+
+div.body#search > div#filters {
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 25%;
+  border-right: 10px solid #ffbc50;
+}
+
+div.body#search > div#filters > p {
+  background-color: #eee; /* Grey background color */
+  color: black; /* Black text color */
+  display: block; /* Make the links appear below each other */
+  padding: 12px; /* Add some padding */
+  text-decoration: none; 
+}

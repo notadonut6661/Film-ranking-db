@@ -8,6 +8,7 @@ export default function Signup(): JSX.Element {
   const nickname: React.MutableRefObject<HTMLInputElement | null> = useRef(null);
   const confirmPassword: React.MutableRefObject<HTMLInputElement | null> = useRef(null);
 
+  // It seems wrong
   const [nicknameVal, setNicknameVal] = useState("");
   const [emailVal, setEmailVal] = useState("");
   const [passwordVal, setPasswordVal] = useState("");
