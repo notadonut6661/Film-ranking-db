@@ -56,3 +56,34 @@ div.body#search > div#filters > p {
   font-weight: 500;
   background: #dbdbdb url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15'%3E%3Cpath d='M2,8 L6,12 L13,5' fill='none' stroke='black' stroke-width='2' /%3E%3C/svg%3E");
 }
+
+.range-number {
+  display: inline-block; 
+  height: 30px;
+  width: 50px;
+  border-radius: 10%;
+  border: 1px solid black;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  pointer-events: all;
+  width: 24px;
+  height: 24px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #C6C6C6;
+  cursor: pointer;
+}
+
+
+input[type="range"] {
+  -webkit-appearance: none; 
+  appearance: none;
+  height: 2px;
+  width: 100%;
+  position: absolute;
+  background-color: #C6C6C6;
+  pointer-events: none;
+}
+
