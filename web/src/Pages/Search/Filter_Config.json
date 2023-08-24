@@ -1,13 +1,13 @@
 [
-  {"name": "Genre"},
-  {"name": "Country"},
-  {"name": "WatchOn"},
-  {"name": "Prizes"},
-  {"name": "MovieType"},
-  {"name": "Tags"},
-  {"name": "Duration"},
-  {"name": "Actors"},
-  {"name": "Maturity_Rating"},
-  {"name": "In_Theaters"},
-  {"name": "Ticket_Price"}
+  {"variable_name": "genre", "name": "Genre", "type": "multiple_choices", "options": ["aa"]},
+  {"variable_name": "country", "name": "Country", "type": "multiple_choices", "options": [""]},
+  {"variable_name": "watch_on", "name": "Watch on", "type": "multiple_choices", "options": ["aa"]},
+  {"variable_name": "prizes", "name": "Prizes", "type": "multiple_choices", "options": ["aa"]},
+  {"variable_name": "movie_type", "name": "MovieType", "type": "multiple_choices", "options": ["aa"]},
+  {"variable_name": "tags", "name": "Tags", "type": "multiple_choices", "options": ["aa"]},
+  {"variable_name": "duration", "name": "Duration", "type": "range"},
+  {"variable_name": "cast", "name": "Actors"},
+  {"variable_name": "maturity_rating", "name": "Maturity Rating"},
+  {"variable_name": "in_theaters", "name": "In Theaters", "type": "single_choice", "options": ["aa"]},
+  {"variable_name": "ticket_price", "name": "Ticket Price"}
 ]
