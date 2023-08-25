@@ -3,6 +3,7 @@ import './style.scss';
 import Navbar from "components/Navbar";
 import x from "./Filter_Config.json";
 import Filter from "./Filter";
+import Footer from "components/Footer";
 
 interface SearchProps {
 }
@@ -11,10 +12,11 @@ const Search: FunctionComponent<SearchProps> = () => {
 
 
   return (<><div className="body" id="search">
-  <Filter<{}> FilterState={filter} UpdateFilterFunction={updateFilter} FilterTags={x as Array<{ variable_name: string; name: string; type: string; options?: Array<string>; }>}/>
+  <Filter<{}> FilteredItems={[]} FilterState={filter} UpdateFilterFunction={updateFilter} FilterTags={x as Array<{ variable_name: string; name: string; type: string; options?: Array<string>; }>}/>
   <div></div>
   <div></div>
   </div>
+<Footer />
 <Navbar/></>);
 }
  

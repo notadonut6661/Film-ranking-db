@@ -29,17 +29,11 @@ const FilterTagRange: FunctionComponent<FilterTagRangeProps> = ({name}) => {
     setMaxValue(Number(ev.target.value));
   }, [minValue]);
   
-  useEffect(() => {
-    console.log(minValue);
-    if (maxValue < minValue) {
-      setMinValue(maxValue);
-    }
-  }, [minValue, maxValue]);
 
   return <div>
     <span className="filter-tag-name">{ name }</span>
-    <span className="min-value range-number">{minValue}</span>
-    <span className="max-value range-number">{maxValue}</span>
+    <input type="number" className="min-value range-number" value={minValue} onChange={minRangeValueChangeHandler}/>
+    <input type="number" className="max-value range-number" value={maxValue} onChange={maxRangeValueChangeHandler}/>
     <input type="range" className="min-range" value={minValue} onChange={minRangeValueChangeHandler}/>
     <input type="range" className="max-range" value={maxValue} onChange={maxRangeValueChangeHandler}/>
   </div>;
