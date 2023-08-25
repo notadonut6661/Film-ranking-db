@@ -2,7 +2,8 @@ import { FunctionComponent, useState, useCallback, useEffect } from "react";
 
 interface FilterTagRangeProps {
   name: string;
-  variableState: number;
+  min: number;
+  max: number;
 }
 
 
@@ -30,12 +31,21 @@ const FilterTagRange: FunctionComponent<FilterTagRangeProps> = ({name}) => {
   }, [minValue]);
   
 
-  return <div>
-    <span className="filter-tag-name">{ name }</span>
-    <input type="number" className="min-value range-number" value={minValue} onChange={minRangeValueChangeHandler}/>
-    <input type="number" className="max-value range-number" value={maxValue} onChange={maxRangeValueChangeHandler}/>
-    <input type="range" className="min-range" value={minValue} onChange={minRangeValueChangeHandler}/>
-    <input type="range" className="max-range" value={maxValue} onChange={maxRangeValueChangeHandler}/>
+  return <div >
+    <div className="filter-tag-name">{ name }</div>
+    <div className="range-data"> 
+      <div>
+        <span>From </span>
+        <input type="number" className="min-value range-number" value={minValue} onChange={minRangeValueChangeHandler}/>
+        <span> To </span>
+        <input type="number" className="max-value range-number" value={maxValue} onChange={maxRangeValueChangeHandler}/>
+      </div>
+      <div>
+        <input type="range" className="min-range" value={minValue} onChange={minRangeValueChangeHandler}/>
+        <input type="range" className="max-range" value={maxValue} onChange={maxRangeValueChangeHandler}/>
+      </div>
+
+    </div>
   </div>;
 }
 

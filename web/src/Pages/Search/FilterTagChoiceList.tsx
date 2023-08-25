@@ -8,7 +8,7 @@ interface FilterTagChoiceListProps {
  
 const FilterTagChoiceList: FunctionComponent<FilterTagChoiceListProps> = ({options, name}) => {
   return (<div className="filter-multiple-choices">
-    <span className="filter-tag-name">{ name }</span>
+    <div className="filter-tag-name">{ name }</div>
     {options.map((el) => {
     return (<div>
       <label className="filter-choice"><input  type="checkbox"/><span>{el}</span></label>

@@ -29,6 +29,8 @@ div.body#search > div#filters > p {
 
 .filter-tag-name {
   font-size: large;
+  display: flex !important;
+  align-items: center;
   height: 10px;
   background-color: #eee; /* Grey background color */
   color: black; /* Black text color */
@@ -87,3 +89,11 @@ input[type="range"] {
   pointer-events: none;
 }
 
+.range-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.range-data > div {
+  margin-top: 20px;
+}

@@ -8,11 +8,11 @@ import Footer from "components/Footer";
 interface SearchProps {
 }
 const Search: FunctionComponent<SearchProps> = () => {
-  const [filter, updateFilter] = useState<Record<string, any>>({});
+  const [filter, updateFilter] = useState<Map<string, number | string>>(new Map<string, number | string>());
 
 
   return (<><div className="body" id="search">
-  <Filter<{}> FilteredItems={[]} FilterState={filter} UpdateFilterFunction={updateFilter} FilterTags={x as Array<{ variable_name: string; name: string; type: string; options?: Array<string>; }>}/>
+  <Filter FilteredItems={[]} FilterState={filter} UpdateFilterFunction={updateFilter} FilterTags={x as Array<{ variable_name: string; name: string; type: string; options?: Array<string>; }>}/>
   <div></div>
   <div></div>
   </div>
