@@ -22,13 +22,13 @@ function Filter ({FilterTags, FilteredItems}: FilterProps) {
   return (<div id="filters">{
     FilterTags.map(({variable_name: variableName, name, type, options}) => {
       switch (type) {
-      case "multiple_choices":
+       case "multiple_choices":
         return <FilterTagMultipleChoices name={name} options={options ?? [  ]}/>
       
-      case "range":
+        case "range":
         return <FilterTagRange name={name} max={Math.max(...getFilteredItemVariable(variableName))} min={Math.min(...getFilteredItemVariable(variableName))}/>
       
-      default: 
+        default: 
        return <p></p>
     }
   })  
