@@ -9,7 +9,7 @@ interface CarouselItemProps {
   isCreator?: boolean;
   carouselItems: CastElement[];
   updateCarouselItems: React.Dispatch<React.SetStateAction<CastElement[]>>;
-}
+} 
 
 export default function CarouselItem({id,  updateCarouselItems, carouselItems, isCreator}: CarouselItemProps): JSX.Element {
   

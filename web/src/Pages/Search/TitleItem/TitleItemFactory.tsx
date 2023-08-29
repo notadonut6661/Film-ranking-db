@@ -1,21 +1,24 @@
+import { Title } from "./Title.interface";
+import TitleItemCompact from "./TitleItemCompact";
+
 enum TitleSize {
   Small,
   Full
 }
-
-interface TitleItemFactoryProps {
+  
+type TitleItemFactoryProps =  {
   size: TitleSize;
-  title: {
-    name: string;
-    description: string;
-    rating: number;
-    maturity: number;
-    poster: Blob;
-    teaser_url: string;
+} & Title;
+
+
+export const TileItem: (props: TitleItemFactoryProps) => JSX.Element | null = props => {
+  switch (props.size) {
+    case TitleSize.Small:
+      return <TitleItemCompact name={""} description={""} rating={0} maturity={0} poster={new Blob()} teaser_url={""} />
+
+    case TitleSize.Full: 
+      return <></>;
   }
+
+  return null;
 }
-
-
-export const TileItem: React.FunctionComponent<TitleItemFactoryProps> = props => {
-  return <></>;
-};  
