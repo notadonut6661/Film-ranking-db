@@ -2,10 +2,10 @@ import { FunctionComponent, useState } from "react";
 import './style.scss';
 import Navbar from "components/Navbar";
 import x from "./Filter_Config.json";
-import Filter from "./Filter";
+import Filter from "./Filter/Filter";
 import Footer from "components/Footer";
 import { getFilteredItemsFromApi } from "./getFilteredItemsFromApi";
-import { TileItem } from "./TitleItemFactory";
+import { TileItem } from "./TitleItem/TitleItemFactory";
 
 interface SearchProps {
 }
