@@ -1,8 +1,6 @@
 import { Title } from "./Title.interface";
 
-export interface TitleItemCompactProps extends Title {}
- 
-const TitleItemCompact: React.FunctionComponent<TitleItemCompactProps> = () => {
+const TitleItemCompact: React.FunctionComponent<Title> = () => {
   return (<></> );
 }
  

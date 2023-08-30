@@ -1,7 +1,8 @@
 import { Title } from "./Title.interface";
 import TitleItemCompact from "./TitleItemCompact";
+import TitleItemFull from "./TitleItemFull";
 
-enum TitleSize {
+export enum TitleSize {
   Small,
   Full
 }
@@ -17,7 +18,7 @@ export const TileItem: (props: TitleItemFactoryProps) => JSX.Element | null = pr
       return <TitleItemCompact name={""} description={""} rating={0} maturity={0} poster={new Blob()} teaser_url={""} />
 
     case TitleSize.Full: 
-      return <></>;
+      return <TitleItemFull name={""} description={""} rating={0} maturity={0} poster={new Blob()} teaser_url={""} />;
   }
 
   return null;
