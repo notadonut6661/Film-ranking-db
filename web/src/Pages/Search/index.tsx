@@ -1,4 +1,4 @@
-import { FunctionComponent, useCallback, useState } from "react";
+import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import './style.scss';
 import Navbar from "components/Navbar";
 import config from "data/Json/config.json";
@@ -13,11 +13,24 @@ interface SearchProps {
 } 
 
 const Search: FunctionComponent<SearchProps> = () => {
-  const [filter, updateFilter] = useState<Map<string, number | string>>(new Map<string, number | string>());  
+  const [filter, updateFilter] = useState(new Map<keyof Title, [number, number] | string | null>());  
+  const [filteredItems, setFilteredItems] = useState<Array<Title>>([{
+    name: "Example Movie",
+    description: "This is an example movie description.",
+    rating: 4.5,
+    maturity: 13,
+    poster: new Blob(), // Placeholder for the poster image 
+    teaser_url: "https://example.com/teaser.mp4",
+  }]);
+  
+  useEffect(() => {
+    // getFilteredItemsFromApi<Title>(filter, "") 
+    // .then(res => setFilteredItems(res));
+  });
 
   return (<><div className="body" id="search">
-  <Filter FilteredItems={[]} FilterState={filter} UpdateFilterFunction={updateFilter} FilterTags={x as Array<{ variable_name: string; name: string; type: string; options?: Array<string>; }>}/>
-  <div>{getFilteredItemsFromApi<Title>().map(() => <TileItem size={TitleSize.Small} name={""} description={""} rating={0} maturity={0} poster={new Blob()} teaser_url={""} />)}</div>
+  <Filter<Title> FilteredItemsState={filteredItems} FilterState={filter} UpdateFilterFunction={updateFilter} FilterTags={x as Array<{ variable_name: keyof Title; name: string; type: string; options?: Array<string>; }>}/>
+  <div id="items">{filteredItems.map(() => <TileItem size={TitleSize.Small} name={""} description={""} rating={0} maturity={0} poster={new Blob()} teaser_url={""} />)}</div>
   <div></div>
   </div>
 <Footer />

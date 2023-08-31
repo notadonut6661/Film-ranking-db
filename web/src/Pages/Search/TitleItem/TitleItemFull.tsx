@@ -1,7 +1,7 @@
 import { Title } from "./Title.interface";
 
 const TitleItemFull: React.FunctionComponent<Title> = () => {
-  return (<></> );
+  return (<div></div> );
 }
  
 export default TitleItemFull;

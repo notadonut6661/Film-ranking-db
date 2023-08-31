@@ -1,6 +1,7 @@
 import { Title } from "./Title.interface";
 import TitleItemCompact from "./TitleItemCompact";
 import TitleItemFull from "./TitleItemFull";
+import "./style.scss"
 
 export enum TitleSize {
   Small,

@@ -5,19 +5,19 @@ import FilterTagRange from "./FilterTagRange";
 /**
  * FilterState - State that contains all the parameters of filtration, it will be filled by the component
  */
-interface FilterProps {
-  FilterTags: Array<{ variable_name: string; name: string; type: string; options?: Array<string>; }>;
-  FilterState: Map<string, string | number>;
-  FilteredItems: Array<Map<string, string | number>>;
-  UpdateFilterFunction: React.Dispatch<React.SetStateAction<Map<string, string  | number>>>;
+interface FilterProps<T> {
+  FilteredItemsState: Array<T>;
+  FilterTags: Array<{ variable_name: keyof T; name: string; type: string; options?: Array<string>; }>;
+  FilterState: Map<keyof T, [number, number] | string | null>;
+  UpdateFilterFunction: React.Dispatch<Map<keyof T, [number, number] | string | null>>;
 }
  
-function Filter ({FilterTags, FilteredItems}: FilterProps) {
-  const getFilteredItemVariable = useCallback((variableName: string) => {
-    return FilteredItems.map((el) => {
-      return Number(el.get(variableName) ?? 0);
+function Filter<T>({FilterTags, FilteredItemsState}: FilterProps<T>) {
+  const getFilteredItemProp = useCallback((variableName: keyof T) => {
+    return FilteredItemsState.map((el) => {
+      return Number(el[variableName] ?? 0);
     })
-  }, [FilteredItems]);
+  }, [FilteredItemsState]);
 
   return (<div id="filters">{
     FilterTags.map(({variable_name: variableName, name, type, options}) => {
@@ -26,7 +26,7 @@ function Filter ({FilterTags, FilteredItems}: FilterProps) {
         return <FilterTagMultipleChoices name={name} options={options ?? [  ]}/>
       
         case "range":
-        return <FilterTagRange name={name} max={Math.max(...getFilteredItemVariable(variableName))} min={Math.min(...getFilteredItemVariable(variableName))}/>
+        return <FilterTagRange name={name} max={Math.max(...getFilteredItemProp(variableName))} min={Math.min(...getFilteredItemProp(variableName))}/>
       
         default: 
        return <p></p>
