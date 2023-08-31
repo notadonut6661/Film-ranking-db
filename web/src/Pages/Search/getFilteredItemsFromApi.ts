@@ -1,3 +1,1 @@
-export function getFilteredItemsFromApi<T>(): Array<T> {
-  return new Array<T>();
-}
+export default function getFilteredItemsFromApi<T, FT>(filters: FT, request: string): Array<T> {} 

@@ -1,5 +1,5 @@
 export enum PopupStages {
-  ChoosingActor = 0,
+  ChoosingActor,
   SelectingCharacter,
   Submitted,
 }

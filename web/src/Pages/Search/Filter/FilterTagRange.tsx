@@ -6,7 +6,6 @@ interface FilterTagRangeProps {
   max: number;
 }
 
-
 const FilterTagRange: FunctionComponent<FilterTagRangeProps> = ({name}) => {
 
   const [minValue, setMinValue] = useState(0);

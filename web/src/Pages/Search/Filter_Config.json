@@ -1,5 +1,5 @@
 [
-  {"variable_name": "genre", "name": "Genre", "type": "multiple_choices", "options": ["aa"]},
+  {"variable_name": "genre", "name": "Genre", "type": "multiple_choices", "options": ["aa", "bb"]},
   {"variable_name": "country", "name": "Country", "type": "multiple_choices", "options": [""]},
   {"variable_name": "watch_on", "name": "Watch on", "type": "multiple_choices", "options": ["aa"]},
   {"variable_name": "prizes", "name": "Prizes", "type": "multiple_choices", "options": ["aa"]},
