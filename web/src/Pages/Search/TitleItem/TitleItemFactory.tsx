@@ -16,10 +16,10 @@ type TitleItemFactoryProps =  {
 export const TileItem: (props: TitleItemFactoryProps) => JSX.Element | null = props => {
   switch (props.size) {
     case TitleSize.Small:
-      return <TitleItemCompact name={""} description={""} rating={0} maturity={0} poster={new Blob()} teaser_url={""} />
+      return <TitleItemCompact name={props.name} description={props.description} rating={props.rating} maturity={props.maturity} poster={new Blob()} teaser_url={""} />
 
     case TitleSize.Full: 
-      return <TitleItemFull name={""} description={""} rating={0} maturity={0} poster={new Blob()} teaser_url={""} />;
+      return <TitleItemFull name={props.name} description={props.description} rating={props.rating} maturity={props.maturity} poster={new Blob()} teaser_url={""} />;
   }
 
   return null;
