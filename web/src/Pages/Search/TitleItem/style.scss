@@ -1,8 +1,32 @@
 @import "../../../index.scss";
 
 .title-item-compact {
-  display: block;
+  display: grid;
+  grid-template-columns: repeat(10, 10%);
+  grid-template-rows: repeat(2, 50%);
   width: 100%;
   height: 10%;
   border: solid 1px black;
+}
+
+.hidden {
+  display: none;
+}
+
+span#description {
+  grid-area: 1 / 3 / 2 / 5;
+}
+
+.rating-stars {
+  display: flex;
+  flex-direction: row;
+  grid-area: 2 / 8 / 2 / 8;
+}
+
+.poster {
+  grid-area: 1 / 1 / 2 / 1;
+}
+
+#teaser {
+  grid-area: 1 / 1 / 2 / 1;
 }
