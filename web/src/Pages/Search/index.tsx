@@ -30,7 +30,7 @@ const Search: FunctionComponent<SearchProps> = () => {
 
   return (<><div className="body" id="search">
   <Filter<Title> FilteredItemsState={filteredItems} FilterState={filter} UpdateFilterFunction={updateFilter} FilterTags={x as Array<{ variable_name: keyof Title; name: string; type: string; options?: Array<string>; }>}/>
-  <div id="items">{filteredItems.map(el => <TileItem size={TitleSize.Small} name={el.name} description={el.description} rating={4.75} maturity={0} poster={new Blob()} teaser_url={""} />)}</div>
+  <div id="items">{filteredItems.map(el => <TileItem size={TitleSize.Full} name={el.name} description={el.description} rating={4.75} maturity={0} poster={new Blob()} teaser_url={""} />)}</div>
   <div></div>
   </div>
 <Footer />
