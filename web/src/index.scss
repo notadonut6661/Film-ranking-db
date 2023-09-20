@@ -24,24 +24,28 @@ code {
     monospace;
 }
 
-.TextForm > input {
-  height: 100%;
-  width: calc(100% - 15px);
-  background: none;
-  padding: 0;
-  margin: 0;
-  font-size: large;
-  border: none;
-  outline: none;
-  margin-left: 15px;
-}
-
-.TextForm > input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px white inset;
+.hidden {
+  display: none;
 }
 
 .TextForm {
   background: #fff;
+
+  input {
+    height: 100%;
+    width: calc(100% - 15px);
+    background: none;
+    padding: 0;
+    margin: 0;
+    font-size: large;
+    border: none;
+    outline: none;
+    margin-left: 15px;
+  }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+  }
 }
 
 div.body {
@@ -59,10 +63,9 @@ div.body {
   border-radius: 15px;
   background: $primary-black;
   border: 2px solid $primary-orange;
-}
-
-.login-wrapper > .TextForm:has(input:focus) {
-  border-radius: 5px;
+  .TextForm:has(input:focus) {
+    border-radius: 5px;
+  }
 }
 
 @mixin line {

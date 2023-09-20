@@ -16,7 +16,7 @@ const TitleItemCompact: React.FunctionComponent<Title> = props => {
   return (<div className="title-item-compact">
    <a href={`../title/${props.name}`}>{props.name}</a>
     <img className={`${isTeaserHidden ? "" : "hidden"} poster`} src={"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpolygon points='50,10 69,80 30,33 70,33 31,80' fill='green' /%3E%3C/svg%3E"} alt="" onMouseOver={posterMouseOverHandler} />
-    <iframe ref={teaser} className={`${isTeaserHidden ? "hidden" : ""}`} width="200 " height="90" title="teaser" id="teaser" src={`https://www.youtube.com/embed/${props.teaser_url}?autoplay=1&mute=1`}></iframe>
+    <iframe ref={teaser} className={`${isTeaserHidden ? "hidden" : ""}`} width="200 " height="90" title="teaser" id="teaser" src={`https://www.youtube.com/embed/${props.teaser_youtube_id}?autoplay=1&mute=1`}></iframe>
     <span id="description">{props.description}</span> 
     <div className="rating-stars">
       { [...Array(Math.floor(props.rating))].map(() => {

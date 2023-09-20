@@ -12,7 +12,7 @@ import getFilteredItemsFromApi from "./getFilteredItemsFromApi";
 interface SearchProps {
 } 
 
-const Search: FunctionComponent<SearchProps> = () => {
+const Search: FunctionComponent<SearchProps> = props => {
   const [filter, updateFilter] = useState(new Map<keyof Title, [number, number] | string | null>());  
   const [filteredItems, setFilteredItems] = useState<Array<Title>>([{
     name: "Example Movie",
@@ -20,7 +20,7 @@ const Search: FunctionComponent<SearchProps> = () => {
     rating: 4.5,
     maturity: 13,
     poster: new Blob(), // Placeholder for the poster image 
-    teaser_url: "https://example.com/teaser.mp4",
+    teaser_youtube_id: "https://example.com/teaser.mp4",
   }]);
   
   useEffect(() => {
@@ -30,7 +30,15 @@ const Search: FunctionComponent<SearchProps> = () => {
 
   return (<><div className="body" id="search">
   <Filter<Title> FilteredItemsState={filteredItems} FilterState={filter} UpdateFilterFunction={updateFilter} FilterTags={x as Array<{ variable_name: keyof Title; name: string; type: string; options?: Array<string>; }>}/>
-  <div id="items">{filteredItems.map(el => <TileItem size={TitleSize.Full} name={el.name} description={el.description} rating={4.75} maturity={0} poster={new Blob()} teaser_url={""} />)}</div>
+  {/* <div> */}
+    <div id="item-settings">
+      <ul id="sort" className={`dropdown`}></ul>
+      <ul id="size" className={`dropdown`}></ul>
+    </div>
+    <div id="items">
+      {filteredItems.map(el => <TileItem size={TitleSize.Full} name={el.name} description={el.description} rating={4.75} maturity={0} poster={new Blob()} teaser_youtube_id={""} />)}
+    </div>
+  {/* </div> */}
   <div></div>
   </div>
 <Footer />

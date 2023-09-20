@@ -4,5 +4,5 @@ export interface Title {
   rating: number;
   maturity: number;
   poster: Blob;
-  teaser_url: string;
+  teaser_youtube_id: string;
 }
