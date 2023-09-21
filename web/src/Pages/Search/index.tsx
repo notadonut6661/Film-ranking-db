@@ -30,15 +30,17 @@ const Search: FunctionComponent<SearchProps> = props => {
 
   return (<><div className="body" id="search">
   <Filter<Title> FilteredItemsState={filteredItems} FilterState={filter} UpdateFilterFunction={updateFilter} FilterTags={x as Array<{ variable_name: keyof Title; name: string; type: string; options?: Array<string>; }>}/>
-  {/* <div> */}
+  <div id="search-results">
     <div id="item-settings">
-      <ul id="sort" className={`dropdown`}></ul>
+      <label></label>
+      <option></option>
+      <label></label>
       <ul id="size" className={`dropdown`}></ul>
     </div>
     <div id="items">
       {filteredItems.map(el => <TileItem size={TitleSize.Full} name={el.name} description={el.description} rating={4.75} maturity={0} poster={new Blob()} teaser_youtube_id={""} />)}
     </div>
-  {/* </div> */}
+  </div>
   <div></div>
   </div>
 <Footer />

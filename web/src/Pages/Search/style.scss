@@ -106,6 +106,11 @@ input[type="range"] {
 }
 
 
-div.body#search > #items {
+div.body#search > #search-results {
   grid-area: 2/2/1/2;
+}
+
+div.body#search #item-settings {
+  width: 100%;
+  border: #000 solid 1px;
 }
