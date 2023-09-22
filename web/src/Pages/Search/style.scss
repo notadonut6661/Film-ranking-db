@@ -2,17 +2,24 @@
 
 div.body#search {
   margin: 0;
-  height: calc(100% - 5.95vh);
+  // height: calc(100% - 5.95vh);
   display: grid;
   grid-template-columns: 25% 50% 25%;
   grid-template-rows: 100%;
   width: 100%;
+
+  #items {
+    display: grid;
+    grid-template-columns: repeat(3, min(200px, 15vw));
+    grid-template-rows: repeat(6, min(300px, 22.5vw));
+    gap: 10px;
+}
 }
 
 div.body#search > div:not(:last-child) {
   height: 100%;
   width: 100%;
-  border-right: 10px solid #ffbc50;
+  // border-right: 10px solid #ffbc50;
 }
 
 div.body#search > div#filters {

@@ -36,7 +36,7 @@
         border: none;
       }
 
-      &.pending-response {
+      &.pending-response {  
         animation: 2s pending-response infinite alternate;
 
         &::before {

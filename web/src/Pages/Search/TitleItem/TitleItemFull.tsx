@@ -6,19 +6,21 @@ const TitleItemFull: React.FunctionComponent<Title> = props => {
   const teaser = useRef<HTMLIFrameElement>(null);
 
   const posterMouseOverHandler = useCallback(() => {
-    setIsItemMaximized(false);
+    setIsItemMaximized(true);
 
     teaser?.current?.addEventListener('mouseleave', () => {
-      setIsItemMaximized(true);
+      setIsItemMaximized(false);
     });
   }, []);
 
 
-  return (<div className={`${isItemMaximized ? "enlargened" : ""} title-item-full` }>
+  return (<div className={`${isItemMaximized ? "expanded" : ""} title-item-full` } onMouseOver={posterMouseOverHandler} ref={teaser}>
     <a href={`../title/${props.name}`} className={"title"}>{props.name}</a>
-    <iframe ref={teaser} className={`${isItemMaximized ? "": "hidden"}`} width={"200"} height={"90"} title="teaser" id="teaser" src={`https://www.youtube.com/embed/${props.teaser_youtube_id}?autoplay=1&mute=1`}></iframe>
+    <iframe ref={teaser} className={`${isItemMaximized ? "": "hidden"}`} title="teaser" id="teaser" src={`https://www.youtube.com/embed/94jLgRG0FqI?autoplay=1&mute=0`}></iframe>
     <span id="description">{props.description}</span>
-    <img className={`poster`} src={"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/OOjs_UI_icon_unStar.svg/1024px-OOjs_UI_icon_unStar.svg.png"} alt=""/>
+    <div className={`${isItemMaximized ? "hidden  " : ""} poster`}>
+      <img src={"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/OOjs_UI_icon_unStar.svg/1024px-OOjs_UI_icon_unStar.svg.png"} alt=""/>
+    </div>
     <span id="rating">{props.rating.toFixed(Math.min(2, String(props.rating % 1).length - 1))} / 10</span>
     {/* <div className="rating-stars">
       { [...Array(Math.floor(props.rating))].map(() => {
