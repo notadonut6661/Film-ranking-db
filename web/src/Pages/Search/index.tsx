@@ -17,7 +17,7 @@ const Search: FunctionComponent<SearchProps> = props => {
   const [filteredItems, setFilteredItems] = useState<Array<Title>>([{
     name: "Example Movie",
     description: "This is an example movie description.",
-    rating: 4.5,
+    rating: 5,
     maturity: 13,
     poster: new Blob(), // Placeholder for the poster image 
     teaser_youtube_id: "https://example.com/teaser.mp4",
@@ -32,13 +32,21 @@ const Search: FunctionComponent<SearchProps> = props => {
   <Filter<Title> FilteredItemsState={filteredItems} FilterState={filter} UpdateFilterFunction={updateFilter} FilterTags={x as Array<{ variable_name: keyof Title; name: string; type: string; options?: Array<string>; }>}/>
   <div id="search-results">
     <div id="item-settings">
-      <label></label>
-      <option></option>
-      <label></label>
-      <ul id="size" className={`dropdown`}></ul>
+      <label>Sort Order</label>
+      <select></select>
+      <>
+        <label>
+          <input id=""type="radio" name="item-size"/>
+          <span  className={``}></span>
+        </label>
+        <label>
+          <input id="" type="radio" name="item-size"/>
+          <span  className={``}></span>
+        </label>
+      </>
     </div>
     <div id="items">
-      {filteredItems.map(el => <TileItem size={TitleSize.Full} name={el.name} description={el.description} rating={4.75} maturity={0} poster={new Blob()} teaser_youtube_id={""} />)}
+      {filteredItems.map(el => <TileItem size={TitleSize.Full} name={el.name} description={el.description} rating={el.rating} maturity={0} poster={new Blob()} teaser_youtube_id={""} />)}
     </div>
   </div>
   <div></div>

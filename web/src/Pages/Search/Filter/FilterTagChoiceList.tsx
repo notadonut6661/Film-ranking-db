@@ -3,7 +3,7 @@ import { FunctionComponent } from "react";
 interface FilterTagChoiceListProps {
   options: Array<string>;
   name: string;
-  button?: FunctionComponent;
+  button?: JSX.Element;
 }
  
 const FilterTagChoiceList: FunctionComponent<FilterTagChoiceListProps> = ({options, name}) => {

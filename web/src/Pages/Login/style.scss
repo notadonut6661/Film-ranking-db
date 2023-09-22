@@ -7,88 +7,91 @@
   height: calc(100% - 5.95vh);
   width: 100%;
   margin: 0;
-}
 
+  > .login-wrapper {
+    .TextForm {
+      &.invalid {
+        border: 1px solid $error-color;
+        border-radius: 5px;
+      }
 
-.body#login > .login-wrapper > .TextForm:has(#email) {
-  grid-area: 6 / 2 / 6 / 2;
-}
+      &::has(#email) {
+        grid-area: 6 / 2 / 6 / 2;
+      }
 
-.body#login > .login-wrapper > .TextForm:has(#email:invalid) {
-  border: 1px solid red;
-  border-radius: 5px;
-}
+      &::has(#password) {
+        grid-area: 8 / 2 / 8 / 2;
+      }
+    }
 
-.body#login > .login-wrapper > .TextForm:has(#password) {
-  grid-area: 8 / 2 / 8 / 2;
-}
+    #submit {
+      grid-area: 10 / 2 / 10 / 2;
+      background: #fff;
+      position: relative;
 
-.body#login > .login-wrapper > #submit {
-  grid-area: 10 / 2 / 10 / 2;
-  background: #fff;
-}
+      input[type="button"] {
+        height: 100%;
+        width: 100%;
+        background: none;
+        border: none;
+      }
 
-.body#login > .login-wrapper > #submit > input[type="button"] {
-  height: 100%;
-  width: 100%;
-  background: none;
-  border: none;
-} 
+      &.pending-response {
+        animation: 2s pending-response infinite alternate;
 
-.body#login > .login-wrapper > #submit:has(.pending-response) {
-  animation: 2s pending-response infinite alternate;
-}
+        &::before {
+          content: "Pending for server response";
+          opacity: 1 !important;
+          font-size: medium;
+          position: absolute;
+          display: block;
+          height: 1.5em;
+          margin-left: 205px;
+          margin-top: -1.5em;
+          background: #fff;
+          border: 1px solid #000;
+          width: 15em;
+        }
+      }
 
-.body#login > .login-wrapper > #submit:has(.pending-response)::before {
-  content: "Pending for server response";
-  opacity: 1 !important;
-  font-size: medium;
-  position: absolute;
-  display: block;
-  height: 1.5em;
-  margin-left: 205px;
-  margin-top: -1.5em;
-  background: #fff;
-  border: 1px solid #000;
-  width: 15em;
-}
+      &.unsuccessful-request {
+        border: 1px solid $success-color;
 
+        &::after {
+          content: "Oops, server error. Please try again later";
+          font-size: medium;
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          height: 1.5em;
+          margin-left: -30px;
+          margin-bottom: -1.5em;
+          background: #000;
+          color: #fff;
+          border: 1px solid $success-color;
+          width: 285px;
+        }
+      }
 
-.body#login > .login-wrapper > #submit:has(.unsuccessful-request) {
-  border: 1px solid rgb(255, 25, 25);
-}
+      &.invalid-inputs::after {
+        content: "Login data is invalid";
+        font-size: medium;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        height: 1.5em;
+        margin-left: -30px;
+        margin-bottom: -1.5em;
+        background: #000;
+        color: #fff;
+        border: 1px solid $success-color;
+        width: 285px;
+      }
+    }
 
-.body#login > .login-wrapper > #submit:has(.unsuccessful-request)::after {
-  content: "Oops, server error. Please try again later";
-  font-size: medium;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  height: 1.5em;
-  margin-left: -30px;
-  margin-bottom: -1.5em;
-  background: #000;
-  color: #fff;
-  border: 1px solid #ff0000;
-  width: 285px;
-}
-
-.body#login > .login-wrapper > #submit:has(.invalid-inputs)::after  {
-  content: "Login data is invalid";
-  font-size: medium;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  height: 1.5em;
-  margin-left: -30px;
-  margin-bottom: -1.5em;
-  background: #000;
-  color: #fff;
-  border: 1px solid #ff0000;
-  width: 285px;
-} 
-
-.body#login > .login-wrapper > .signup {
-  font-size: medium;
-  grid-area: 12 / 2 / 12 / 4;
+    .signup {
+      font-size: medium;
+      grid-area: 12 / 2 / 12 / 4;
+    }
+  }
 }

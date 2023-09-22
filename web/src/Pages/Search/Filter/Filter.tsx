@@ -12,15 +12,15 @@ interface FilterProps<T> {
   UpdateFilterFunction: React.Dispatch<Map<keyof T, [number, number] | string | null>>;
 }
  
-function Filter<T>({FilterTags, FilteredItemsState}: FilterProps<T>) {
+function Filter<T>(props: FilterProps<T>) {
   const getFilteredItemProp = useCallback((variableName: keyof T) => {
-    return FilteredItemsState.map((el) => {
+    return props.FilteredItemsState.map((el) => {
       return Number(el[variableName] ?? 0);
     })
-  }, [FilteredItemsState]);
+  }, [props.FilteredItemsState]);
 
   return (<div id="filters">{
-    FilterTags.map(({variable_name: variableName, name, type, options}) => {
+    props.FilterTags.map(({variable_name: variableName, name, type, options}) => {
       switch (type) {
        case "multiple_choices":
         return <FilterTagMultipleChoices name={name} options={options ?? [  ]}/>
