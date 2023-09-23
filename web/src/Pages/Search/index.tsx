@@ -54,13 +54,16 @@ const Search: FunctionComponent<SearchProps> = props => {
   <div id="search-results">
     <div id="item-settings">
       <label>Sort Order</label>
-      <select>{}</select>
+      <select>
+        {}
+      </select>
       <>
-        <label>
+        <label id="wide" className="radio">
           <input id=""type="radio" name="item-size"/>
           <span  className={``}></span>
         </label>
-        <label>
+
+        <label id="squares" className="radio" >
           <input id="" type="radio" name="item-size"/>
           <span  className={``}></span>
         </label>
