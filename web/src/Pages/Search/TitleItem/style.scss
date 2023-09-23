@@ -78,6 +78,8 @@
 }
 
 .title-item-full.expanded {
+  transition: 500ms;
+  animation: 500ms rating-stars-expansions forwards;
   width: min(400px, 30vw);
   height: min(300px, 22.5vw);
 }
@@ -85,9 +87,12 @@
 @media screen {
   
 } 
-  
+
+
 @keyframes rating-stars-expansions {
-  
+  100% {
+    transform: translateY(20px);
+  }
 }
 
 a {

@@ -16,7 +16,7 @@ const TitleItemFull: React.FunctionComponent<Title> = props => {
 
   return (<div className={`${isItemMaximized ? "expanded" : ""} title-item-full` } onMouseOver={posterMouseOverHandler} ref={teaser}>
     <a href={`../title/${props.name}`} className={"title"}>{props.name}</a>
-    <iframe ref={teaser} className={`${isItemMaximized ? "": "hidden"}`} title="teaser" id="teaser" src={`https://www.youtube.com/embed/94jLgRG0FqI?autoplay=1&mute=0`}></iframe>
+    <iframe ref={teaser} className={`${isItemMaximized ? "": "hidden"}`} title="teaser" id="teaser" src={`https://www.youtube.com/embed/?autoplay=1&mute=0`}></iframe>
     <span id="description">{props.description}</span>
     <div className={`${isItemMaximized ? "hidden  " : ""} poster`}>
       <img src={"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/OOjs_UI_icon_unStar.svg/1024px-OOjs_UI_icon_unStar.svg.png"} alt=""/>

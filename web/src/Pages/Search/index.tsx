@@ -28,6 +28,20 @@ const Search: FunctionComponent<SearchProps> = props => {
     maturity: 13,
     poster: new Blob(), // Placeholder for the poster image 
     teaser_youtube_id: "https://example.com/teaser.mp4",
+  },{
+    name: "Example Movie",
+    description: "This is an example movie description.",
+    rating: 5,
+    maturity: 13,
+    poster: new Blob(), // Placeholder for the poster image 
+    teaser_youtube_id: "https://example.com/teaser.mp4",
+  }, {
+    name: "Example Movie",
+    description: "This is an example movie description.",
+    rating: 5,
+    maturity: 13,
+    poster: new Blob(), // Placeholder for the poster image 
+    teaser_youtube_id: "https://example.com/teaser.mp4",
   }]);
   
   useEffect(() => {
@@ -40,7 +54,7 @@ const Search: FunctionComponent<SearchProps> = props => {
   <div id="search-results">
     <div id="item-settings">
       <label>Sort Order</label>
-      <select></select>
+      <select>{}</select>
       <>
         <label>
           <input id=""type="radio" name="item-size"/>

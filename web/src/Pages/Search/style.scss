@@ -9,9 +9,9 @@ div.body#search {
   width: 100%;
 
   #items {
-    display: grid;
-    grid-template-columns: repeat(3, min(200px, 15vw));
-    grid-template-rows: repeat(6, min(300px, 22.5vw));
+    display: flex;
+    // grid-template-columns: repeat(3, min(200px, 15vw));
+    // grid-template-rows: repeat(6, min(300px, 22.5vw));
     gap: 10px;
 }
 }
