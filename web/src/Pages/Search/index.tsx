@@ -12,6 +12,7 @@ import getFilteredItemsFromApi from "./getFilteredItemsFromApi";
 interface SearchProps {
 } 
 
+
 const Search: FunctionComponent<SearchProps> = props => {
   const [filter, updateFilter] = useState(new Map<keyof Title, [number, number] | string | null>());  
   const [filteredItems, setFilteredItems] = useState<Array<Title>>([{
@@ -44,6 +45,9 @@ const Search: FunctionComponent<SearchProps> = props => {
     teaser_youtube_id: "https://example.com/teaser.mp4",
   }]);
   
+  const [areItemsWide, setAreItemsWide] = useState(false);
+  const [sortBy, setSortBy] = useState<[keyof Title, 'asc' | 'desc']>();
+
   useEffect(() => {
     // getFilteredItemsFromApi<Title>(filter, "") 
     // .then(res => setFilteredItems(res));
@@ -59,18 +63,18 @@ const Search: FunctionComponent<SearchProps> = props => {
       </select>
       <>
         <label id="wide" className="radio">
-          <input id=""type="radio" name="item-size"/>
+        <input onClick={() => setAreItemsWide(true)} type="radio" name="item-size"/>
           <span  className={``}></span>
         </label>
 
         <label id="squares" className="radio" >
-          <input id="" type="radio" name="item-size"/>
+          <input onClick={() => setAreItemsWide(false)} id="" type="radio" name="item-size"/>
           <span  className={``}></span>
         </label>
       </>
     </div>
     <div id="items">
-      {filteredItems.map(el => <TileItem size={TitleSize.Full} name={el.name} description={el.description} rating={el.rating} maturity={0} poster={new Blob()} teaser_youtube_id={""} />)}
+      {filteredItems.map(el => <TileItem size={areItemsWide ? TitleSize.Small : TitleSize.Full} name={el.name} description={el.description} rating={el.rating} maturity={0} poster={new Blob()} teaser_youtube_id={""} />)}
     </div>
   </div>
   <div></div>

@@ -123,9 +123,10 @@ input[type="range"] {
   gap: 10px;
   width: 100%;
   height: 5vh;
-  border-bottom: #000 solid 2px;
+  border-bottom: #7a7a7a solid 2px;
   margin-bottom: 1vh;
   align-items: center;
+  padding: 1vh;
 
   select {
     outline: none;
@@ -152,6 +153,7 @@ input[type="range"] {
     }
 
     &:has(input[type="radio"]:checked) {
+      animation: catalog-view-change-button-press 3s;
       border-radius: 5px;
       border: #00ffff solid 3px;
     }
@@ -163,3 +165,10 @@ input[type="range"] {
 
 }
 
+@keyframes catalog-view-change-button-press {
+  from {
+
+  } to {
+
+  }
+} 
