@@ -95,7 +95,7 @@
 
 .title-item-full.expanded {
   transition: 500ms;
-  animation: 500ms rating-stars-expansions forwards;
+  animation: 500ms title-item-expansion forwards;
   width: min(400px, 30vw);
   height: min(300px, 22.5vw);
   a {
@@ -109,7 +109,7 @@
 } 
 
 
-@keyframes rating-stars-expansions {
+@keyframes title-item-expansion {
   100% {
     transform: translateY(20px);
   }
