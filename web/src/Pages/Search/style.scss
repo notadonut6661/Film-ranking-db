@@ -174,3 +174,23 @@ input[type="range"] {
   }
 
 }
+
+
+@media screen and (max-width: 500px) {
+  #filters {
+    display: none !important;
+  }
+
+  .body#search  {
+    grid-template-columns: 99% !important;
+    grid-template-rows: 100% !important ;
+
+    > #search-results { 
+      grid-area: 1 / 1 / 1/ 1;
+      #item-settings {
+          padding: 0;
+      }
+  }
+
+  }
+}

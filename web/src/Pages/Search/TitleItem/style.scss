@@ -20,7 +20,7 @@
   #description {
     grid-area: 2 / 4 / 4   / 7;
   }
-  
+
   .rating-stars {
     grid-area: 3 / 7 / 4/ 8;
     > img {
@@ -44,7 +44,7 @@
   flex-direction: row;
 }
 
-.title-item-full   {
+.title-item-full  {
   display: grid;
   grid-template-columns: repeat(10, 10%);
   grid-template-rows: repeat(10, 10%);
@@ -104,8 +104,13 @@
   }
 } 
 
-@media screen {
-  
+@media screen and (max-width: 500px) {
+  .title-item-compact { 
+    .rating-stars, #teaser {
+      display: none;
+    }
+  }
+
 } 
 
 

@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import 'style.scss';
+import './style.scss';
 
 enum VideoControls {
   None,
@@ -11,13 +11,14 @@ interface VideoPlayerProps {
   src: string;
   autoplay?: boolean;
   muted?: boolean;
+  id?: string;
   controls?: VideoControls;
 }
 
 export const VideoPlayer: FunctionComponent<VideoPlayerProps> = props => {
   
   return <>
-    <video onMouseDown={() => {}} controls={false}>
+    <video onMouseDown={() => {}} autoPlay={props.autoplay} muted={props.muted} controls={false} id={props.id}>
       <source src={props.src}/>
     </video>
   </>;
