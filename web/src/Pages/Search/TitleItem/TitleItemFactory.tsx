@@ -1,3 +1,4 @@
+import { FunctionComponent } from "react";
 import { Title } from "./Title.interface";
 import TitleItemCompact from "./TitleItemCompact";
 import TitleItemFull from "./TitleItemFull";
@@ -13,14 +14,12 @@ type TitleItemFactoryProps =  {
 } & Title;
 
 
-export const TileItem: (props: TitleItemFactoryProps) => JSX.Element | null = props => {
+export const TileItem: FunctionComponent<TitleItemFactoryProps> = props => {
   switch (props.size) {
     case TitleSize.Small:
-      return <TitleItemCompact name={props.name} description={props.description} rating={props.rating} maturity={props.maturity} poster={new Blob()} teaser_youtube_id={""} />
+      return <TitleItemCompact name={props.name} description={props.description} rating={props.rating} maturity={props.maturity} poster={new Blob()} teaser_youtube_id={props.teaser_youtube_id } />
 
     case TitleSize.Full: 
-      return <TitleItemFull name={props.name} description={props.description} rating={props.rating} maturity={props.maturity} poster={new Blob()} teaser_youtube_id={""} />;
+      return <TitleItemFull name={props.name} description={props.description} rating={props.rating} maturity={props.maturity} poster={new Blob()} teaser_youtube_id={props.teaser_youtube_id} />;
   }
-
-  return null;
 }

@@ -21,7 +21,7 @@ const Search: FunctionComponent<SearchProps> = props => {
     rating: 5,
     maturity: 13,
     poster: new Blob(), // Placeholder for the poster image 
-    teaser_youtube_id: "https://example.com/teaser.mp4",
+    teaser_youtube_id: "jTx5c-2QOXc",
   },{
     name: "Example Movie",
     description: "This is an example movie description.",
@@ -73,8 +73,8 @@ const Search: FunctionComponent<SearchProps> = props => {
         </label>
       </>
     </div>
-    <div id="items">
-      {filteredItems.map(el => <TileItem size={areItemsWide ? TitleSize.Small : TitleSize.Full} name={el.name} description={el.description} rating={el.rating} maturity={0} poster={new Blob()} teaser_youtube_id={""} />)}
+    <div id="items" className={`${areItemsWide ? "wide" : ""}`}>
+      {filteredItems.map(el => <TileItem size={areItemsWide ? TitleSize.Small : TitleSize.Full} name={el.name} description={el.description} rating={el.rating} maturity={0} poster={new Blob()} teaser_youtube_id={el.teaser_youtube_id } />)}
     </div>
   </div>
   <div></div>

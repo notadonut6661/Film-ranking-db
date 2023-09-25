@@ -6,7 +6,7 @@ interface FilterTagChoiceListProps {
   button?: JSX.Element;
 }
  
-const FilterTagChoiceList: FunctionComponent<FilterTagChoiceListProps> = props => {
+const FilterTagChoiceListSearchBar: FunctionComponent<FilterTagChoiceListProps> = props => {
   return (<div className="filter-multiple-choices">
     <div className="filter-tag-name">{ props.name }</div>
     {props.options.map((el) => {
@@ -16,4 +16,4 @@ const FilterTagChoiceList: FunctionComponent<FilterTagChoiceListProps> = props =
   })}</div>);
 }
  
-export default FilterTagChoiceList; 
+export default FilterTagChoiceListSearchBar; 
