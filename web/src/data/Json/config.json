@@ -16,5 +16,6 @@
     "url": "https://www.amazon.com/"
   }],
   "default_annotation_fade_out_delay": 2500,
+  "max_film_rating": 10,
   "title_data_type": ["Title", "Category", "Plot", "WatchOn"]
 }

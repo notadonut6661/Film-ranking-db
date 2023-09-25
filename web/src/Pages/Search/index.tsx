@@ -31,7 +31,7 @@ const Search: FunctionComponent<SearchProps> = props => {
     teaser_youtube_id: "https://example.com/teaser.mp4",
   },{
     name: "Example Movie",
-    description: "This is an example movie description.",
+    description: "A young guy went to 1960s after dr. Emmet Brown has been killed by terrorists. And then his mother falls in love with him. He has to bring her and his dad together to continue living, and also he has to get back in 1980s, but time machine has no fuel.\n",
     rating: 5,
     maturity: 13,
     poster: new Blob(), // Placeholder for the poster image 
@@ -39,14 +39,14 @@ const Search: FunctionComponent<SearchProps> = props => {
   }, {
     name: "Example Movie",
     description: "This is an example movie description.",
-    rating: 5,
+    rating: 5.75,
     maturity: 13,
     poster: new Blob(), // Placeholder for the poster image 
     teaser_youtube_id: "https://example.com/teaser.mp4",
   }]);
   
   const [areItemsWide, setAreItemsWide] = useState(false);
-  const [sortBy, setSortBy] = useState<[keyof Title, 'asc' | 'desc']>();
+  const [sortBy, setSortBy] = useState<[keyof Title, 'asc' | 'desc'] | null>(null);
 
   useEffect(() => {
     // getFilteredItemsFromApi<Title>(filter, "") 

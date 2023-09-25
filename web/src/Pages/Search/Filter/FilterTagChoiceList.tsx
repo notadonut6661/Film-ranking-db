@@ -4,6 +4,7 @@ interface FilterTagChoiceListProps {
   options: Array<string>;
   name: string;
   button?: JSX.Element;
+  searchBar?: JSX.Element;
 }
  
 const FilterTagChoiceList: FunctionComponent<FilterTagChoiceListProps> = props => {

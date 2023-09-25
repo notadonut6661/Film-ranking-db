@@ -1,4 +1,4 @@
-import CastElement from "../../data/Interfaces/castElement.interface";
+import {CastElement} from "../../data/Interfaces/castElement.interface";
 import { PopupStages } from "../../data/PopupStages.enum";
 import getActorLocalStorageName from "../../utils/getActorLocalStorageName";
 

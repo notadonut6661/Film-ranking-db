@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
 import './style.scss';
 
 export default function Footer(): JSX.Element {
+  useEffect(() => {
+    console.log(window.outerHeight, 'allakh')
+  })
   return (<footer>
     <ul>
       <li><a href='/films'>Films</a></li>

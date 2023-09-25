@@ -1,4 +1,4 @@
-import CastElement from "../../data/Interfaces/castElement.interface";
+import {CastElement} from "../../data/Interfaces/castElement.interface";
 import IsTitlePageNew from "../../utils/GetIsTitlePageNew";
 import getActorLocalStorageName from "../../utils/getActorLocalStorageName";
 import { getCarouselItemId } from "./getCarouselItemId";

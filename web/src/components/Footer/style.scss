@@ -3,25 +3,27 @@
 footer {
   position: absolute;
   display: flex;
-  bottom: -20vh;
   background: $primary-black;
   height: 20vh;
   width: 99vw;
-}
+  top: 100%;
 
-footer * {
-  color: #fff;
-}
+  > ul {
+    margin-right: 10vw;
+    margin-top: 2.5vh;
+    display: block;
+    height: calc(100% - 2.5vh);
+    width: 15%;  
 
-footer > ul {
-  margin-right: 10vw;
-  margin-top: 2.5vh;
-  display: block;
-  height: calc(100% - 2.5vh);
-  width: 15%;  
-}
+    > li {
+      margin-top: 1vh;
+      font-size: large;
+    }
+  }
 
-footer > ul > li {
-  margin-top: 1vh;
-  font-size: large;
+  
+    * {
+    color: #fff !important;
+  }
+
 }

@@ -1,4 +1,4 @@
-export default interface CastElement {
-  Character?: string;
-  ActorId?: number;
-}
+export type CastElement = Partial<{
+  Character: string;
+  ActorId: number;
+}>
