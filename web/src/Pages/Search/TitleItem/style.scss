@@ -13,23 +13,23 @@
   // }
 
   #title {
-    grid-area: 1 / 4 / 1 / 8;
+    grid-area: 1 / 5 / 1 / 8;
     width: 100%;
   }
 
   #description {
-    grid-area: 2 / 4 / 4   / 7;
+    grid-area: 2 / 4 / 10 / 9;
   }
 
-  .rating-stars {
-    grid-area: 3 / 7 / 4/ 8;
-    > img {
+  .rating {
+    grid-area: 3 / 9 / 4/ 11;
+    img {
       max-width: 25%;
       max-height: 50%;
     }
 
     &.max {
-      grid-area: 4 / 7 / 5 / 8;
+      grid-area: 4 / 9 / 5 / 9;
     }
   }
 

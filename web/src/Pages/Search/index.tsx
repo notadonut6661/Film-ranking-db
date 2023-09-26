@@ -24,7 +24,7 @@ const Search: FunctionComponent<SearchProps> = props => {
     teaser_youtube_id: "jTx5c-2QOXc",
   },{
     name: "Example Movie",
-    description: "This is an example movie description.",
+    description: "Kazakh TV talking head Borat is dispatched to the United States to report on the greatest country in the world. With a documentary crew in tow, Borat becomes more interested in locating and marrying Pamela Anderson.",
     rating: 5,
     maturity: 13,
     poster: new Blob(), // Placeholder for the poster image 
