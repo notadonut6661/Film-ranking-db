@@ -25,6 +25,7 @@ const TitleItemCompact: React.FunctionComponent<Title> = props => {
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/OOjs_UI_icon_unStar.svg/1024px-OOjs_UI_icon_unStar.svg.png" alt="">
         </img>/ 10 </span>    
     </div>
+    <a className="title-tag" id="test" href="../">Spooky</a>
   </div> ); 
 }
  

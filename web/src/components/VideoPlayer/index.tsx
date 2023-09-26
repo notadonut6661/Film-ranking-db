@@ -1,4 +1,4 @@
-import { FunctionComponent, useCallback, useRef } from 'react';
+import { FunctionComponent, useCallback, useEffect, useRef, useState } from 'react';
 import './style.scss';
 
 
@@ -18,6 +18,7 @@ export enum VideoControls {
  
 export const VideoPlayer: FunctionComponent<VideoPlayerProps> = props => {
   const Player = useRef<HTMLVideoElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
 
   const playerClickHandler = useCallback(() => {
     console.log(Player.current?.paused)
@@ -33,9 +34,14 @@ export const VideoPlayer: FunctionComponent<VideoPlayerProps> = props => {
     }
   }, [props.controls]);
 
-  return <>
-    <video ref={Player} onClick={playerClickHandler} autoPlay={props.autoplay} muted={props.muted} controls={false} id={props.id}>
+  useEffect(() => {
+    Player.current?.addEventListener('play', () => setIsPaused(false));
+    Player.current?.addEventListener('pause', () => setIsPaused(true));
+  }, []);
+  
+  return <div className={`${Player.current?.paused ? "paused": ""} player`} id={props.id}>
+    <video ref={Player}  onContextMenu={ev => ev.preventDefault()} onClick={playerClickHandler} autoPlay={props.autoplay} muted={props.muted} controls={false} >
       <source src={props.src}/>
     </video>
-  </>;
-}
+  </div>;
+} 

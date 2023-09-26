@@ -17,9 +17,9 @@ type TitleItemFactoryProps =  {
 export const TileItem: FunctionComponent<TitleItemFactoryProps> = props => {
   switch (props.size) {
     case TitleSize.Small:
-      return <TitleItemCompact name={props.name} description={props.description} rating={props.rating} maturity={props.maturity} poster={new Blob()} teaser_youtube_id={props.teaser_youtube_id } />
+      return <TitleItemCompact {...props} />
 
     case TitleSize.Full: 
-      return <TitleItemFull name={props.name} description={props.description} rating={props.rating} maturity={props.maturity} poster={new Blob()} teaser_youtube_id={props.teaser_youtube_id} />;
+      return <TitleItemFull {...props} />;
   }
 }
