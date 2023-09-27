@@ -18,7 +18,7 @@ const TitleItemCompact: React.FunctionComponent<Title> = props => {
 
   return (<div className="title-item-compact">
    <a href={`../title/${props.name}`} id="title">{props.name}</a>
-   <VideoPlayer src={"https://packaged-media.redd.it/0n8ekze2cdqb1/pb/m2-res_720p.mp4?m=DASHPlaylist.mpd&v=1&e=1695733200&s=05cb875a6a3cfca1d952d31c8fc19b6fd14206e6#t=0"} id="teaser" controls={VideoControls.Play} />
+   <VideoPlayer  preview={``} src={"https://packaged-media.redd.it/0n8ekze2cdqb1/pb/m2-res_720p.mp4?m=DASHPlaylist.mpd&v=1&e=1695733200&s=05cb875a6a3cfca1d952d31c8fc19b6fd14206e6#t=0"} id="teaser" controls={VideoControls.Play} />
     <span id="description">{`${croppedDescription}`}</span> 
     <div className="rating">
       <span>{props.rating} 
