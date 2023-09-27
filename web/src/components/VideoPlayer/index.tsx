@@ -1,6 +1,7 @@
 import { FunctionComponent, useCallback, useEffect, useRef, useState } from 'react';
 import './style.scss';
-import PlayerContextMenu from './PlayerContextMenu';
+import PlayerContextMenu from './ContextMenu';
+import contextMenuOptions from './playerContextMenu.json';
 
 export enum VideoControls {
   None,
@@ -43,6 +44,6 @@ export const VideoPlayer: FunctionComponent<VideoPlayerProps> = props => {
     <video ref={player}  onClick={playerClickHandler} autoPlay={props.autoplay} muted={props.muted} controls={false} id='hui' >
       <source src={props.src}/> 
     </video>
-    <PlayerContextMenu {...{isActive}} target={player} />
+    <PlayerContextMenu trigger={player} options={contextMenuOptions} />
   </div>;
 } 

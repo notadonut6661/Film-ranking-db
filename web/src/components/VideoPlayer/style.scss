@@ -26,11 +26,17 @@
     position: absolute;
     background: white;
     display: none;
+    border-radius: 5px;
+    border: black solid 1px;
 
-    // margin-bottom: 5.95vh;
     &.active {
       display: block; 
     }
+
+    list-style-type: none;
+
+    padding: 0;
+    padding-right: 25px;
   }
 
 }
