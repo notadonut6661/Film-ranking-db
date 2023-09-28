@@ -8,6 +8,7 @@ import Footer from "components/Footer";
 import { TileItem, TitleSize } from "./TitleItem/TitleItemFactory";
 import { Title } from "./TitleItem/Title.interface";
 import getFilteredItemsFromApi from "./getFilteredItemsFromApi";
+import PageSelector from "./PageSelector";
 
 interface SearchProps {
 } 
@@ -76,7 +77,7 @@ const Search: FunctionComponent<SearchProps> = props => {
     <div id="items" className={`${areItemsWide ? "wide" : ""}`}>
       {filteredItems.map(el => <TileItem size={areItemsWide ? TitleSize.Small : TitleSize.Full} name={el.name} description={el.description} rating={el.rating} maturity={0} poster={new Blob()} teaser_youtube_id={el.teaser_youtube_id } />)}
     </div>
-  <div>{[...Array(Math.ceil(filteredItems.length / 25))].map((v, i) => <div className={``}>{i}</div>)}</div>
+ <PageSelector totalPageNumber={filteredItems.length / 25}/>
   </div>
   </div>
 <Footer />
