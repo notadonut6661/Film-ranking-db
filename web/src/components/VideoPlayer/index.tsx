@@ -41,7 +41,7 @@ export const VideoPlayer: FunctionComponent<VideoPlayerProps> = props => {
 
   return <div className={`${isPaused ? "paused": ""} player`} id={props.id}>
     <img src={props.preview} alt='Teaser preview' className='preview'/>
-    <video ref={player}  onClick={playerClickHandler} autoPlay={props.autoplay} muted={props.muted} controls={false} id='hui' >
+    <video ref={player}  onClick={playerClickHandler} autoPlay={props.autoplay} muted={props.muted} controls={false} >
       <source src={props.src}/> 
     </video>
     <PlayerContextMenu trigger={player} options={contextMenuOptions} />

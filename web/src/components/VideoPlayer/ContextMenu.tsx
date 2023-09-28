@@ -14,16 +14,20 @@ const ContextMenu: FunctionComponent<ContextMenuProps> = props => {
   useEffect(() => {
     props.trigger.current?.addEventListener('contextmenu', ev => {
       setMenuPosition([ev.pageY , ev.pageX]);
-      setIsActive(true);
+      setIsActive(prev => !prev);
       ev.preventDefault();
     });
-  }, []);
+
+    props.trigger.current?.addEventListener('click', ev => {
+      setIsActive(false);
+    });
+  }, [isActive, props.trigger]);
   
   return (<menu className={`context-menu ${isActive ? "active" : ""}`} style={{top: `calc(${menuPosition[0]}px - 5.95vh)`, left: menuPosition[1]}}>
     {props.options.map(el => { 
       if (!Array.isArray(el)) return <li><a {...el}>{el.value}</a></li>;
 
-      return <>{el.map(el => <li><a {...el}>{el.value}</a></li>)}</>;
+      return <li><menu>{el.map(el => <li><a {...el}>{el.value}</a></li>)}</menu></li>;
     })}
   </menu>); 
 }
