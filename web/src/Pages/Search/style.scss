@@ -14,8 +14,6 @@ div.body#search {
 
   #items {
     display: flex;
-    // grid-template-columns: repeat(3, min(200px, 15vw));
-    // grid-template-rows: repeat(6, min(300px, 22.5vw));
     gap: 10px;
 }
 }
@@ -32,10 +30,10 @@ div.body#search > div#filters {
 }
 
 div.body#search > div#filters > p {
-  background-color: #eee; /* Grey background color */
-  color: black; /* Black text color */
-  display: block; /* Make the links appear below each other */
-  padding: 12px; /* Add some padding */
+  background-color: #eee; 
+  color: black;
+  display: block;
+  padding: 12px; 
   text-decoration: none; 
 }
 
@@ -49,10 +47,10 @@ div.body#search > div#filters > p {
   display: flex !important;
   align-items: center;
   height: 10px;
-  background-color: #eee; /* Grey background color */
-  color: black; /* Black text color */
-  display: block; /* Make the links appear below each other */
-  padding: 12px; /* Add some padding */
+  background-color: #eee; 
+  color: black;
+  display: block;
+  padding: 12px; 
   text-decoration: none; 
 }
 
@@ -175,6 +173,28 @@ input[type="range"] {
 
 }
 
+
+.page-selector {
+  display: flex;
+  justify-content: center;
+  height: 5vh;
+
+  > * {
+    margin-left: 15px;
+    display: flex;
+    border: #e0e0e0 1px solid;
+    width: 5vh;
+    justify-content:  center;
+
+    * {
+      align-self: center;
+    }
+  }
+  
+  .active {
+    border: rgb(65, 64, 64) 1px solid;
+  }
+}
 
 @media screen and (max-width: 500px) {
   #filters {

@@ -8,8 +8,6 @@ import FilterTagRange from "./FilterTagRange";
 interface FilterProps<T> {
   FilteredItemsState: Array<T>;
   FilterTags: Array<{ variable_name: keyof T; name: string; type: string; options?: Array<string>; }>;
-  FilterState: Map<keyof T, [number, number] | string | null>;
-  UpdateFilterFunction: React.Dispatch<Map<keyof T, [number, number] | string | null>>;
 }
  
 function Filter<T>(props: FilterProps<T>) {

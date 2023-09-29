@@ -17,5 +17,10 @@
   }],
   "default_annotation_fade_out_delay": 2500,
   "max_film_rating": 10,
+  "max_search_result_navigation_options": 10,
+  "titles_on_page": {
+    "normal": [10, 25, 50]
+
+  },
   "title_data_type": ["Title", "Category", "Plot", "WatchOn"]
 }
