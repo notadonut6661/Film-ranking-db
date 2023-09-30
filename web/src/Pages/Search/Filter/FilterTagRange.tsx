@@ -1,4 +1,5 @@
 import { FunctionComponent, useState, useCallback, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 interface FilterTagRangeProps {
   name: string;
@@ -7,41 +8,45 @@ interface FilterTagRangeProps {
 }
 
 const FilterTagRange: FunctionComponent<FilterTagRangeProps> = ({name}) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [min, setMin] = useState(Number(searchParams.get(`${name}-min`)));
+  const [max, setMax] = useState(Number(searchParams.get(`${name}-max`)));
 
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(0);
-  
-  const minRangeValueChangeHandler = useCallback((ev: React.ChangeEvent<HTMLInputElement>) => {
-    if (maxValue < +ev.target.value) {
-      setMinValue(maxValue - 1);
+  const RangeValueChangeHandler = useCallback((ev: React.ChangeEvent<HTMLInputElement>, valueType: 'min' | 'max') => {
+    ev.preventDefault();
+    if (('min'=== valueType  && Number(searchParams.get(`${name}-max`)) <= +ev.target.value) || 
+      ('max'=== valueType  && Number(searchParams.get(`${name}-min`)) >= +ev.target.value )) {
+      setSearchParams(prev => {
+        if ('min'=== valueType)  setMin(max - 1);
+        if ('min'=== valueType)  setMax(min + 1);
+
+        prev.set(`${name}-${valueType}`, String(Number(+ev.target.value + (valueType === 'min' ? -1: 2))));
+        return prev;
+      })
+
       return;
     }
 
-    setMinValue(Number(ev.target.value));
-  }, [maxValue]);
-
-  const maxRangeValueChangeHandler = useCallback((ev: React.ChangeEvent<HTMLInputElement>) => {
-    if (+ev.target.value < minValue) {
-      setMaxValue(minValue + 1);
-      return;
-    }
-
-    setMaxValue(Number(ev.target.value));
-  }, [minValue]);
-  
+     setSearchParams(prev => {
+      if ('min'=== valueType)  setMin(+ev.target.value);
+      if ('max'=== valueType)  setMax(+ev.target.value);
+        prev.set(`${name}-${valueType}`, ev.target.value);
+        return prev;
+      })
+  }, [name, searchParams, setSearchParams]);
 
   return <div >
     <div className="filter-tag-name">{ name }</div>
     <div className="range-data"> 
       <div>
         <span>From </span>
-        <input type="number" className="min-value range-number" value={minValue} onChange={minRangeValueChangeHandler}/>
+        <input type="number" className="min-value range-number" value={min} onChange={ev => RangeValueChangeHandler(ev, 'min')}/>
         <span> To </span>
-        <input type="number" className="max-value range-number" value={maxValue} onChange={maxRangeValueChangeHandler}/>
+        <input type="number" className="max-value range-number" value={max} onChange={ev => RangeValueChangeHandler(ev, 'max')}/>
       </div>
       <div>
-        <input type="range" className="min-range" value={minValue} onChange={minRangeValueChangeHandler}/>
-        <input type="range" className="max-range" value={maxValue} onChange={maxRangeValueChangeHandler}/>
+        <input type="range" className="min-range" value={min} onChange={ev => RangeValueChangeHandler(ev, 'min')}/>
+        <input type="range" className="max-range" value={max} onChange={ev => RangeValueChangeHandler(ev, 'max')}/>
       </div>
 
     </div>

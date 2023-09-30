@@ -11,10 +11,10 @@ const PageSelector: React.FunctionComponent<PageSelectorProps> = props => {
  
   const ChangeResultPage = useCallback((changeTo: number) => {
     setSearchParams(`page=${changeTo}`);
-  }, []);
+  }, [setSearchParams]);
 
   return (<div className="page-selector">
-    {[...Array(Math.min(10, props.totalPageNumber))].map((v, i) => {
+    {[...Array(Math.min(config.max_search_result_navigation_options, props.totalPageNumber))].map((v, i) => {
     if (config.max_search_result_navigation_options <= props.totalPageNumber) {
       if (9 === i+1) {
         return <div ><span>{props.totalPageNumber <= Number(searchParams.get('page')) + 6 ? props.totalPageNumber - 10 + i + 1 : "..."}</span></div>;
@@ -27,7 +27,7 @@ const PageSelector: React.FunctionComponent<PageSelectorProps> = props => {
       if(0 === i) {
         return <div className={`${Number(searchParams.get('page')) === 1 ? "active" : ""}`} onClick={() => ChangeResultPage(1)}><span>1</span></div>
       }
-      }
+    }
 
     return (
     <div 

@@ -35,12 +35,18 @@ const Search: FunctionComponent<SearchProps> = props => {
       </select>
       <>
         <label id="wide" className="radio">
-        <input onClick={() => setSearchParams('setViewMode=list')} type="radio" name="item-size"/>
+        <input onClick={() => setSearchParams(prev => {
+          prev.set('setViewMode', 'list');
+          return prev;
+        })} type="radio" name="item-size"/>
           <span  className={``}></span>
         </label>
 
         <label id="squares" className="radio" >
-          <input onClick={() => setSearchParams('setViewMode=block')} id="" type="radio" name="item-size"/>
+          <input onClick={() => setSearchParams(prev => {
+          prev.set('setViewMode', 'block');
+          return prev;
+        })} id="" type="radio" name="item-size"/>
           <span  className={``}></span>
         </label>
       </>
