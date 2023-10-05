@@ -33,7 +33,7 @@ const FilterTagRange: FunctionComponent<FilterTagRangeProps> = ({name}) => {
         prev.set(`${name}-${valueType}`, ev.target.value);
         return prev;
       })
-  }, [name, searchParams, setSearchParams]);
+  }, [max, min, name, searchParams, setSearchParams]);
 
   return <div >
     <div className="filter-tag-name">{ name }</div>

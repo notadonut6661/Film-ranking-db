@@ -8,16 +8,21 @@ interface PageSelectorProps {
  
 const PageSelector: React.FunctionComponent<PageSelectorProps> = props => {
   const [searchParams, setSearchParams] = useSearchParams();
- 
+  const SHOWN_LINKS_NUMBER = Math.min(config.max_search_result_navigation_options, props.totalPageNumber);
+  const CAROUSEL_SHIFT = Math.max(6, Number(searchParams.get('page')));
+
   const ChangeResultPage = useCallback((changeTo: number) => {
-    setSearchParams(`page=${changeTo}`);
+    setSearchParams(prev => {
+      prev.set('page', String(changeTo));
+      return prev;
+    });
   }, [setSearchParams]);
 
   return (<div className="page-selector">
-    {[...Array(Math.min(config.max_search_result_navigation_options, props.totalPageNumber))].map((v, i) => {
+    {[...Array(SHOWN_LINKS_NUMBER)].map((v, i) => {
     if (config.max_search_result_navigation_options <= props.totalPageNumber) {
-      if (9 === i+1) {
-        return <div ><span>{props.totalPageNumber <= Number(searchParams.get('page')) + 6 ? props.totalPageNumber - 10 + i + 1 : "..."}</span></div>;
+      if (8 === i) {
+        return <div ><span>{props.totalPageNumber <= Number(searchParams.get('page')) + 6 ? Math.min(SHOWN_LINKS_NUMBER + i + 1, i + 1 + CAROUSEL_SHIFT ) : "..."}</span></div>;
       }
 
       if (9 === i) {
@@ -31,10 +36,10 @@ const PageSelector: React.FunctionComponent<PageSelectorProps> = props => {
 
     return (
     <div 
-      className={`${Number(searchParams.get('page')) === Math.min(props.totalPageNumber - 10 + i + 1, i + 1 + (Math.max(6, Number(searchParams.get('page'))) - 6)) ? "active" : ""}`} 
-      onClick={() => ChangeResultPage(Math.min(props.totalPageNumber - 10 + i + 1, i + 1 + (Math.max(6, Number(searchParams.get('page'))) - 6)))}>  
+      className={`${Number(searchParams.get('page')) === Math.min(props.totalPageNumber - 10 + i + 1, i + 1 + CAROUSEL_SHIFT ) ? "active" : ""}`} 
+      onClick={() => ChangeResultPage(Math.min(props.totalPageNumber - SHOWN_LINKS_NUMBER + i + 1, i + 1 + CAROUSEL_SHIFT))}>  
       <span>
-        {Math.min(props.totalPageNumber - 10 + i + 1, i + 1 + (Math.max(6, Number(searchParams.get('page'))) - 6))}
+        {Math.min(props.totalPageNumber - SHOWN_LINKS_NUMBER + i + 1, i + 1 + CAROUSEL_SHIFT)}
       </span>
     </div>
     )
