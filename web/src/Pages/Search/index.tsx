@@ -17,11 +17,14 @@ interface SearchProps {
 const Search: FunctionComponent<SearchProps> = props => {
   const [filteredItems, setFilteredItems] = useState<Array<Title>>([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const getFilter = useCallback(() => {
+    return Array.from(searchParams).filter(([name, value]) => name.includes('filter')) as [keyof Title, string | [number, number]][];
+  }, [searchParams]);
   
-  // useEffect(() => {
-  //   getFilteredItemsFromApi<Title>(filter, "") 
-  //   .then(setFilteredItems);
-  // });
+  useEffect(() => {
+    // getFilteredItemsFromApi<Title>(getFilter(), "")
+    // .then(setFilteredItems);
+  });
 
   return (<><div className="body" id="search">
   <Filter<Title> FilteredItemsState={filteredItems}  FilterTags={filterConfig as Array<{ variable_name: keyof Title; name: string; type: string; options?: Array<string>; }>}/>
@@ -52,7 +55,7 @@ const Search: FunctionComponent<SearchProps> = props => {
     <div id="items" className={`${searchParams.get('setViewMode')}`}>
       {filteredItems.map(el => <TileItem size={searchParams.get('setViewMode') === 'list' ? TitleSize.Small : TitleSize.Full} name={el.name} description={el.description} rating={el.rating} maturity={0} poster={new Blob()} teaser_youtube_id={el.teaser_youtube_id } />)}
     </div>
- <PageSelector totalPageNumber={Math.max(filteredItems.length / config.max_titles_on_page, 20)}/>
+ <PageSelector totalPageNumber={Math.max(1, Math.round(filteredItems.length / config.max_titles_on_page))}/>
   </div>
   </div>
 <Footer />

@@ -19,5 +19,6 @@
   "max_film_rating": 10,
   "max_search_result_navigation_options": 10,
   "max_titles_on_page": 25,
-  "title_data_type": ["Title", "Category", "Plot", "WatchOn"]
+  "title_data_type": ["Title", "Category", "Plot", "WatchOn"],
+  "requests"  : {}
 }

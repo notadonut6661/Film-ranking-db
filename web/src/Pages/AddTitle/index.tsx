@@ -57,7 +57,7 @@ export default function AddTitle(): JSX.Element {
     });
   });
 
-  // FIXME maxLength of 512 is obviously belongs to magic number anti-pattern, it has to be moved to config
+  // FIXME maxLength of 512 obviously belongs to magic number anti-pattern and has to be moved to config
   return (
     <>
       <div className="body" id="Add">

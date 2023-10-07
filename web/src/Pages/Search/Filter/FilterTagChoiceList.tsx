@@ -15,10 +15,9 @@ const FilterTagChoiceList: FunctionComponent<FilterTagChoiceListProps> = props =
     <div className="filter-tag-name">{ props.name }</div>
     {props.options.map((el) => {
     return (<div onClick={() => setSearchParams(prev => {
-      console.log(`["${el}"]`, prev.get(props.name))
-      if (JSON.parse(prev.get(props.name) ?? "[]").includes(el)) prev.delete(props.name);
-      else  prev.set(props.name, `["${el}"]`);
-      return prev;  
+      if ((prev.get(`filter-${props.name}`) ?? "").includes(el)) prev.set(`filter-${props.name}`, prev.get(props.name)?.split('-').filter(v => v !== el).join('-') ?? "");
+      else  prev.set(`filter-${props.name}`, `${prev.get(props.name) ?? ""}-${el}`);
+      return prev; 
     })}>
       <label className="filter-choice">{props.button ?? <input  type="checkbox"/>}<span>{el}</span></label>
     </div>)

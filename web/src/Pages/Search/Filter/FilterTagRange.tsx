@@ -16,11 +16,12 @@ const FilterTagRange: FunctionComponent<FilterTagRangeProps> = ({name}) => {
     ev.preventDefault();
     if (('min'=== valueType  && Number(searchParams.get(`${name}-max`)) <= +ev.target.value) || 
       ('max'=== valueType  && Number(searchParams.get(`${name}-min`)) >= +ev.target.value )) {
+      console.log(min, max);
       setSearchParams(prev => {
         if ('min'=== valueType)  setMin(max - 1);
         if ('min'=== valueType)  setMax(min + 1);
 
-        prev.set(`${name}-${valueType}`, String(Number(+ev.target.value + (valueType === 'min' ? -1: 2))));
+        prev.set(`${name}-${valueType}`, String(valueType === 'max' ? max : min));
         return prev;
       })
 
@@ -40,9 +41,9 @@ const FilterTagRange: FunctionComponent<FilterTagRangeProps> = ({name}) => {
     <div className="range-data"> 
       <div>
         <span>From </span>
-        <input type="number" className="min-value range-number" value={min} onChange={ev => RangeValueChangeHandler(ev, 'min')}/>
+        <input min="0" type="number" className="min-value range-number" value={min} onChange={ev => RangeValueChangeHandler(ev, 'min')}/>
         <span> To </span>
-        <input type="number" className="max-value range-number" value={max} onChange={ev => RangeValueChangeHandler(ev, 'max')}/>
+        <input max={100} type="number" className="max-value range-number" value={max} onChange={ev => RangeValueChangeHandler(ev, 'max')}/>
       </div>
       <div>
         <input type="range" className="min-range" value={min} onChange={ev => RangeValueChangeHandler(ev, 'min')}/>
