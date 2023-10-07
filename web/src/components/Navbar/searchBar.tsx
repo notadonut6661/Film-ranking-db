@@ -1,6 +1,9 @@
-import submitSearchQuery from "./submitSearchQuery";
+import { useNavigate } from "react-router-dom";
+import config from "../../data/Json/config.json";
 
 export default function SearchBar(): JSX.Element {
+  const navigate = useNavigate();
+
   return (
     <div className="search-bar">
       <input
@@ -8,10 +11,8 @@ export default function SearchBar(): JSX.Element {
         placeholder="Search"
         className="search-bar"
         onKeyDown={({ key }) => {
-          // FIXME USE CONFIG
-          if (key === "Enter") {
-            console.log("key pressed");
-            submitSearchQuery();
+          if (config.shortcuts.search === key) {
+            navigate('/search');
           }
         }}
       />

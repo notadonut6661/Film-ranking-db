@@ -15,6 +15,9 @@
     "name": "Amazon prime",
     "url": "https://www.amazon.com/"
   }],
+  "shortcuts": {
+    "search": "Enter"
+  },
   "default_annotation_fade_out_delay": 2500,
   "max_film_rating": 10,
   "max_search_result_navigation_options": 10,
