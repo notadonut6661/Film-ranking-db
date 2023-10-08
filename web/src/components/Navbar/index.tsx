@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import AddFilmDropdown from './AddAFilmDropdown';
 import PrivateCabinetLink from './PrivateCabinetLink';
 import SearchBar from './searchBar';
 import './style.scss';
+import { Link } from 'react-router-dom';
 
 export default function Navbar(): JSX.Element {
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function Navbar(): JSX.Element {
       <a href='/series'>Series</a>
     </div>
     <div className="navbar-header-right">
-      <AddFilmDropdown />
+      <span className="addToDb"><Link to="/add">Add</Link></span>
       <SearchBar/>
       <PrivateCabinetLink/>
     </div>

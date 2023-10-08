@@ -45,7 +45,6 @@ export class UriDecoder {
     const result: Record<string, string> = {};  
     const currentQueryElement = this.uriParams[queryInSplittedPathId].type;
     const queryRequiredLength = Object.keys(currentQueryElement).length;  
-    // ?? WTF ?
     let minimalQueryLength = queryRequiredLength;
     
     keyValuePairs.forEach((pair, i) => {
@@ -53,23 +52,23 @@ export class UriDecoder {
       let isElOptional: boolean;
 
       if (typeof currentQueryElement !== 'object') return;  
-      
-      if (keyValuePairs.length <= minimalQueryLength) {
+      console.log(keyValuePairs, currentQueryElement, queryRequiredLength, key, currentQueryElement.Required   )
+      if (keyValuePairs.length < minimalQueryLength) {
         throw new Error("");
       }
       
-      if (!Object.prototype.hasOwnProperty.call(currentQueryElement.Required, key) && !Object.prototype.hasOwnProperty.call(currentQueryElement.Optional, key)) {
+      if (!Object.prototype.hasOwnProperty.call(currentQueryElement.Required, key) && !Object.prototype.hasOwnProperty.call(currentQueryElement?.Optional ||  {}, key)) {
         throw Error("I FUCKING HATE YOU")
       } else {
-        isElOptional = Object.prototype.hasOwnProperty.call(currentQueryElement.Optional, key);
+        isElOptional = Object.prototype.hasOwnProperty.call(currentQueryElement.Optional ?? {}, key);
       }
 
-      if (!(isElOptional && (currentQueryElement.Optional === undefined || currentQueryElement.Optional[key].type === this.getTypeOfElementInQuery(value)))) {
+      if (isElOptional && (currentQueryElement.Optional === undefined || currentQueryElement.Optional[key].type === this.getTypeOfElementInQuery(value))) {
         throw new Error("KURWA");
       }
 
-      if (!isElOptional || currentQueryElement.Required[key] !== this.getTypeOfElementInQuery(value)) {
-        throw new Error("KURWA");
+      if (currentQueryElement.Required[key] !== this.getTypeOfElementInQuery(value)) {
+        throw new Error("KURWA 123");
       }
       
       result[key] = value;

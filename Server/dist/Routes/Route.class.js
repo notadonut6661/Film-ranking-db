@@ -67,7 +67,7 @@ var Route = (function () {
     };
     Route.prototype.ValidateRequest = function (req) {
         var _a;
-        return !!((_a = this.getAuthHeader(req)) === null || _a === void 0 ? void 0 : _a.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/));
+        return Boolean((_a = this.getAuthHeader(req)) === null || _a === void 0 ? void 0 : _a.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/));
     };
     Route.prototype.Authorization = function (req) {
         return __awaiter(this, void 0, void 0, function () {

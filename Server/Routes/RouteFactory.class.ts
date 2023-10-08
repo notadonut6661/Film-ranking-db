@@ -1,7 +1,7 @@
 import { ActorPhoto } from './ActorPhoto.class';
 import { Actors } from './Actors.class';
 import { Auth } from './Auth.class';
-import { OrdinaryRoute } from './OrdinaryRoute.class';
+import { TemplateRoute } from './TemplateRoute.class';
 import { Route } from './Route.class';
 
 // FIXME
@@ -18,9 +18,9 @@ export class RouteFactory {
   static Create(route: Routes): Route | never {
     switch(route) {
       case "FILM":
-        return new OrdinaryRoute("film", "film");
+        return new TemplateRoute("film", "film");
       case "SERIES":  
-        return new OrdinaryRoute("series", "series");
+        return new TemplateRoute("series", "series");
       case "AUTH": 
         return new Auth();
       case "ACTORS":
@@ -28,7 +28,7 @@ export class RouteFactory {
       case "ACTOR_PHOTO":
         return new ActorPhoto();
       case "USERS": 
-        return new OrdinaryRoute("users", "users");
+        return new TemplateRoute("users", "users");
       
       default: 
         throw new Error('');

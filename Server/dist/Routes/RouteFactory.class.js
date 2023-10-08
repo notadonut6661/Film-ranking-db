@@ -4,7 +4,7 @@ exports.RouteFactory = exports.Routes = void 0;
 var ActorPhoto_class_1 = require("./ActorPhoto.class");
 var Actors_class_1 = require("./Actors.class");
 var Auth_class_1 = require("./Auth.class");
-var OrdinaryRoute_class_1 = require("./OrdinaryRoute.class");
+var TemplateRoute_class_1 = require("./TemplateRoute.class");
 var Routes;
 (function (Routes) {
     Routes["FILM"] = "FILM";
@@ -20,9 +20,9 @@ var RouteFactory = (function () {
     RouteFactory.Create = function (route) {
         switch (route) {
             case "FILM":
-                return new OrdinaryRoute_class_1.OrdinaryRoute("film", "film");
+                return new TemplateRoute_class_1.TemplateRoute("film", "film");
             case "SERIES":
-                return new OrdinaryRoute_class_1.OrdinaryRoute("series", "series");
+                return new TemplateRoute_class_1.TemplateRoute("series", "series");
             case "AUTH":
                 return new Auth_class_1.Auth();
             case "ACTORS":
@@ -30,7 +30,7 @@ var RouteFactory = (function () {
             case "ACTOR_PHOTO":
                 return new ActorPhoto_class_1.ActorPhoto();
             case "USERS":
-                return new OrdinaryRoute_class_1.OrdinaryRoute("users", "users");
+                return new TemplateRoute_class_1.TemplateRoute("users", "users");
             default:
                 throw new Error('');
         }

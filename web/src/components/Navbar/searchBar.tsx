@@ -11,7 +11,7 @@ export default function SearchBar(): JSX.Element {
         placeholder="Search"
         className="search-bar"
         onKeyDown={({ key }) => {
-          if (config.shortcuts.search === key) {
+        if (config.shortcuts.search === key) {
             navigate('/search');
           }
         }}

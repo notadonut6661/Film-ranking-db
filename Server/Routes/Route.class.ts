@@ -41,7 +41,7 @@ export abstract class Route{
   }
   
   protected ValidateRequest(req: Request): boolean {
-    return !!this.getAuthHeader(req)?.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/);
+    return Boolean(this.getAuthHeader(req)?.match(/^(\w|\d){3,15}:(\w|\W){6,30}$/));
   }
 
   protected async Authorization(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>): Promise<boolean> {

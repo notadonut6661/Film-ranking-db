@@ -33,24 +33,26 @@ var UriDecoder = (function () {
         var queryRequiredLength = Object.keys(currentQueryElement).length;
         var minimalQueryLength = queryRequiredLength;
         keyValuePairs.forEach(function (pair, i) {
-            var _a = pair.split('?='), key = _a[0], value = _a[1];
+            var _a;
+            var _b = pair.split('?='), key = _b[0], value = _b[1];
             var isElOptional;
             if (typeof currentQueryElement !== 'object')
                 return;
-            if (keyValuePairs.length <= minimalQueryLength) {
+            console.log(keyValuePairs, currentQueryElement, queryRequiredLength, key, currentQueryElement.Required);
+            if (keyValuePairs.length < minimalQueryLength) {
                 throw new Error("");
             }
-            if (!Object.prototype.hasOwnProperty.call(currentQueryElement.Required, key) && !Object.prototype.hasOwnProperty.call(currentQueryElement.Optional, key)) {
+            if (!Object.prototype.hasOwnProperty.call(currentQueryElement.Required, key) && !Object.prototype.hasOwnProperty.call((currentQueryElement === null || currentQueryElement === void 0 ? void 0 : currentQueryElement.Optional) || {}, key)) {
                 throw Error("I FUCKING HATE YOU");
             }
             else {
-                isElOptional = Object.prototype.hasOwnProperty.call(currentQueryElement.Optional, key);
+                isElOptional = Object.prototype.hasOwnProperty.call((_a = currentQueryElement.Optional) !== null && _a !== void 0 ? _a : {}, key);
             }
-            if (!(isElOptional && (currentQueryElement.Optional === undefined || currentQueryElement.Optional[key].type === _this.getTypeOfElementInQuery(value)))) {
+            if (isElOptional && (currentQueryElement.Optional === undefined || currentQueryElement.Optional[key].type === _this.getTypeOfElementInQuery(value))) {
                 throw new Error("KURWA");
             }
-            if (!isElOptional || currentQueryElement.Required[key] !== _this.getTypeOfElementInQuery(value)) {
-                throw new Error("KURWA");
+            if (currentQueryElement.Required[key] !== _this.getTypeOfElementInQuery(value)) {
+                throw new Error("KURWA 123");
             }
             result[key] = value;
             minimalQueryLength = isElOptional ? minimalQueryLength + 1 : minimalQueryLength;

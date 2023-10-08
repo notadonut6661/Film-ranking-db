@@ -54,38 +54,43 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrdinaryRoute = void 0;
+exports.TemplateRoute = void 0;
 var Route_class_1 = require("./Route.class");
 var dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
 var uriDecoder_1 = require("../helpers/uriDecoder");
-var OrdinaryRoute = (function (_super) {
-    __extends(OrdinaryRoute, _super);
-    function OrdinaryRoute(_routeName, _dbName) {
+var TemplateRoute = (function (_super) {
+    __extends(TemplateRoute, _super);
+    function TemplateRoute(_routeName, _dbName, _uriDecoder) {
         var _this = _super.call(this) || this;
+        _this.requestType = _uriDecoder !== null && _uriDecoder !== void 0 ? _uriDecoder : [{ name: "title", type: "string" }, { name: "query", type: { Required: { "id": "string" } } }];
         _this.routeName = _routeName;
         _this.dbName = _dbName;
-        _this.uriDecoder = new uriDecoder_1.UriDecoder([{ name: "title", type: "string" }, { name: "id", type: "number" }]);
+        _this.uriDecoder = new uriDecoder_1.UriDecoder(_this.requestType);
         return _this;
     }
-    OrdinaryRoute.prototype.Get = function (req, res) {
+    TemplateRoute.prototype.Get = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a, _b, _c;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
+            var _a, id, query, sqlQuery, _b, _c, _d;
+            return __generator(this, function (_e) {
+                switch (_e.label) {
                     case 0:
-                        console.log("fff");
-                        id = this.uriDecoder.Decode(req.originalUrl).id;
-                        _d.label = 1;
+                        this.ValidateRequest(req);
+                        _a = this.uriDecoder.Decode(req.originalUrl), id = _a.id, query = _a.query;
+                        sqlQuery = "SELECT * FROM ".concat(this.dbName, " ").concat(Object.entries(query).map(function (_a) {
+                            var key = _a[0], value = _a[1];
+                            return "".concat(key, " = ").concat(value);
+                        }).join(' '));
+                        _e.label = 1;
                     case 1:
-                        _d.trys.push([1, 4, , 5]);
-                        _b = (_a = res.status(200)).json;
+                        _e.trys.push([1, 4, , 5]);
+                        _c = (_b = res.status(200)).json;
                         return [4, dbConnection_1.default];
-                    case 2: return [4, (_d.sent()).query("SELECT * FROM ".concat(this.dbName, " WHERE id = ").concat(id))];
+                    case 2: return [4, (_e.sent()).query(sqlQuery)];
                     case 3:
-                        _b.apply(_a, [_d.sent()]);
+                        _c.apply(_b, [_e.sent()]);
                         return [3, 5];
                     case 4:
-                        _c = _d.sent();
+                        _d = _e.sent();
                         res.sendStatus(200);
                         return [3, 5];
                     case 5: return [2];
@@ -93,7 +98,7 @@ var OrdinaryRoute = (function (_super) {
             });
         });
     };
-    OrdinaryRoute.prototype.Post = function (req, res) {
+    TemplateRoute.prototype.Post = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 console.log("fff");
@@ -102,7 +107,7 @@ var OrdinaryRoute = (function (_super) {
             });
         });
     };
-    OrdinaryRoute.prototype.Patch = function (req, res) {
+    TemplateRoute.prototype.Patch = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2, new Promise(function (resolve, reject) {
@@ -111,6 +116,6 @@ var OrdinaryRoute = (function (_super) {
             });
         });
     };
-    return OrdinaryRoute;
+    return TemplateRoute;
 }(Route_class_1.Route));
-exports.OrdinaryRoute = OrdinaryRoute;
+exports.TemplateRoute = TemplateRoute;

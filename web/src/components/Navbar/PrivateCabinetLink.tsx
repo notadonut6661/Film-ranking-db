@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function PrivateCabinetLink(): JSX.Element {
   const [linkDirection, setLinkDirection] = useState('/login');
@@ -10,5 +11,5 @@ export default function PrivateCabinetLink(): JSX.Element {
   }, [setLinkDirection]);
 
 
-  return (<a className="private-cabinet-link" href={linkDirection}><button></button></a>);
+  return (<Link className="private-cabinet-link" to={linkDirection}></Link>);
 }
