@@ -9,7 +9,7 @@ Facts about actors, their biography, etd.
 | full_name  | TINYTEXT  |                              |
 | bio        | TEXT      | Short biography of an actor. |
 | birth_date | DATE      | YYYY-MM-DD                   |
-| height_ft  | TINYINT   |                              |
+| height_ft  | TINYINT   | Height in feet               |
 
 ## Users
 User data.
