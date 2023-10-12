@@ -17,7 +17,7 @@ export class TemplateRoute<POST_REQ extends Request, PATCH_REQ extends Request> 
   protected uriDecoder: UriDecoder;
   protected requestType: Array<uriParamsType>;
 
-  constructor (_routeName: string, _dbName: string, _query?:{ Required: Record<string, "string" | "number" | "bigint" | "boolean" | "symbol">, Optional?:  Record<string, { type: "string" | "number" | "bigint" | "boolean" | "symbol" } >}) {
+  constructor (_routeName: string, _dbName: string | Map<HTTPVerb, string>, _query?: { Required: Record<string, "string" | "number" | "bigint" | "boolean" | "symbol">, Optional?:  Record<string,  "string" | "number" | "bigint" | "boolean" | "symbol" >}) {
     super();
     this.requestType =  [{name: "title", type:"string"}, {name: "query", type: _query ?? {Required:{"id": "number"}}}];
     this.routeName =  _routeName;

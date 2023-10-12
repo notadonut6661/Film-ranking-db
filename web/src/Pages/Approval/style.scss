@@ -1,0 +1,32 @@
+@import  "../../index.scss";
+
+.titles-to-approve {
+  padding: 0;
+  width: 98vw;
+
+  
+  li {
+    border: 1px black solid;
+    border-top: none;
+    width: 100%;
+    
+    #date {
+      position: absolute;
+      right: 0;
+    }
+
+    a {
+      color: blue;
+      text-decoration: solid underline;
+    }
+
+    &:first-child {
+      border: none;
+      border-bottom: 1px black solid;
+    }
+  }
+}
+
+.body {
+  margin: 0 !important;
+}

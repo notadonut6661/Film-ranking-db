@@ -6,6 +6,7 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Search from "Pages/Search";
 import './index.scss';
+import { Approval } from "Pages/Approval";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Route path="/personal" element={<Personal />} />
       <Route path="/search/*" element={<Search />} />
       <Route path="/search" element={<Search />} />
+      <Route path="/admin/approval/*" element={<Approval />} />
     </Routes>
   );
 }
