@@ -3,13 +3,15 @@
 ## Actors 
 Facts about actors, their biography, etd.
 
-- id INT
-- full_name TINYTEXT
-- bio TEXT
-- birth_date DATE
-- profile_picture TEXT, path to
-- height_ft INT
-- 
+| Name       | Data type |   |   |   |
+|------------|-----------|---|---|---|
+| id         | INT       |   |   |   |
+| full_name  | TINYTEXT  |   |   |   |
+| bio        | TEXT      |   |   |   |
+| birth_date | DATE      |   |   |   |
+| height_ft  | TINYINT   |   |   |   |
+|            |           |   |   |   |
+
 ## Users
 User data.
 
