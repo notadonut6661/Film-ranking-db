@@ -44,17 +44,17 @@ export class UriDecoder {
   private getKeyValuePairsAsObject(keyValuePairs: Array<string>, queryInSplittedPathId: number): Record<string, string> | never {
     const result: Record<string, string> = {};  
     const currentQueryElement = this.uriParams[queryInSplittedPathId].type;
-    const queryRequiredLength = Object.keys(currentQueryElement).length;  
+    if (typeof currentQueryElement !== 'object') throw new Error('');  
+    const queryRequiredLength = Object.keys(currentQueryElement.Required).length;  
     let minimalQueryLength = queryRequiredLength;
     
     keyValuePairs.forEach((pair, i) => {
       const [key, value] = pair.split('?=');
       let isElOptional: boolean;
 
-      if (typeof currentQueryElement !== 'object') return;  
-      console.log(keyValuePairs, currentQueryElement, queryRequiredLength, key, currentQueryElement.Required   )
+      console.log(keyValuePairs, Object.keys(currentQueryElement)  )
       if (keyValuePairs.length < minimalQueryLength) {
-        throw new Error("");
+        throw new Error("Too few parameters");
       }
       
       if (!Object.prototype.hasOwnProperty.call(currentQueryElement.Required, key) && !Object.prototype.hasOwnProperty.call(currentQueryElement?.Optional ||  {}, key)) {

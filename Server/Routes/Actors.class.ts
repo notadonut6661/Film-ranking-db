@@ -14,8 +14,8 @@ export class Actors extends Route {
   constructor() {
     super();
     this.routeName = "actors";
-    this.dbName = "actors";
-    this.uriDecoder = new UriDecoder([{ name: 'title', type: 'string' }, { name: 'query', type: {Required: {id: "number"}}}]);
+    this.dbName = "actors";     
+    this.uriDecoder = new UriDecoder([{ name: 'title', type: 'string' }, { name: 'query', type: {Required: {}, Optional: {name: "string"  }}}]);
   }
 
   public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void>  {
@@ -25,7 +25,7 @@ export class Actors extends Route {
       if (typeof query === 'string') return;
       const ActorsUncutArr = await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE name LIKE "${query.name}%"`);
       res.json(ActorsUncutArr.slice(0, +query.length));
-
+      
      } catch (err) {
       console.log(err);
       

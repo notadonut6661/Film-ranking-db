@@ -30,17 +30,17 @@ var UriDecoder = (function () {
         var _this = this;
         var result = {};
         var currentQueryElement = this.uriParams[queryInSplittedPathId].type;
-        var queryRequiredLength = Object.keys(currentQueryElement).length;
+        if (typeof currentQueryElement !== 'object')
+            throw new Error('');
+        var queryRequiredLength = Object.keys(currentQueryElement.Required).length;
         var minimalQueryLength = queryRequiredLength;
         keyValuePairs.forEach(function (pair, i) {
             var _a;
             var _b = pair.split('?='), key = _b[0], value = _b[1];
             var isElOptional;
-            if (typeof currentQueryElement !== 'object')
-                return;
-            console.log(keyValuePairs, currentQueryElement, queryRequiredLength, key, currentQueryElement.Required);
+            console.log(keyValuePairs, Object.keys(currentQueryElement));
             if (keyValuePairs.length < minimalQueryLength) {
-                throw new Error("");
+                throw new Error("Too few parameters");
             }
             if (!Object.prototype.hasOwnProperty.call(currentQueryElement.Required, key) && !Object.prototype.hasOwnProperty.call((currentQueryElement === null || currentQueryElement === void 0 ? void 0 : currentQueryElement.Optional) || {}, key)) {
                 throw Error("I FUCKING HATE YOU");

@@ -60,9 +60,9 @@ var dbConnection_1 = __importDefault(require("../helpers/dbConnection"));
 var uriDecoder_1 = require("../helpers/uriDecoder");
 var TemplateRoute = (function (_super) {
     __extends(TemplateRoute, _super);
-    function TemplateRoute(_routeName, _dbName, _uriDecoder) {
+    function TemplateRoute(_routeName, _dbName, _query) {
         var _this = _super.call(this) || this;
-        _this.requestType = _uriDecoder !== null && _uriDecoder !== void 0 ? _uriDecoder : [{ name: "title", type: "string" }, { name: "query", type: { Required: { "id": "string" } } }];
+        _this.requestType = [{ name: "title", type: "string" }, { name: "query", type: _query !== null && _query !== void 0 ? _query : { Required: { "id": "number" } } }];
         _this.routeName = _routeName;
         _this.dbName = _dbName;
         _this.uriDecoder = new uriDecoder_1.UriDecoder(_this.requestType);
@@ -70,27 +70,33 @@ var TemplateRoute = (function (_super) {
     }
     TemplateRoute.prototype.Get = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, id, query, sqlQuery, _b, _c, _d;
-            return __generator(this, function (_e) {
-                switch (_e.label) {
+            var query, sqlQuery, _a, _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
                         this.ValidateRequest(req);
-                        _a = this.uriDecoder.Decode(req.originalUrl), id = _a.id, query = _a.query;
-                        sqlQuery = "SELECT * FROM ".concat(this.dbName, " ").concat(Object.entries(query).map(function (_a) {
+                        query = this.uriDecoder.Decode(req.originalUrl).query;
+                        sqlQuery = "SELECT * FROM ".concat(this.dbName, " WHERE ").concat(Object.entries(query).map(function (_a) {
                             var key = _a[0], value = _a[1];
+                            if (key.includes('_min')) {
+                                return "".concat(key.slice(0, key.indexOf('_min')), " > ").concat(value);
+                            }
+                            if (key.includes('_max')) {
+                                return "".concat(key.slice(0, key.indexOf('_min')), " < ").concat(value);
+                            }
                             return "".concat(key, " = ").concat(value);
-                        }).join(' '));
-                        _e.label = 1;
+                        }).join(' AND '));
+                        _d.label = 1;
                     case 1:
-                        _e.trys.push([1, 4, , 5]);
-                        _c = (_b = res.status(200)).json;
+                        _d.trys.push([1, 4, , 5]);
+                        _b = (_a = res.status(200)).json;
                         return [4, dbConnection_1.default];
-                    case 2: return [4, (_e.sent()).query(sqlQuery)];
+                    case 2: return [4, (_d.sent()).query(sqlQuery)];
                     case 3:
-                        _c.apply(_b, [_e.sent()]);
+                        _b.apply(_a, [_d.sent()]);
                         return [3, 5];
                     case 4:
-                        _d = _e.sent();
+                        _c = _d.sent();
                         res.sendStatus(200);
                         return [3, 5];
                     case 5: return [2];

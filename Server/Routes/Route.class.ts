@@ -8,7 +8,6 @@ import { generateSha256 } from '../utils/generateSha256';
 export abstract class Route{
 
   protected readonly abstract routeName: string;
-  protected readonly abstract dbName: string;
   protected readonly MediaType: string;
   protected uriDecoder: UriDecoder | null;
 

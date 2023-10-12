@@ -7,7 +7,7 @@ var Auth_class_1 = require("./Auth.class");
 var TemplateRoute_class_1 = require("./TemplateRoute.class");
 var Routes;
 (function (Routes) {
-    Routes["FILM"] = "FILM";
+    Routes["FILMS"] = "FILMS";
     Routes["SERIES"] = "SERIES";
     Routes["AUTH"] = "AUTH";
     Routes["ACTORS"] = "ACTORS";
@@ -19,8 +19,8 @@ var RouteFactory = (function () {
     }
     RouteFactory.Create = function (route) {
         switch (route) {
-            case "FILM":
-                return new TemplateRoute_class_1.TemplateRoute("film", "film");
+            case "FILMS":
+                return new TemplateRoute_class_1.TemplateRoute("films", "films");
             case "SERIES":
                 return new TemplateRoute_class_1.TemplateRoute("series", "series");
             case "AUTH":

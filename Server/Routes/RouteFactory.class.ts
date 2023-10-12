@@ -6,7 +6,7 @@ import { Route } from './Route.class';
 
 // FIXME
 export enum Routes {
-  FILM="FILM",
+  FILMS="FILMS",
   SERIES="SERIES", 
   AUTH="AUTH",
   ACTORS="ACTORS",
@@ -17,8 +17,8 @@ export enum Routes {
 export class RouteFactory {
   static Create(route: Routes): Route | never {
     switch(route) {
-      case "FILM":
-        return new TemplateRoute("film", "film");
+      case "FILMS":
+        return new TemplateRoute("films", "films");
       case "SERIES":  
         return new TemplateRoute("series", "series");
       case "AUTH": 
