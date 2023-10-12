@@ -18,8 +18,8 @@ User data.
 | ------------- | ------------- | ---------------------------------------------------- |
 | id            | INT           | Unique identifier for records                        |
 | nickname      | TINYTEXT      | User's display name visible to others                |
-| passwordHash  | VARCHAR(60)   | Securely hashed password                             |
-| email         | VARCHAR       | Unique identifier, real email address, used for login and notifications |
+| hashedPassword  | VARCHAR(60)   | Securely hashed password                             |
+| email         | VARCHAR       | Unique identifier, used for login and notifications |
 
 ### Genre prefers related 
 
