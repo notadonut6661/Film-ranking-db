@@ -1,9 +1,10 @@
 # API
 
-- Language: Typescript
-- Database: MySQL
+- Die Sprache: Typescript
+- Datebank: MySQL
 - API Type: REST
+  
  # Front-end
 
-- Language: Typescript  
+- Die Sprache: Typescript  
 - Framework: React
