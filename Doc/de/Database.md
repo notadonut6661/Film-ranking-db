@@ -14,8 +14,8 @@ Fakten über Schauspielers, ihre biografie.
 ## Users
 | Field         | Type          | Description                                          |
 | ------------- | ------------- | ---------------------------------------------------- |
-| id            | INT           | Unique identifier for records                        |
-| nickname      | TINYTEXT      | User's display name visible to others                |
+| id            | INT           |                     |
+| nickname      | TINYTEXT      | Der Anzeigename des Benutzers ist für andere sichtbar            |
 | hashedPassword  | VARCHAR(60) | Gehasht  Passwort                           |
 | email         | VARCHAR       | Für Anmeldung und Benachrichtigungen |
 
