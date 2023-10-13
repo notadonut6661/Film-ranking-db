@@ -6,8 +6,8 @@
 interface Cast {
   name: string;
   character: string;
-  episodes_number: number; // Number of episodes actor was in
-  episodes: Array<string> | Array<number>; // Array with either episode names or episode id's
+  episodes_number: number; // Anzahl der Episoden, in denen der Schauspieler mitgewirkt hat
+  episodes: Array<string> | Array<number>; // Array mit entweder Episodennamen oder Episoden-IDs
 }
 ```
 
@@ -47,19 +47,18 @@ interface WatchOn {
 
 ```ts
 interface Series {
-  id: number; // Id of film in the api db
+  id: number; 
   title: string;
   description: string;
-  total_rating: number; // Average of all episode's rating
+  rating: number; // Durchschnitt aller Episodenbewertungen
   cast: Cast;
-  seasons_number: number; // Total quantity of all the seasons of the series that were released
-  season_upcoming: number; // Quantity of upcoming seasons
-  seasons_rating: number[]; // Average rating of all the episodes in season
-  episodes_rating: number[][]; // Array contains arrays, every sub-array is a season and contains rating of episodes in this season.
+  seasons_number: number;
+  seasons_ratings: number[]; // Durchschnittliche Bewertung aller Episoden der Staffel
+  episodes_rating: number[][];
   episodes_duration: number[][];
   episodes_names: string[][];
   average_episode_duration: number;
-  page_watched: number; // Quantity of times this series's Family Film Rating page had been watched
+  page_watched: number;
   first_episode_release_date: `${number}.${number}.${number}`;
   last_episode_release_date: `${number}.${number}.${number}` | `Not ended`;
 }
