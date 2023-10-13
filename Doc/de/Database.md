@@ -1,25 +1,23 @@
 # Database
 
 ## Actors 
-Facts about actors, their biography, etd.
+Fakten über Schauspielers, ihre biografie.
 
 | Field name       | Type | Description                 |
 |------------|-----------|------------------------------|
 | id         | INT       |                              |
 | full_name  | TINYTEXT  |                              |
-| bio        | TEXT      | Short biography of an actor. |
+| bio        | TEXT      | Kurzbiografie eines Schauspielers|
 | birth_date | DATE      | YYYY-MM-DD                   |
-| height_ft  | TINYINT   | Height in feet               |
+| height_ft  | TINYINT   | Höhe in Fuß             |
 
 ## Users
-User data.
-
 | Field         | Type          | Description                                          |
 | ------------- | ------------- | ---------------------------------------------------- |
 | id            | INT           | Unique identifier for records                        |
 | nickname      | TINYTEXT      | User's display name visible to others                |
-| hashedPassword  | VARCHAR(60)   | Securely hashed password                             |
-| email         | VARCHAR       | Unique identifier, used for login and notifications |
+| hashedPassword  | VARCHAR(60) | Gehasht  Passwort                           |
+| email         | VARCHAR       | Für Anmeldung und Benachrichtigungen |
 
 ### Genre prefers related 
 
