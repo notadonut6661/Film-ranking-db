@@ -19,7 +19,7 @@ function App() {
       <Route path="/personal" element={<Personal />} />
       <Route path="/search/*" element={<Search />} />
       <Route path="/search" element={<Search />} />
-      <Route path="/admin/approval/*" element={<Approval />} />
+      <Route path="/admin/approval/:adminId" element={<Approval />} />
     </Routes>
   );
 }

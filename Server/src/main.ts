@@ -13,13 +13,11 @@ const app = express();
 const x = new Auth();
 
 app.use(cors({
-  origin: '192.168.50.18' // Replace with your allowed origin
+  origin: '192.168.50.18' 
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
 
 Router(app);
 

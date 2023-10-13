@@ -1,5 +1,5 @@
 import { getNumberOfCharacterMentionInString } from "../utils/getNumberOfCharacterMentionInString";
-import { uriParamsType } from "../data/interfaces/uriParams.interface";
+import { uriParamsType } from "../../data/interfaces/uriParams.interface";
 import { config } from "dotenv";
 import 'dotenv/config';
 

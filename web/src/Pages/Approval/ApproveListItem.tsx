@@ -11,6 +11,7 @@ export  function ApproveListItem(title: Title & { page: string, post_date: Date,
     </span>
     {(title.isAccepted || title.isAccepted === undefined) && <span className="acceptance-status">{title.isAccepted === undefined ? "Approve": "Approved"}</span>}
     {(!title.isAccepted || title.isAccepted === undefined) && <span className="acceptance-status">{title.isAccepted === undefined ? "Deny": "Denied"}</span>}
+    {title.isAccepted ?? <span>Pass</span>}
     </>
   
 }
