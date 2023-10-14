@@ -19,12 +19,14 @@ interface CastFilm {
 ```
 
 ```ts
-interface WatchOn {
+enum supportedServices {
   Megogo: string | null;
   Netflix: string | null;
   AppleTV: string | null;
   Hulu: string | null;
 }
+
+type WatchOn = Map<supportedServices, string>;
 ```
 
 ## Film
