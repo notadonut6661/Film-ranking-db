@@ -33,7 +33,6 @@ export class userRecommendationManager {
   /**
    * createUserRecommendationsProfile
    * fills user's index selected by given id (maybe using email to select users is better) preferred_tags and preferred_genres are changed
-   * rated films should be stored in `user_{id}_title_ranks`
   */
   public createUserRecommendationsProfile(rankedTitles: Array<TitleAnalyticsData>): void {
 

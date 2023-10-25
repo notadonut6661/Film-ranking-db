@@ -63,7 +63,7 @@ export class UriDecoder {
         isElOptional = Object.prototype.hasOwnProperty.call(currentQueryElement.Optional ?? {}, key);
       }
 
-      if (isElOptional && (currentQueryElement.Optional === undefined || currentQueryElement.Optional[key].type === this.getTypeOfElementInQuery(value))) {
+      if (isElOptional && (currentQueryElement.Optional === undefined || currentQueryElement.Optional[key] === this.getTypeOfElementInQuery(value))) {
         throw new Error("KURWA");
       }
 

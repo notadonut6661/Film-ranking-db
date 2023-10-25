@@ -22,9 +22,9 @@ export class ActorPhoto extends Route {
   public async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response): Promise<void> {
     try {
       const { id } = this.uriDecoder.Decode(req.originalUrl);
-      const pathToProfilePhoto = (await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`))[0]?.profile_picture;
+      // const pathToProfilePhoto = (await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE id = ${id}`))[0]?.profile_picture;
 
-      res.status(200).sendFile(path.resolve(pathToProfilePhoto));
+      // res.status(200).sendFile(path.resolve(pathToProfilePhoto));
     } catch {
       res.sendStatus(503);
     }

@@ -41,7 +41,7 @@ export class TemplateRoute<POST_REQ extends Request, PATCH_REQ extends Request> 
     }).join(' AND ')}`; 
 
     try {
-      res.status(200).json(await (await dbConnection).query(sqlQuery));
+      // res.status(200).json(await (await dbConnection).query(sqlQuery));
     } catch {
       res.sendStatus(200);
     } 

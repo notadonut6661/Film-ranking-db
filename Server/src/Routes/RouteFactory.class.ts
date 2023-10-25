@@ -3,6 +3,7 @@ import { Actors } from './Actors.class';
 import { Auth } from './Auth.class';
 import { TemplateRoute } from './TemplateRoute.class';
 import { Route } from './Route.class';
+import { Approve } from './Approve.class';
 
 // FIXME
 export enum Routes {
@@ -11,7 +12,8 @@ export enum Routes {
   AUTH="AUTH",
   ACTORS="ACTORS",
   ACTOR_PHOTO="ACTOR_PHOTO",
-  USERS="USERS"
+  USERS="USERS",
+  APPROVE="APPROVE",
 }
 
 export class RouteFactory {
@@ -30,6 +32,9 @@ export class RouteFactory {
       case "USERS": 
         return new TemplateRoute("users", "users");
       
+      case "APPROVE": 
+        return new Approve();
+        
       default: 
         throw new Error('');
     }

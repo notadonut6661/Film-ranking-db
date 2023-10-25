@@ -1,6 +1,8 @@
 import { createConnection } from "mariadb";
 import { config } from "dotenv";
-config();
+import path from 'path';
+
+config({ path: path.resolve(__dirname, '../../data/.env')});
 
 export default createConnection({
   host: process.env.DB_HOST,

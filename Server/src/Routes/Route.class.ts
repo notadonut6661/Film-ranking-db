@@ -5,7 +5,7 @@ import { ParsedQs } from "qs"
 import dbConnection from '../helpers/dbConnection';
 import { generateSha256 } from '../utils/generateSha256';
 
-export abstract class Route{
+export abstract class Route {
 
   protected readonly abstract routeName: string;
   protected readonly MediaType: string;
@@ -57,7 +57,7 @@ export abstract class Route{
     let realPass: string | undefined;
 
     try {
-      realPass = await (await dbConnection).query(`SELECT passwordHash FROM users WHERE email = ${input.email}`);
+      // realPass = await (await dbConnection).query(`SELECT passwordHash FROM users WHERE email = ${input.email}`);
     } catch (err) {
       console.error(err);
       return false;

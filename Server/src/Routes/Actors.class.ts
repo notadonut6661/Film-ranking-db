@@ -23,8 +23,8 @@ export class Actors extends Route {
       const { query } = this.uriDecoder.Decode(req.originalUrl);
       
       if (typeof query === 'string') return;
-      const ActorsUncutArr = await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE name LIKE "${query.name}%"`);
-      res.json(ActorsUncutArr.slice(0, +query.length));
+      // const ActorsUncutArr = await (await dbConnection).query(`SELECT * FROM ${this.dbName} WHERE name LIKE "${query.name}%"`);
+      // res.json(ActorsUncutArr.slice(0, +query.length));
       
      } catch (err) {
       console.log(err);
