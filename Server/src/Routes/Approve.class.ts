@@ -32,7 +32,7 @@ export class Approve extends Route {
     this.uriDecoder = new UriDecoder([]);
   }
 
-   public override async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
+  public override async Get(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
     const con = await dbConnection;
     const { adminId } = this.uriDecoder.Decode(req.originalUrl);
     const query = `SELECT * FROM \`titles-to-approve\` WHERE assignee = ${adminId}`;
@@ -52,15 +52,16 @@ export class Approve extends Route {
     } 
   }
 
+     
   public override async Post(req: Request<ParamsDictionary, any, Title, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
     const con = await dbConnection;
     
     try {
-      const { insertId } = await con.query(`INSERT INTO \`titles-to-approve\` (title) VALUES (${req.body.title})`);
+      const { insertId } = await con.query(`INSERT INTO \`titles-to-approve\` (title, assignee) VALUES (${req.body.title}, ${await this.getAdminToAssign()})`);
 
       req.body.genres.forEach(genre => {
         con.query(`INSERT INTO \`genres\` (name, titleId) VALUES (${genre}, ${insertId})`);
-      })
+      });
     } catch (err) {
       console.error(err);
     }
@@ -72,8 +73,15 @@ export class Approve extends Route {
   }
 
 
-  private async AssignAdminToTitle(): Promise<void> {
-    console.log(this.routeName);
+  /**
+   * @returns An id of the best admin candidate to assign for title approval, or nothing since throws an error.
+   */
+  private async getAdminToAssign(): Promise<number | never> {
+    const con = await dbConnection;
+
+    const [ freeModerator ] = await con.query(`SELECT * from admins WHERE assignments=(SELECT min(assignments) FROM admins);`);
+
+    return freeModerator as number;
   }
 
 }
