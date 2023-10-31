@@ -57,7 +57,7 @@ export abstract class Route {
     let realPass: string | undefined;
 
     try {
-      // realPass = await (await dbConnection).query(`SELECT passwordHash FROM users WHERE email = ${input.email}`);
+      realPass = await (await dbConnection).query(`SELECT password_hash FROM users WHERE email = ${input.email}`);
     } catch (err) {
       console.error(err);
       return false;

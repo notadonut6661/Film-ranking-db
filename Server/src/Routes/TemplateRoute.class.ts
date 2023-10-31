@@ -13,11 +13,11 @@ import { HTTPVerb } from "data/interfaces/requestTypes.interface";
  */
 export class TemplateRoute<POST_REQ extends Request, PATCH_REQ extends Request>  extends Route {
   protected routeName: string;
-  protected dbName: string | Map<HTTPVerb, string>;
+  protected dbName: string | Map<string, string>;
   protected uriDecoder: UriDecoder;
   protected requestType: Array<uriParamsType>;
 
-  constructor (_routeName: string, _dbName: string | Map<HTTPVerb, string>, _query?: { Required: Record<string, "string" | "number" | "bigint" | "boolean" | "symbol">, Optional?:  Record<string,  "string" | "number" | "bigint" | "boolean" | "symbol" >}) {
+  constructor (_routeName: string, _dbName: string | Map<string, string>, _query?: { Required: Record<string, "string" | "number" | "bigint" | "boolean" | "symbol">, Optional?:  Record<string,  "string" | "number" | "bigint" | "boolean" | "symbol" >}) {
     super();
     this.requestType =  [{name: "title", type:"string"}, {name: "query", type: _query ?? {Required:{"id": "number"}}}];
     this.routeName =  _routeName;
@@ -41,7 +41,7 @@ export class TemplateRoute<POST_REQ extends Request, PATCH_REQ extends Request> 
     }).join(' AND ')}`; 
 
     try {
-      // res.status(200).json(await (await dbConnection).query(sqlQuery));
+      res.status(200).json(await (await dbConnection).query(sqlQuery));
     } catch {
       res.sendStatus(200);
     } 

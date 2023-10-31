@@ -1,1 +1,20 @@
-{"login":"my_login","password":"my_password"}
+{
+  "title": "Sample Movie",
+  "durationMin": 120,
+  "release_date": "2023-10-26T00:00:00Z",
+  "cast": {
+    "Actor1": {
+      "actorId": 1,
+      "episodePresence": 10
+    },
+    "Actor2": {
+      "actorId": 2
+    }
+  },
+  "services": {
+    "Netflix": "https://www.netflix.com/sample-movie",
+    "Amazon Prime Video": "https://www.amazon.com/sample-movie"
+  },
+  "genres": ["Action", "Adventure", "Sci-Fi"],
+  "tags": ["Thrilling", "Space", "Superhero"]
+}

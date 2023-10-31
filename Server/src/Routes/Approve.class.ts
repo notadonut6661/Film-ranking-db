@@ -9,6 +9,14 @@ enum SupportedServices {
   HULU, AMAZON, MEGOGO, NETFLIX
 }
 
+enum ApprovalConclusion {
+  Approve, Disapprove, Pass, Change
+}
+
+enum ApprovableTables {
+  Films, TvShow
+}
+
 type Title = {
   title: string;
   durationMin: number;
@@ -21,6 +29,7 @@ type Title = {
   genres: Array<string>;
   tags: Array<string>;
 }
+
 
 export class Approve extends Route {
   protected routeName: string;
@@ -57,21 +66,38 @@ export class Approve extends Route {
     const con = await dbConnection;
     
     try {
-      const { insertId } = await con.query(`INSERT INTO \`titles-to-approve\` (title, assignee) VALUES (${req.body.title}, ${await this.getAdminToAssign()})`);
+      const { insertId } = await con.query(`INSERT INTO \`titles-to-approve\` (\`title\`, \`assignee_id\`) VALUES ('${req.body.title}', ${await this.getAdminToAssign()} )`);
 
       req.body.genres.forEach(genre => {
-        con.query(`INSERT INTO \`genres\` (name, titleId) VALUES (${genre}, ${insertId})`);
+        con.query(`INSERT INTO \`genres\` (name, titleId) VALUES ('${genre}', ${insertId})`); 
       });
     } catch (err) {
       console.error(err);
     }
-  
   }
 
-  public override Patch(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): void {
+  public override async Patch(req: Request<ParamsDictionary, any, { titleId: number, approveType: ApprovableTables }, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
+    const con = await dbConnection;
+
+    try {
+      const { assignee } = await con.query(`SELECT assignee FROM ${req.body.approveType}-to-approve WHERE id = ${req.body.titleId}`);
+
+      await con.query(`UPDATE \`${req.body.approveType}-to-approve \`
+      SET \`assignee\` = ${await this.getAdminToAssign()} 
+      WHERE \`id\` = ${req.body.titleId}`);
+      
+      con.query(`UPDATE \`admins\` 
+      SET \`assignments\` = \`assignments\` - 1
+      WHERE \`id\` = ${assignee}`);
+    } catch (err) {
+      console.error(err);
+      
+    }
+  }
+
+  public override async Delete(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
     
   }
-
 
   /**
    * @returns An id of the best admin candidate to assign for title approval, or nothing since throws an error.
@@ -79,9 +105,12 @@ export class Approve extends Route {
   private async getAdminToAssign(): Promise<number | never> {
     const con = await dbConnection;
 
-    const [ freeModerator ] = await con.query(`SELECT * from admins WHERE assignments=(SELECT min(assignments) FROM admins);`);
+    const [{id: freeModerator}] = await con.query(`SELECT id from admins WHERE assignments=(SELECT min(assignments) FROM admins);`);
 
-    return freeModerator as number;
+    console.log(freeModerator);
+    if ('number' != typeof freeModerator) throw new Error("");
+    
+    return freeModerator;
   }
 
 }
