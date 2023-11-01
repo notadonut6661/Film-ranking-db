@@ -96,7 +96,18 @@ export class Approve extends Route {
   }
 
   public override async Delete(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
-    
+    const con = await dbConnection;
+    try {
+      const { assignee } = await con.query(`SELECT assignee FROM ${req.body.approveType}-to-approve WHERE id = ${req.body.titleId}`);
+
+      con.query(`DELETE FROM \`titles-to-approve\` WHERE id = ${req.body.titleId}`);
+      con.query(`UPDATE \`admins\` 
+      SET \`assignments\` = \`assignments\` - 1
+      WHERE \`id\` = ${assignee}`);
+    } catch (err) {
+      console.error(err);
+      
+    }
   }
 
   /**
@@ -107,7 +118,6 @@ export class Approve extends Route {
 
     const [{id: freeModerator}] = await con.query(`SELECT id from admins WHERE assignments=(SELECT min(assignments) FROM admins);`);
 
-    console.log(freeModerator);
     if ('number' != typeof freeModerator) throw new Error("");
     
     return freeModerator;
