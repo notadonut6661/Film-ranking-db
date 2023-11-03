@@ -1,11 +1,11 @@
-import { Router } from './Routes/Router';
+import { Router } from './src/Routes/Router';
 import path from 'path';
-import dbConnection from './helpers/dbConnection';
+import dbConnection from './src/helpers/dbConnection';
 import express from 'express';
 import { config } from 'dotenv';
-import { Auth } from './Routes/Auth.class';
+import { Auth } from './src/Routes/Auth.class';
 import bodyParser from 'body-parser';
-import cors from 'cors';
+import cors from 'cors';  
 
 config();
 

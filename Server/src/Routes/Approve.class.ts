@@ -97,6 +97,7 @@ export class Approve extends Route {
 
   public override async Delete(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>): Promise<void> {
     const con = await dbConnection;
+    
     try {
       const { assignee } = await con.query(`SELECT assignee FROM ${req.body.approveType}-to-approve WHERE id = ${req.body.titleId}`);
 
@@ -105,7 +106,7 @@ export class Approve extends Route {
       SET \`assignments\` = \`assignments\` - 1
       WHERE \`id\` = ${assignee}`);
     } catch (err) {
-      console.error(err);
+      console.error(err );
       
     }
   }
