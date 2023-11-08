@@ -1,4 +1,4 @@
-import { Router } from './src/Routes/Router';
+import { ApplyRouting } from './src/Routes/ApplyRouting';
 import path from 'path';
 import dbConnection from './src/helpers/dbConnection';
 import express from 'express';
@@ -19,11 +19,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-Router(app);
+ApplyRouting(app);
 
 app.post('/auth/login', x.Login);
 app.post('/auth/signup', x.Signup);
-
 
 
 app.listen(4054, '192.168.50.18');

@@ -4,8 +4,8 @@ import { Auth } from './Auth.class';
 import { TemplateRoute } from './TemplateRoute.class';
 import { Route } from './Route.class';
 import { Approve } from './Approve.class';
+import { Factory } from 'src/helpers/Factory.interface';
 
-// FIXME
 export enum Routes {
   FILMS="FILMS",
   SERIES="SERIES", 
@@ -17,6 +17,13 @@ export enum Routes {
 }
 
 export class RouteFactory {
+  /**
+   * 
+   * @param route - enum Routes
+   * @returns an instance of the class inherited from class Route depending on input value.
+   * @implements Factory method
+   */
+
   static Create(route: Routes): Route | never {
     switch(route) {
       case "FILMS":
